@@ -59,8 +59,8 @@
   "l2_locked_ok": "Pemuat but dikunci",
   "l2_locked_bad": "Pemuat but tidak dikunci",
   "l2_binding_bad": "Fail ditandatangani dengan kunci yang berbeza daripada kunci yang diperakui",
-  "l2_real_device": "Peranti sebenar disahkan",
-  "l2_qr_link": "Kunci QR ini disahkan sebagai peranti sebenar",
+  "l2_real_device": "Dimeterai dengan kunci dalam perkakasan selamat sebuah peranti sebenar (telefon Android)",
+  "l2_qr_link": "QR ini dimeterai dengan kunci yang sama, yang disimpan dalam perkakasan selamat sebuah peranti sebenar",
   "l2_qr_same_key": "QR ini dimeterai dengan kunci yang sama seperti fail asal ini",
   "l2_qr_other_key": "QR ini dimeterai dengan kunci yang berbeza daripada fail asal",
   "l2_tsa": "Wujud selewat-lewatnya pada {time} — disahkan oleh {tsa}",
@@ -75,5 +75,12 @@
   "verdict_too_flat": "Butiran sah — foto ini terlalu gelap atau rata untuk dibandingkan",
   "check_too_flat": "Terlalu gelap atau rata untuk dibandingkan: meterai dan butirannya telah disemak, kandungan foto belum",
   "verdict_flat_mismatch": "Foto ini tidak gelap atau rata — meterai ini milik foto lain",
-  "check_flat_mismatch": "Meterai ini dibuat untuk foto yang gelap atau rata, tetapi foto ini mempunyai butiran"
+  "check_flat_mismatch": "Meterai ini dibuat untuk foto yang gelap atau rata, tetapi foto ini mempunyai butiran",
+  "l2_app_unregistered": "Tandatangan aplikasi belum didaftarkan di halaman ini — belum disahkan sebagai aplikasi CameraStamp",
+  "l2_app_unknown": "Pengesahan telefon tidak menamakan aplikasi (biasa pada Android 7)",
+  "l2_boot_unknown": "Keadaan but tidak disahkan (pengesahan perisian)",
+  "l2_no_seal": "Data C2PA fail ini tiada meterai CameraStamp",
+  "l2_error": "Fail asal tidak dapat disemak dalam pelayar ini",
+  "verdict_l2_bad": "Meterai fail asal tidak boleh dipercayai",
+  "error_too_big_video": "Video ini melebihi 100 MB dan tidak boleh disemak di sini"
 }

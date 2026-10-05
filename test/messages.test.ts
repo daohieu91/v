@@ -27,9 +27,14 @@ describe('postMessage validation', () => {
     expect(validReply({ ok: 'yes' })).toBeNull();
   });
   it('level-2 reply: lines are checked, and a payload whose signed bytes are not its own fields is refused', () => {
-    const sum = { kind: 'ok', lines: [{ key: 'l2_signature_ok', status: 'pass' }], realDevice: true };
+    const sum = { kind: 'ok', lines: [{ key: 'l2_signature_ok', status: 'pass' }], realDevice: true, bound: true };
     expect(validL2Reply({ summary: sum, payload: null })?.summary.kind).toBe('ok');
     expect(validL2Reply({ summary: { ...sum, kind: 'great' }, payload: null })).toBeNull();
+    expect(validL2Reply({ summary: { ...sum, bound: 'yes' }, payload: null }), 'bound must be a boolean').toBeNull();
+    expect(validL2Reply({ summary: { kind: 'ok', lines: [], realDevice: false } , payload: null }), 'bound is required').toBeNull();
+    expect(validL2Reply({ summary: { ...sum, bound: false }, payload: null }), 'real device on an unbound file').toBeNull();
+    expect(validL2Reply({ summary: { ...sum, kind: 'invalid' }, payload: null }), 'real device on an invalid file').toBeNull();
+    expect(validL2Reply({ summary: { ...sum, realDevice: false, bound: false }, payload: null })?.summary.bound).toBe(false);
     expect(validL2Reply({ summary: { ...sum, lines: [{ key: '<b>x</b>', status: 'pass' }] }, payload: null })).toBeNull();
     expect(validL2Reply({ summary: { ...sum, lines: [{ key: 'l2_tsa', status: 'pass', params: { time: {} } }] }, payload: null })).toBeNull();
     expect(validL2Reply({ summary: sum, payload: P0() })?.payload).not.toBeNull();

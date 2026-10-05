@@ -33,6 +33,20 @@ This is a best-effort defence, not a guarantee.
 - The entry chunk has no BigInt and checks the browser first; an old browser gets a "too old" note instead of a blank page.
 - Budget: `npm run size` (< 100 KB gzipped for what one visitor downloads, and no level-2 code in level 1).
 
+## Level 2 (the original file, `l2.html`)
+
+- Runs in a same-origin iframe, the only page whose CSP allows `wasm-unsafe-eval`. The iframe and c2pa-web (pinned 0.15.3, its 9 MB wasm
+  under SRI) load only when a picked file carries C2PA data. Videos up to 100 MB (checked by level 2 only), photos up to 40 MB.
+- c2pa-web validates the file (any failure but `signingCredential.untrusted` is red; a `timeStamp.*` failure only drops the TSA line).
+  `src/l2/jumbf.ts` reads the COSE signer and RFC 3161 token by slices; `src/l2/x509.ts` + `attestation.ts` check the Android attestation
+  chain (links, CA issuers, KeyDescription in the leaf only, Google root by key, `public/attestation/status.json`); `device.ts` makes one
+  line per condition. "Sealed by a key in the secure hardware of a real device" needs all of them, a REGISTERED release digest
+  (`SIGNING_DIGESTS` in `src/config.ts`: the debug key is `dev`, any other digest is "not yet registered") and attested key = C2PA signer
+  key = seal key (= the QR's key when there is one).
+- Fixtures are synthetic: `npx tsx scripts/make-l2-fixtures.ts` (c2patool on PATH; the public test key; FAKE roots that e2e injects).
+- WebKit + Playwright: any `page.route` breaks c2pa-web's blob: worker, so `e2e/level2.spec.ts` routes nothing on WebKit and skips the two
+  tests that need an injected root or revocation list there.
+
 ## Develop and test
 
 ```

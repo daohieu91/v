@@ -3,7 +3,13 @@ import type { SealPayload } from './payload';
 export type Color = 'green' | 'yellow' | 'red';
 export interface Check { key: string; status: 'pass' | 'warn' | 'fail' | 'info'; params?: Record<string, string | number> }
 export interface Verdict { color: Color; headline: string; checks: Check[] }
-export interface L2Summary { kind: 'none' | 'invalid' | 'ok'; lines: Check[]; realDevice: boolean }
+/**
+ * Level 2 (the original file). `bound`: the C2PA signer key is the seal payload's key, so the file-level hard binding stands for THIS
+ * seal's content (P30); the page sets it false when the picture's own QR seal is not the seal in the file (identity, P18 a).
+ */
+export interface L2Summary { kind: 'none' | 'invalid' | 'ok'; lines: Check[]; realDevice: boolean; bound: boolean }
+/** Level-2 findings that make the file itself untrustworthy: a revoked certificate, a signer that is not the seal's/attested key, a QR of another key. */
+const L2_RED = new Set(['l2_revoked', 'l2_binding_bad', 'l2_qr_other_key']);
 
 /**
  * Spec §6 / §7.3, honest: one line per check, nothing merged or overstated. The seal holds ONLY when checkSeal says so (`seal.ok`):
@@ -16,7 +22,8 @@ export interface L2Summary { kind: 'none' | 'invalid' | 'ok'; lines: Check[]; re
  */
 export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; keyIdHex: string | null } | null; hamming: number | null;
   texture: number | null; level2: L2Summary | null }): Verdict {
-  if (!i.payload || !i.seal || i.seal.ok !== true || !i.seal.keyIdHex) return { color: 'red', headline: 'verdict_red', checks: [{ key: 'check_seal_bad', status: 'fail' }] };
+  if (!i.payload || !i.seal || i.seal.ok !== true || !i.seal.keyIdHex)   // a broken original file (e.g. a tampered video) says why
+    return { color: 'red', headline: 'verdict_red', checks: i.level2?.kind === 'invalid' ? [...i.level2.lines] : [{ key: 'check_seal_bad', status: 'fail' }] };
   const f = i.payload.fields; const [a, b] = THRESHOLDS; const id = i.seal.keyIdHex;
   const checks: Check[] = [{ key: 'check_seal_ok', status: 'pass', params: { id } }];
   const flagged = f.noFingerprint === true;
@@ -27,7 +34,7 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
   // exact bytes proves more than any pHash, so a flagged seal whose original file passes level 2 is green (worded check_content_c2pa,
   // "the original file's content is unchanged"); P28's texture yellow is a level-1 (pixel) answer only. A picture with detail still reads
   // red: it cannot be the dark/flat photo that was sealed, whatever level 2 says.
-  const c2paContent = i.level2?.kind === 'ok' && hamming === null && (flagged ? !flatMismatch : texture === null);
+  const c2paContent = i.level2?.kind === 'ok' && i.level2.bound === true && hamming === null && (flagged ? !flatMismatch : texture === null);
   if (c2paContent) checks.push({ key: 'check_content_c2pa', status: 'pass' });
   else if (flagged && texture !== null) checks.push(flatMismatch ? { key: 'check_flat_mismatch', status: 'fail' } : { key: 'check_too_flat', status: 'warn' });
   else if (hamming === null) checks.push({ key: 'check_not_compared', status: 'info' });
@@ -46,11 +53,14 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
   checks.push(...(i.level2 ? i.level2.lines : [{ key: 'device_unknown', status: 'info' as const }]));
   const color = ((): [Color, string] => {
     if (i.level2?.kind === 'invalid' || (hamming !== null && hamming > b)) return ['red', 'verdict_red'];
+    if (i.level2?.lines.some(c => L2_RED.has(c.key))) return ['red', 'verdict_l2_bad'];
     if (flatMismatch) return ['red', 'verdict_flat_mismatch'];
     if (texture !== null && !c2paContent) return ['yellow', 'verdict_too_flat'];
     if (hamming === null && !c2paContent) return ['yellow', 'verdict_info_not_compared'];
     if (hamming !== null && hamming > a) return ['yellow', 'verdict_maybe_edited'];
     if (warns.length) return ['yellow', warns[0].key];
+    // P11: the original file's attestation says software key (Android 7–8, emulators), even if the payload's flag did not.
+    if (i.level2?.lines.some(c => c.key === 'l2_level_sw')) return ['yellow', 'warn_software_key'];
     return ['green', 'verdict_green'];
   })();
   // P25: "unchanged since sealed by key X" is said ONLY when it is what the page found: on green, never on red or yellow.

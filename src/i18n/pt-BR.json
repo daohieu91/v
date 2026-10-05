@@ -59,8 +59,8 @@
   "l2_locked_ok": "Bootloader bloqueado",
   "l2_locked_bad": "Bootloader desbloqueado",
   "l2_binding_bad": "O arquivo foi assinado com uma chave diferente da certificada",
-  "l2_real_device": "Aparelho real confirmado",
-  "l2_qr_link": "A chave deste QR está confirmada como aparelho real",
+  "l2_real_device": "Selado com uma chave guardada no hardware seguro de um aparelho real (um celular Android)",
+  "l2_qr_link": "Este QR foi selado com a mesma chave, guardada no hardware seguro de um aparelho real",
   "l2_qr_same_key": "Este QR foi selado com a mesma chave deste arquivo original",
   "l2_qr_other_key": "Este QR foi selado com uma chave diferente da do arquivo original",
   "l2_tsa": "Existia no máximo em {time} — confirmado por {tsa}",
@@ -75,5 +75,12 @@
   "verdict_too_flat": "Os dados são válidos — esta foto é escura ou uniforme demais para comparar",
   "check_too_flat": "Escura ou uniforme demais para comparar: o selo e seus dados foram conferidos, o conteúdo da foto não",
   "verdict_flat_mismatch": "Esta foto não é escura nem uniforme — o selo pertence a outra foto",
-  "check_flat_mismatch": "O selo foi criado para uma foto escura ou uniforme, mas esta foto tem detalhes"
+  "check_flat_mismatch": "O selo foi criado para uma foto escura ou uniforme, mas esta foto tem detalhes",
+  "l2_app_unregistered": "A assinatura do app ainda não está registrada nesta página: não confirmado como o app CameraStamp",
+  "l2_app_unknown": "O atestado do celular não informa o app (normal no Android 7)",
+  "l2_boot_unknown": "Estado de inicialização não atestado (atestado por software)",
+  "l2_no_seal": "Os dados C2PA deste arquivo não têm selo do CameraStamp",
+  "l2_error": "Não foi possível verificar o arquivo original neste navegador",
+  "verdict_l2_bad": "Não é possível confiar no selo do arquivo original",
+  "error_too_big_video": "Este vídeo tem mais de 100 MB e não pode ser verificado aqui"
 }

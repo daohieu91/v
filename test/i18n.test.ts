@@ -28,7 +28,7 @@ describe('i18n', () => {
         expect(ph(d[k]), `${l}.${k}`).toEqual(ph(en[k])); if (en[k].length > 4 && !SAME_OK.has(k)) expect(d[k], `${l}.${k} untranslated`).not.toBe(en[k]); } }
   });
   it('every key the page uses exists in English', () => {
-    const en = dict('en'); const src = ['src/verdict.ts', 'src/ui.ts', 'src/app.ts'].map(f => readFileSync(f, 'utf8')).join('\n');
+    const en = dict('en'); const src = ['src/verdict.ts', 'src/ui.ts', 'src/app.ts', 'src/l2/device.ts', 'src/l2/summary.ts', 'src/l2/level2.ts'].map(f => readFileSync(f, 'utf8')).join('\n');
     const used = new Set([...src.matchAll(/'((?:verdict|warn|info|gps|check|device|label|map|address|pick|working|error|no|footer|lang|proves|l2|attested|too|key|notice|unknown|privacy)_[a-z0-9_]+)'/g)].map(m => m[1]));
     for (const k of used) expect(en[k], `en.json lacks ${k}`).toBeTypeOf('string');
   });
@@ -64,6 +64,14 @@ describe('i18n', () => {
     const hi = dict('hi'); for (const k of ['check_seal_ok', 'proves_l1', 'warn_software_key', 'l2_chain_ok', 'l2_level_hw', 'l2_qr_link', 'l2_binding_bad'])
       expect(hi[k], k).toContain('कुंजी');
     expect(hi.check_seal_ok).not.toMatch(/(^|\s)की\s/);
+  });
+  it('Task 21 carry-over: "real device" is worded as a key in a real device\'s secure hardware, never "Real device confirmed"', () => {
+    const en = dict('en'), vi = dict('vi');
+    expect(en.l2_real_device).toBe('Sealed by a key in the secure hardware of a real device (an Android phone)');
+    expect(en.l2_qr_link).toBe("This QR was sealed by the same key, kept in a real device's secure hardware");
+    expect(vi.l2_real_device).toBe('Niêm phong bằng khoá trong phần cứng bảo mật của một máy thật (điện thoại Android)');
+    expect(en.l2_level_sw).toMatch(/^Software key .*lower trust$/);
+    for (const l of LOCALES) for (const k of ['l2_real_device', 'l2_qr_link']) expect(dict(l)[k], `${l}.${k}`).not.toMatch(/confirm|xác nhận máy|dikonfirmasi|confirmad|confermat|potwierdzon|ยืนยันเครื่อง|disahkan sebagai|पुष्टि/iu);
   });
   it('picks the browser language, falling back sensibly', () => {
     expect(pickLocale(['vi-VN', 'en'])).toBe('vi'); expect(pickLocale(['pt-PT'])).toBe('pt-BR'); expect(pickLocale(['es-MX'])).toBe('es');

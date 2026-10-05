@@ -37,9 +37,9 @@ export function closureSize(manifest, key, read) {
 /**
  * Level-2 code must never reach level 1, however small the leak (a plain `import '@contentauth/c2pa-web'` adds only ~13 KB gz and would
  * pass the byte budget). Markers: WebAssembly (c2pa-web's loader; level 1's CSP has no wasm-unsafe-eval), c2pa_bg (its wasm-bindgen glue),
- * X509 (@peculiar/x509). Returns the offending "file: marker" pairs.
+ * X509 (a certificate library), and the Android KeyDescription OID that only src/l2/attestation.ts names. Returns the offending "file: marker" pairs.
  */
-export const L2_MARKERS = ['WebAssembly', 'c2pa_bg', 'X509'];
+export const L2_MARKERS = ['WebAssembly', 'c2pa_bg', 'X509', '1.3.6.1.4.1.11129.2.1.17'];
 export function leaks(files, read, markers = L2_MARKERS) {
   const out = [];
   for (const f of files) { if (!f.endsWith('.js')) continue; const s = read(f).toString('utf8'); for (const m of markers) if (s.includes(m)) out.push(`${f}: ${m}`); }

@@ -59,8 +59,8 @@
   "l2_locked_ok": "Bootloader đang khoá",
   "l2_locked_bad": "Bootloader đã mở khoá",
   "l2_binding_bad": "File được ký bằng một khoá khác với khoá đã được chứng nhận",
-  "l2_real_device": "Đã xác nhận máy thật",
-  "l2_qr_link": "Khoá của mã QR này đã được xác nhận là máy thật",
+  "l2_real_device": "Niêm phong bằng khoá trong phần cứng bảo mật của một máy thật (điện thoại Android)",
+  "l2_qr_link": "Mã QR này được niêm phong bằng cùng khoá, nằm trong phần cứng bảo mật của một máy thật",
   "l2_qr_same_key": "Mã QR này được niêm phong bằng cùng khoá với file gốc",
   "l2_qr_other_key": "Mã QR này được niêm phong bằng khoá khác với file gốc",
   "l2_tsa": "Đã tồn tại muộn nhất lúc {time} — xác nhận bởi {tsa}",
@@ -75,5 +75,12 @@
   "verdict_too_flat": "Thông tin hợp lệ — ảnh quá tối hoặc quá ít chi tiết để so",
   "check_too_flat": "Ảnh quá tối hoặc quá ít chi tiết để so: đã kiểm tra niêm phong và thông tin, chưa so được nội dung ảnh",
   "verdict_flat_mismatch": "Ảnh này không tối cũng không thiếu chi tiết — niêm phong thuộc về một ảnh khác",
-  "check_flat_mismatch": "Niêm phong được tạo cho một ảnh tối hoặc ít chi tiết, nhưng ảnh này có nhiều chi tiết"
+  "check_flat_mismatch": "Niêm phong được tạo cho một ảnh tối hoặc ít chi tiết, nhưng ảnh này có nhiều chi tiết",
+  "l2_app_unregistered": "Chữ ký của app chưa được đăng ký trên trang này — chưa xác nhận là app CameraStamp",
+  "l2_app_unknown": "Chứng thực của điện thoại không ghi tên app (bình thường trên Android 7)",
+  "l2_boot_unknown": "Trạng thái khởi động không được chứng thực (chứng thực bằng phần mềm)",
+  "l2_no_seal": "Dữ liệu C2PA của file này không có niêm phong CameraStamp",
+  "l2_error": "Không kiểm tra được file gốc trên trình duyệt này",
+  "verdict_l2_bad": "Không thể tin niêm phong của file gốc",
+  "error_too_big_video": "Video này lớn hơn 100 MB nên không kiểm tra được ở đây"
 }

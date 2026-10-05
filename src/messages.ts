@@ -39,7 +39,8 @@ function validCheck(c: unknown): Check | null {
 /** The level-2 reply. A payload is accepted only if its signed bytes ARE the header of its fields (else valid bytes could carry other fields). */
 export function validL2Reply(m: unknown): { summary: L2Summary; payload: SealPayload | null } | null {
   if (!isObj(m) || !isObj(m.summary)) return null;
-  const s = m.summary; if (!['none', 'invalid', 'ok'].includes(s.kind as string) || typeof s.realDevice !== 'boolean' || !Array.isArray(s.lines) || s.lines.length > 64) return null;
+  const s = m.summary; if (!['none', 'invalid', 'ok'].includes(s.kind as string) || typeof s.realDevice !== 'boolean' || typeof s.bound !== 'boolean' || !Array.isArray(s.lines) || s.lines.length > 64) return null;
+  if (s.realDevice && (s.kind !== 'ok' || !s.bound)) return null;                  // "real device" only on a valid, bound file
   const lines = s.lines.map(validCheck); if (lines.some(x => x === null)) return null;
   let payload: SealPayload | null = null;
   if (m.payload !== null && m.payload !== undefined) {
@@ -48,5 +49,5 @@ export function validL2Reply(m: unknown): { summary: L2Summary; payload: SealPay
     try { const h = encodeHeader(p.fields as unknown as SealPayload['fields'], 0); if (h.some((x, i) => x !== (p.signed as Uint8Array)[i])) return null; } catch { return null; }
     payload = p as unknown as SealPayload;
   }
-  return { summary: { kind: s.kind as L2Summary['kind'], lines: lines as Check[], realDevice: s.realDevice }, payload };
+  return { summary: { kind: s.kind as L2Summary['kind'], lines: lines as Check[], realDevice: s.realDevice, bound: s.bound }, payload };
 }

@@ -4,7 +4,7 @@ import { fileToRgba, MAX_FILE_BYTES, sniffC2pa, TooLargeImage, UnsupportedImage,
 import { validReply, type Reply } from './messages';
 import { loadDict, pickLocale } from './i18n';
 import { runLevel2 } from './l2client';
-import { URL_PREFIX } from './config';
+import { MAX_VIDEO_BYTES, URL_PREFIX } from './config';
 import { decodeFragment, payloadFromUrl, sealIdentity, type SealPayload } from './payload';
 import type { Analysis } from './analyze';
 import { render } from './ui';
@@ -55,12 +55,13 @@ async function analyzeOffThread(f: File, fallback: string | null): Promise<Analy
 
 async function pick(f: File) {
   if (busy) return;
-  if (f.size > MAX_FILE_BYTES) return fail('error_too_big');
+  const video = f.type.startsWith('video/');
+  if (f.size > (video ? MAX_VIDEO_BYTES : MAX_FILE_BYTES)) return fail(video ? 'error_too_big_video' : 'error_too_big');
   busy = true; state = { ...state, verdict: 'pending', message: null }; draw();
   try {
     const c2pa = await sniffC2pa(f);
     let payload: SealPayload | null = null; let h: number | null = null; let tex: number | null = null; let code = false; let r0url: string | null = null;
-    if (!f.type.startsWith('video/')) {
+    if (!video) {
       const r = await analyzeOffThread(f, fromHash() ? fragment() : null);
       r0url = r.url;
       if (r.url) { code = true; payload = payloadFromUrl(r.url); h = payload ? r.hamming : null; tex = payload ? r.texture : null; }
@@ -73,8 +74,11 @@ async function pick(f: File) {
     const seal = payload ? checkSeal(payload) : null;
     const l2 = c2pa ? await runLevel2(f, seal?.ok ? seal.keyIdHex : null) : null;
     if (!payload && l2?.payload) payload = l2.payload;                              // a video original: level 2 carries the fields
-    if (!payload && !code && !l2) return fail('no_code');
-    show(payload, h, tex, l2?.summary ?? null, notice);
+    if (!payload && !code && l2?.summary.lines[0]?.key === 'l2_error') return fail('l2_error');
+    if (!payload && !code && !(l2?.payload || l2?.summary.kind === 'invalid')) return fail('no_code');   // e.g. another app's C2PA file
+    // The file's binding stands for the content only if the seal in the file IS the seal shown (P30; identity = header + r, P18 a).
+    const l2s = l2 && payload && !(l2.payload && sealIdentity(l2.payload) === sealIdentity(payload)) ? { ...l2.summary, bound: false } : l2?.summary ?? null;
+    show(payload, h, tex, l2s, notice);
   } catch (e) { fail(e instanceof Refused ? e.key : 'error_read'); }
   finally { busy = false; }
 }

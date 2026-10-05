@@ -59,8 +59,8 @@
   "l2_locked_ok": "Bootloader zablokowany",
   "l2_locked_bad": "Bootloader odblokowany",
   "l2_binding_bad": "Plik podpisano innym kluczem niż poświadczony",
-  "l2_real_device": "Potwierdzono prawdziwe urządzenie",
-  "l2_qr_link": "Klucz tego kodu QR potwierdzono jako prawdziwe urządzenie",
+  "l2_real_device": "Zapieczętowano kluczem w bezpiecznym sprzęcie prawdziwego urządzenia (telefonu z Androidem)",
+  "l2_qr_link": "Ten kod QR zapieczętowano tym samym kluczem, przechowywanym w bezpiecznym sprzęcie prawdziwego urządzenia",
   "l2_qr_same_key": "Ten kod QR opieczętowano tym samym kluczem co ten oryginalny plik",
   "l2_qr_other_key": "Ten kod QR opieczętowano innym kluczem niż oryginalny plik",
   "l2_tsa": "Istniało najpóźniej {time} — potwierdził {tsa}",
@@ -75,5 +75,12 @@
   "verdict_too_flat": "Dane są ważne — to zdjęcie jest zbyt ciemne lub jednolite, by je porównać",
   "check_too_flat": "Zbyt ciemne lub jednolite, by je porównać: sprawdzono pieczęć i jej dane, ale nie treść zdjęcia",
   "verdict_flat_mismatch": "To zdjęcie nie jest ciemne ani jednolite — pieczęć należy do innego zdjęcia",
-  "check_flat_mismatch": "Pieczęć utworzono dla ciemnego lub jednolitego zdjęcia, a to zdjęcie ma szczegóły"
+  "check_flat_mismatch": "Pieczęć utworzono dla ciemnego lub jednolitego zdjęcia, a to zdjęcie ma szczegóły",
+  "l2_app_unregistered": "Podpis aplikacji nie jest jeszcze zarejestrowany na tej stronie — nie potwierdzono, że to aplikacja CameraStamp",
+  "l2_app_unknown": "Poświadczenie telefonu nie wskazuje aplikacji (normalne na Androidzie 7)",
+  "l2_boot_unknown": "Stan rozruchu niepoświadczony (poświadczenie programowe)",
+  "l2_no_seal": "Dane C2PA tego pliku nie mają pieczęci CameraStamp",
+  "l2_error": "Nie udało się sprawdzić oryginalnego pliku w tej przeglądarce",
+  "verdict_l2_bad": "Pieczęci oryginalnego pliku nie można ufać",
+  "error_too_big_video": "Ten film ma ponad 100 MB i nie można go tu sprawdzić"
 }

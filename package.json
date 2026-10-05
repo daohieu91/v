@@ -14,7 +14,6 @@
     "@contentauth/c2pa-web": "0.15.3",
     "@noble/curves": "2.4.0",
     "@noble/hashes": "2.4.0",
-    "@peculiar/x509": "2.1.0",
     "jsqr": "1.4.0"
   },
   "devDependencies": {

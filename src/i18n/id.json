@@ -59,8 +59,8 @@
   "l2_locked_ok": "Bootloader terkunci",
   "l2_locked_bad": "Bootloader tidak terkunci",
   "l2_binding_bad": "File ditandatangani dengan kunci yang berbeda dari yang disertifikasi",
-  "l2_real_device": "Perangkat asli dikonfirmasi",
-  "l2_qr_link": "Kunci QR ini dikonfirmasi sebagai perangkat asli",
+  "l2_real_device": "Disegel dengan kunci di perangkat keras aman sebuah perangkat asli (ponsel Android)",
+  "l2_qr_link": "QR ini disegel dengan kunci yang sama, yang disimpan di perangkat keras aman sebuah perangkat asli",
   "l2_qr_same_key": "QR ini disegel dengan kunci yang sama dengan file asli ini",
   "l2_qr_other_key": "QR ini disegel dengan kunci yang berbeda dari file asli",
   "l2_tsa": "Sudah ada paling lambat {time} — dikonfirmasi oleh {tsa}",
@@ -75,5 +75,12 @@
   "verdict_too_flat": "Detail valid — foto ini terlalu gelap atau polos untuk dibandingkan",
   "check_too_flat": "Terlalu gelap atau polos untuk dibandingkan: segel dan detailnya sudah diperiksa, isi fotonya belum",
   "verdict_flat_mismatch": "Foto ini tidak gelap atau polos — segelnya milik foto lain",
-  "check_flat_mismatch": "Segel ini dibuat untuk foto yang gelap atau polos, tetapi foto ini memiliki detail"
+  "check_flat_mismatch": "Segel ini dibuat untuk foto yang gelap atau polos, tetapi foto ini memiliki detail",
+  "l2_app_unregistered": "Tanda tangan aplikasi belum terdaftar di halaman ini — belum dipastikan sebagai aplikasi CameraStamp",
+  "l2_app_unknown": "Atestasi ponsel tidak menyebut aplikasinya (wajar di Android 7)",
+  "l2_boot_unknown": "Status boot tidak diatestasi (atestasi perangkat lunak)",
+  "l2_no_seal": "Data C2PA file ini tidak memiliki segel CameraStamp",
+  "l2_error": "File asli tidak dapat diperiksa di browser ini",
+  "verdict_l2_bad": "Segel file asli tidak dapat dipercaya",
+  "error_too_big_video": "Video ini lebih besar dari 100 MB dan tidak dapat diperiksa di sini"
 }
