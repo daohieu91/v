@@ -4,6 +4,8 @@ import type { SealPayload } from './payload';
 import type { Verdict } from './verdict';
 const el = <K extends keyof HTMLElementTagNameMap>(tag: K, attrs: Record<string, string> = {}, text?: string) => {
   const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text !== undefined) e.textContent = text; return e; };
+/** A line key the dictionary does not know (e.g. from a newer level 2) is shown as a generic line, never as raw text. */
+export const line = (d: Record<string, string>, key: string, p?: Record<string, string | number>) => (key in d ? t(d, key, p) : t(d, 'unknown_line'));
 const pad = (n: number) => String(n).padStart(2, '0');
 /** The capture time in the zone it was taken in: epoch + offset, shown with the offset (spec §7.3). */
 export function formatTime(epoch: number, offMin: number, locale: string): string {
@@ -13,7 +15,7 @@ export function formatTime(epoch: number, offMin: number, locale: string): strin
   return `${s} GMT${sign}${pad(Math.floor(a / 60))}:${pad(a % 60)}`;
 }
 export interface View { dict: Record<string, string>; locale: string; verdict: Verdict | 'pending' | null; payload: SealPayload | null;
-  message: string | null; attested: string | null | undefined; onPick: (f: File) => void; onLocale: (l: string) => void }
+  message: string | null; notice?: string | null; attested: string | null | undefined; onPick: (f: File) => void; onLocale: (l: string) => void }
 /** Verdict-first DOM. textContent and setAttribute only: nothing from the payload is ever parsed as HTML. */
 export function render(root: HTMLElement, s: View) {
   const d = s.dict; root.replaceChildren();
@@ -24,8 +26,9 @@ export function render(root: HTMLElement, s: View) {
   sel.addEventListener('change', () => s.onLocale(sel.value)); head.append(sel); root.append(head);
   const v = s.verdict;
   root.append(el('section', { 'data-verdict': v === 'pending' ? 'pending' : v ? v.color : 'none', class: 'band', role: 'status' },
-    v === 'pending' ? t(d, 'working') : v ? t(d, v.headline, v.checks.find(c => c.key === v.headline)?.params) : ''));
-  if (s.message) root.append(el('p', { class: 'message' }, t(d, s.message)));
+    v === 'pending' ? t(d, 'working') : v ? line(d, v.headline, v.checks.find(c => c.key === v.headline)?.params) : ''));
+  if (s.message) root.append(el('p', { class: 'message' }, line(d, s.message)));
+  if (s.notice && v && v !== 'pending') root.append(el('p', { class: 'message notice', 'data-notice': s.notice }, line(d, s.notice)));
   const p = s.payload?.fields;
   if (v && v !== 'pending') {
     if (p && v.checks[0]?.key === 'check_seal_ok') {   // fields of a broken seal are not trustworthy: never present them as facts
@@ -42,7 +45,7 @@ export function render(root: HTMLElement, s: View) {
       root.append(facts);
     }
     const list = el('ul', { class: 'checks' }); const proves = el('ul', { class: 'checks proves' });
-    for (const c of v.checks) (c.key.startsWith('proves_') ? proves : list).append(el('li', { 'data-status': c.status, 'data-key': c.key }, t(d, c.key, c.params)));
+    for (const c of v.checks) (c.key.startsWith('proves_') ? proves : list).append(el('li', { 'data-status': c.status, 'data-key': c.key }, line(d, c.key, c.params)));
     root.append(list);
     if (proves.childElementCount) { const sec = el('section', { class: 'explain' }); sec.append(el('h2', {}, t(d, 'proves_title')), proves); root.append(sec); }
   }
@@ -50,9 +53,10 @@ export function render(root: HTMLElement, s: View) {
   input.addEventListener('change', () => { const f = input.files?.[0]; if (f) s.onPick(f); });
   const label = el('label', { class: 'pick' }); label.append(el('span', {}, t(d, 'pick_photo')), input); root.append(label);
   const foot = el('footer');
-  const line = el('p'); line.append(el('span', {}, t(d, 'footer_local')), el('span', { 'aria-hidden': 'true' }, ' · '), el('span', {}, t(d, 'footer_upload')),
+  const line_ = el('p'); line_.append(el('span', {}, t(d, 'footer_local')), el('span', { 'aria-hidden': 'true' }, ' · '), el('span', {}, t(d, 'footer_upload')),
     el('span', { 'aria-hidden': 'true' }, ' · '), el('a', { 'data-play': '', href: PLAY_URL, target: '_blank', rel: 'noopener noreferrer' }, t(d, 'footer_app')));
-  foot.append(line);
+  foot.append(line_);
+  foot.append(el('p', { class: 'small', 'data-privacy': '' }, t(d, 'privacy_history')));
   if (s.attested !== undefined) foot.append(el('p', { 'data-attested': '', class: 'small' }, s.attested ? t(d, 'attested_on', { date: s.attested }) : t(d, 'attested_unknown')));
   root.append(foot);
 }

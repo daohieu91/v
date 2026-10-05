@@ -2,7 +2,25 @@ import { expect, test, type Page } from '@playwright/test';
 import { readdirSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { phashHex, phashRgba } from '../src/phash';
+import { deflateSync } from 'node:zlib';
+import jpeg from 'jpeg-js';
+import { findSealUrl } from '../src/qr';
+import { payloadFromUrl } from '../src/payload';
+import { checkSeal } from '../src/crypto';
 const V = JSON.parse(readFileSync('test/vectors/verify-vectors.json', 'utf8'));
+/** The seal URL printed in the fixtures' QR, read here with the same jsQR plan in node (independent of the page). */
+const FIXTURE_URL = (() => { const j = jpeg.decode(readFileSync('e2e/fixtures/sealed.jpg'), { useTArray: true, formatAsRGBA: true });
+  return findSealUrl({ data: Uint8ClampedArray.from(j.data), w: j.width, h: j.height })!; })();
+/** A 1-bit grayscale PNG of w × h (all white): a tiny file with a huge bitmap. */
+function bigPng(w: number, h: number): Buffer {
+  const T = Array.from({ length: 256 }, (_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; });
+  const crc = (b: Buffer) => { let c = 0xffffffff; for (const x of b) c = T[(c ^ x) & 255] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
+  const chunk = (t: string, d: Buffer) => { const n = Buffer.alloc(4); n.writeUInt32BE(d.length); const td = Buffer.concat([Buffer.from(t), d]);
+    const c = Buffer.alloc(4); c.writeUInt32BE(crc(td)); return Buffer.concat([n, td, c]); };
+  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 1; ihdr[9] = 0;
+  const row = Buffer.alloc(1 + Math.ceil(w / 8), 0xff); row[0] = 0; const raw = Buffer.alloc(row.length * h); for (let y = 0; y < h; y++) row.copy(raw, y * row.length);
+  return Buffer.concat([Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]), chunk('IHDR', ihdr), chunk('IDAT', deflateSync(raw)), chunk('IEND', Buffer.alloc(0))]);
+}
 const OK = V.payloads[0];                                                         // v1_case0: synthetic ocean point 30.12345, 140.54321 (P3)
 // F-L11: record and abort every request that leaves localhost (blob:/data: are in-memory; WebKit routes its File decode through blob:), and fail the test in afterEach (a throw inside page.on is not reliable).
 let foreign: string[] = [];
@@ -26,8 +44,9 @@ test('QR link alone: yellow, signed time, full key id, OSM link only', async ({ 
   await expect(page.locator('[data-field=time]')).toContainText('2025');
   await expect(page.locator('li[data-key=check_seal_ok]')).toContainText(OK.expectKeyId);   // all 8 bytes (P18 e)
   await expect(page.locator('li[data-key=device_unknown]')).toHaveText('Real device not confirmed yet — needs the original file');
-  await expect(page.locator('.explain li[data-key=proves_l1]')).toContainText(OK.expectKeyId);
+  await expect(page.locator('li[data-key=proves_l1]'), 'P25: "unchanged since sealed" only on green').toHaveCount(0);
   await expect(page.locator('.explain li[data-key=proves_not_device]')).toBeVisible();
+  await expect(page.locator('footer [data-privacy]')).toHaveText("The link you opened, with its coordinates, stays in this browser's history");
   const map = page.locator('a[data-map]');
   await expect(map).toHaveAttribute('href', /^https:\/\/www\.openstreetmap\.org\/\?mlat=30\.12345&mlon=140\.54321/);
   await expect(map).toHaveAttribute('target', '_blank'); await expect(map).toHaveAttribute('rel', 'noopener noreferrer');
@@ -36,6 +55,7 @@ test('QR link alone: yellow, signed time, full key id, OSM link only', async ({ 
 test('hex-edited link is red', async ({ page }) => {
   await page.goto('./#' + V.payloads.find((p: any) => p.expectKeyId === null).base64url);
   await expect(band(page)).toHaveAttribute('data-verdict', 'red');
+  await expect(page.locator('li[data-key=proves_l1]')).toHaveCount(0);
 });
 test('garbage fragment is red, not a blank page', async ({ page }) => {
   await page.goto('./#not-a-seal');
@@ -44,11 +64,46 @@ test('garbage fragment is red, not a blank page', async ({ page }) => {
 test('sealed photo after chat-app compression is green', async ({ page }) => { await page.goto('./'); await pick(page, 'sealed_1600_q70.jpg');
   await expect(band(page)).toHaveAttribute('data-verdict', 'green');
   await expect(page.locator('li[data-key=check_seal_ok]')).toContainText(OK.expectKeyId);
-  await expect(page.locator('li[data-key=check_image_match]')).toBeVisible(); });
+  await expect(page.locator('li[data-key=check_image_match]')).toBeVisible();
+  await expect(band(page)).toHaveText('Unchanged since it was sealed');
+  await expect(page.locator('.explain li[data-key=proves_l1]')).toContainText(OK.expectKeyId); });
 test('original-size sealed photo is green', async ({ page }) => { await page.goto('./'); await pick(page, 'sealed.jpg');
   await expect(band(page)).toHaveAttribute('data-verdict', 'green'); });
 test('QR copied onto another photo is red', async ({ page }) => { await page.goto('./'); await pick(page, 'copied_qr.jpg');
-  await expect(band(page)).toHaveAttribute('data-verdict', 'red'); });
+  await expect(band(page)).toHaveAttribute('data-verdict', 'red'); await expect(page.locator('li[data-key=proves_l1]')).toHaveCount(0); });
+test('a light filter over the photo is the yellow "maybe edited" band (distance 9–16), without "unchanged"', async ({ page }) => {
+  await page.goto('./'); await pick(page, 'maybe_edited.jpg');
+  await expect(band(page)).toHaveAttribute('data-verdict', 'yellow'); await expect(band(page)).toHaveText('May have been lightly edited');
+  const d = Number(/difference (\d+)\/64/.exec((await page.locator('li[data-key=check_image_maybe]').textContent()) ?? '')?.[1]);
+  expect(d).toBeGreaterThanOrEqual(9); expect(d).toBeLessThanOrEqual(16);
+  await expect(page.locator('li[data-key=proves_l1]')).toHaveCount(0);
+});
+test('a 48 MP portrait-stored photo with EXIF rotation is decoded at the bounded size, upright, and is green', async ({ page }) => {
+  await page.goto('./'); await pick(page, 'rotated_portrait_48mp.jpg');
+  await expect(page.locator('#app')).toHaveAttribute('data-decoded', '4000x3000 resize');
+  await expect(band(page)).toHaveAttribute('data-verdict', 'green');
+});
+test('a huge-pixel PNG (12000 × 9000, tiny file) is decoded only at the bounded size', async ({ page }) => {
+  await page.goto('./');
+  await page.setInputFiles('input[type=file]', { name: 'big.png', mimeType: 'image/png', buffer: bigPng(12000, 9000) });
+  await expect(page.locator('p.message')).toHaveText('No CameraStamp code found in this photo', { timeout: 30_000 });
+  await expect(page.locator('#app')).toHaveAttribute('data-decoded', '3000x2250 resize');
+});
+test('a large file whose size cannot be read from its header is refused, not decoded', async ({ page }) => {
+  await page.goto('./');
+  await page.setInputFiles('input[type=file]', { name: 'x.heic', mimeType: 'image/heic', buffer: Buffer.alloc(7 * 1024 * 1024, 7) });
+  await expect(page.locator('p.message')).toHaveText(/too many pixels to check in the browser/);
+});
+test('a photo whose seal differs from the opened link: notice, and the URL now names the photo\'s seal', async ({ page }) => {
+  await page.goto('./#' + OK.base64url); await expect(band(page)).toHaveAttribute('data-verdict', 'yellow');
+  await pick(page, 'sealed.jpg');
+  await expect(page.locator('[data-notice=notice_other_seal]')).toHaveText(/carries a different seal than the link you opened/);
+  expect(new URL(page.url()).hash.slice(1)).toBe(FIXTURE_URL.split('#')[1]);
+});
+test('the same seal as the opened link: no notice', async ({ page }) => {
+  await page.goto('./#' + FIXTURE_URL.split('#')[1]); await pick(page, 'sealed.jpg');
+  await expect(band(page)).toHaveAttribute('data-verdict', 'green'); await expect(page.locator('[data-notice]')).toHaveCount(0);
+});
 for (const f of ['edited.jpg', 'cropped.jpg']) test(`${f} is not green`, async ({ page }) => { await page.goto('./'); await pick(page, f);
   await expect(band(page)).toHaveAttribute('data-verdict', /yellow|red/); });
 test('QR cropped away: no code found', async ({ page }) => { await page.goto('./'); await pick(page, 'cropped_no_qr.jpg');
@@ -57,13 +112,15 @@ test('language switch and footer', async ({ page }) => {
   await page.goto('./#' + OK.base64url);
   await page.selectOption('select[data-lang]', 'vi');
   await expect(page.locator('footer')).toContainText('Ảnh không được tải lên');
-  await expect(band(page)).toHaveText('Thông tin đúng — chưa so được ảnh');
+  await expect(page.locator('footer')).toContainText('Kiểm tra bằng CameraStamp — tải app');
+  await expect(band(page)).toHaveText('Niêm phong hợp lệ — chưa so ảnh');
+  await expect(page.locator('dt').first()).toHaveText('Thời điểm niêm phong');
   await expect(page.locator('footer a[data-play]')).toHaveAttribute('href', /referrer=utm_source%3Dverify/);
   await expect(page.locator('footer [data-attested]')).toContainText(/\d{4}-\d{2}-\d{2}/);
 });
 test('the browser language is picked', async ({ browser }) => {
   const ctx = await browser.newContext({ locale: 'vi-VN' }); const page = await ctx.newPage();
-  await page.goto('./#' + OK.base64url); await expect(band(page)).toHaveText('Thông tin đúng — chưa so được ảnh'); await ctx.close();
+  await page.goto('./#' + OK.base64url); await expect(band(page)).toHaveText('Niêm phong hợp lệ — chưa so ảnh'); await ctx.close();
 });
 test('a browser without BigInt gets a readable "too old" message, and the core chunk is never fetched', async ({ page }) => {
   const fetched: string[] = []; page.on('request', r => fetched.push(r.url()));
@@ -112,7 +169,9 @@ test('the worker also accepts pixels decoded by the page (engines without Offscr
     const wk = new Worker('assets/' + w);
     return await new Promise<any>(ok => { wk.onmessage = e => { wk.terminate(); ok(e.data); }; wk.postMessage({ data: d.buffer, w: c.width, h: c.height, fallback: null }, [d.buffer]); });
   }, [b64, worker] as const);
-  expect(r.ok).toBe(true); expect(r.r.url).toBe(OK.url.slice(0, OK.url.indexOf('#') + 1) + r.r.url.split('#')[1]);
+  expect(r.ok).toBe(true); expect(r.dec).toEqual({ w: 1600, h: 1200, via: 'page' });
+  expect(r.r.url).toBe(FIXTURE_URL);                                        // the fixture's own signed URL, decoded independently in node
+  expect(checkSeal(payloadFromUrl(r.r.url)!).keyIdHex).toBe(OK.expectKeyId);
   expect(r.r.hamming).toBeLessThanOrEqual(8);
 });
 test('a file over 40 MB is refused with a friendly message, before any decode', async ({ page }) => {

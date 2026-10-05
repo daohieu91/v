@@ -11,7 +11,7 @@ The URL `https://daohieu91.github.io/v/` is permanent.
 
 - Verification runs entirely in your browser. **Nothing is uploaded**: the photo and the QR data never leave your device.
 - No server, no analytics, no cookies, no third-party scripts. A strict Content-Security-Policy `<meta>` in each HTML page enforces this (`connect-src 'self'`), and `test/csp.test.ts` pins it.
-- The seal data in the URL is in the fragment (`#...`), which browsers never send to GitHub.
+- The seal data in the URL is in the fragment (`#...`), which browsers never send to GitHub. It does stay in the browser's own history (with the coordinates), and the page says so.
 - Google's Android attestation roots and revocation list are copied daily into `public/attestation/` by a GitHub Action, so the page itself never contacts Google. The page shows the date of the last copy (`meta.json`). The action validates the download (roots parse as X.509, `entries` is an object) and fails, keeping the old copy, if not. Its daily commit also stops GitHub disabling the schedule after 60 days of inactivity.
 
 ## Framing (clickjacking)
@@ -25,9 +25,10 @@ This is a best-effort defence, not a guarantee.
 - Open `https://daohieu91.github.io/v/#<seal>` (the phone camera opens it from the QR): the seal is checked at once and the band is
   yellow, "information is genuine — photo not compared yet". Choose the received photo to compare its content: green, yellow or red.
 - The verdict comes only from `checkSeal` (the key tag check). A level-1 green means "this photo and these details are unchanged since
-  key <8-byte id> sealed them". It does not prove which app or phone made the seal: that needs the original file (level 2, `l2.html`).
+  key <8-byte id> sealed them" (shown on green only). It does not prove which app or phone made the seal: that needs the original file (level 2, `l2.html`).
 - Decode, QR search (full image, ~1600 and ~1000 px wide, bottom-right corner, bottom band) and the fingerprint run in a Web Worker.
-  Files over 40 MB are refused; decodes are bounded to 4096 px by exact halvings.
+  Files over 40 MB are refused. The size is read from the header (JPEG incl. EXIF orientation, PNG, WebP, GIF, BMP, HEIF/AVIF): above 4096 px
+  the browser decodes straight at the bounded size, never at full size; a large file of unknown size is refused.
 - 10 languages (`src/i18n/*.json`), the same terms as the app (`src/glossary.json`); `test/i18n.test.ts` enforces completeness.
 - The entry chunk has no BigInt and checks the browser first; an old browser gets a "too old" note instead of a blank page.
 - Budget: `npm run size` (< 100 KB gzipped for what one visitor downloads, and no level-2 code in level 1).

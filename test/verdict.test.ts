@@ -42,4 +42,14 @@ describe('verdict', () => {
   });
   it('a level-1 green says what it proves and what it does not', () => { const k = v(base(), 0).checks.map(c => c.key);
     expect(k).toContain('proves_l1'); expect(k).toContain('proves_not_device'); });
+  it('"unchanged since sealed" (proves_l1) appears ONLY on green (P25)', () => {
+    const has = (r: ReturnType<typeof v>) => r.checks.some(c => c.key === 'proves_l1');
+    expect(has(v(base(), 21)), 'red: picture differs').toBe(false);
+    expect(has(v(base(), 0, { ok: false, keyIdHex: null })), 'red: seal broken').toBe(false);
+    expect(has(verdict({ payload: base(), seal: ok, hamming: 1, level2: { kind: 'invalid', lines: [], realDevice: false } })), 'red: original file broken').toBe(false);
+    expect(has(v(base(), 12)), 'yellow: maybe edited').toBe(false);
+    expect(has(v(base(), null)), 'yellow: not compared').toBe(false);
+    expect(has(v(base({ autoTime: false }), 2)), 'yellow: warning').toBe(false);
+    expect(has(v(base(), 8)), 'green').toBe(true);
+  });
 });

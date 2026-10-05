@@ -1,3 +1,4 @@
+import { validL2Reply } from './messages';
 import type { SealPayload } from './payload';
 import type { L2Summary } from './verdict';
 export interface L2Reply { summary: L2Summary; payload: SealPayload | null }
@@ -11,7 +12,7 @@ export async function runLevel2(file: File, qrKeyIdHex: string | null): Promise<
   try {
     const f = await load(); const ch = new MessageChannel();
     const reply = new Promise<L2Reply | null>(res => { const to = setTimeout(() => res(null), 60_000);
-      ch.port1.onmessage = e => { clearTimeout(to); res((e.data as L2Reply | null) ?? null); }; });
+      ch.port1.onmessage = e => { clearTimeout(to); res(validL2Reply(e.data)); }; });   // malformed or null → no level 2
     f.contentWindow!.postMessage({ file, qrKeyIdHex }, location.origin, [ch.port2]);
     return await reply;
   } catch { return null; }

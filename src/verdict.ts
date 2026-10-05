@@ -30,13 +30,16 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
   else { if (f.location.approximate) checks.push({ key: 'info_approx', status: 'info', params: { km: (f.location.accuracyM / 1000).toFixed(1) } });
          if (f.location.stale) checks.push({ key: 'info_stale', status: 'info', params: { n: Math.round((f.location.ageTens * 10) / 60) } }); }
   checks.push(...(i.level2 ? i.level2.lines : [{ key: 'device_unknown', status: 'info' as const }]));
-  checks.push({ key: 'proves_l1', status: 'info', params: { id } });
+  const color = ((): [Color, string] => {
+    if (i.level2?.kind === 'invalid' || (i.hamming !== null && i.hamming > b)) return ['red', 'verdict_red'];
+    if (i.hamming === null && !c2paContent) return ['yellow', 'verdict_info_not_compared'];
+    if (i.hamming !== null && i.hamming > a) return ['yellow', 'verdict_maybe_edited'];
+    if (warns.length) return ['yellow', warns[0].key];
+    return ['green', 'verdict_green'];
+  })();
+  // P25: "unchanged since sealed by key X" is said ONLY when it is what the page found: on green, never on red or yellow.
+  if (color[0] === 'green') checks.push({ key: 'proves_l1', status: 'info', params: { id } });
   if (!i.level2?.realDevice) checks.push({ key: 'proves_not_device', status: 'info' });
   checks.push({ key: 'proves_screen', status: 'info' });
-  const fail = i.level2?.kind === 'invalid' || (i.hamming !== null && i.hamming > b);
-  if (fail) return { color: 'red', headline: 'verdict_red', checks };
-  if (i.hamming === null && !c2paContent) return { color: 'yellow', headline: 'verdict_info_not_compared', checks };
-  if (i.hamming !== null && i.hamming > a) return { color: 'yellow', headline: 'verdict_maybe_edited', checks };
-  if (warns.length) return { color: 'yellow', headline: warns[0].key, checks };
-  return { color: 'green', headline: 'verdict_green', checks };
+  return { color: color[0], headline: color[1], checks };
 }
