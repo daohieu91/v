@@ -82,6 +82,25 @@ describe('verdict', () => {
       expect(verdict({ payload: nf(), seal: { ok: false, keyIdHex: null }, hamming: null, texture: 0, level2: null }).color).toBe('red');
       expect(keys(t(10, null, base({ noFingerprint: true, phash: 0n, softwareKey: true })))).toContain('warn_software_key');
     });
+    // P30: a valid original file (level 2, C2PA hard binding over the exact bytes) proves the content itself, more than any pHash could:
+    // a NO_FINGERPRINT seal may then be green, worded as the level-2 "file unchanged since sealed". Without level 2 it stays yellow.
+    const L2OK = { kind: 'ok' as const, lines: [], realDevice: true };
+    it('P30: a flagged seal whose original file passes level 2 is green, with the level-2 wording', () => {
+      for (const texture of [null, 0, TEXTURE_FLOOR - 1]) {
+        const r = verdict({ payload: nf(), seal: ok, hamming: null, texture, level2: L2OK });
+        expect([r.color, r.headline], String(texture)).toEqual(['green', 'verdict_green']);
+        expect(r.checks.find(c => c.key === 'check_content_c2pa')?.status, String(texture)).toBe('pass');
+        expect(keys(r).filter(k => k === 'check_too_flat' || k === 'check_not_compared' || k.startsWith('check_image'))).toEqual([]);
+      }
+    });
+    it('P30: the same flagged seal without level 2 stays yellow; a level-2 pass never hides a picture with detail', () => {
+      expect(verdict({ payload: nf(), seal: ok, hamming: null, texture: null, level2: null }).color).toBe('yellow');
+      expect(verdict({ payload: nf(), seal: ok, hamming: null, texture: 0, level2: null }).headline).toBe('verdict_too_flat');
+      expect(verdict({ payload: nf(), seal: ok, hamming: null, texture: null, level2: { kind: 'none', lines: [], realDevice: false } }).color).toBe('yellow');
+      const detail = verdict({ payload: nf(), seal: ok, hamming: null, texture: FLAT_MISMATCH_TEXTURE + 1, level2: L2OK });
+      expect([detail.color, detail.headline]).toEqual(['red', 'verdict_flat_mismatch']);
+      expect(keys(detail)).toContain('check_flat_mismatch'); expect(keys(detail)).not.toContain('check_content_c2pa');
+    });
     it('without the flag the texture is ignored and the hash decides', () => {
       expect(verdict({ payload: base(), seal: ok, hamming: 3, texture: FLAT_MISMATCH_TEXTURE * 100, level2: null }).color).toBe('green');
       expect(verdict({ payload: base(), seal: ok, hamming: 3, texture: 0, level2: null }).color).toBe('green');

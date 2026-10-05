@@ -97,7 +97,11 @@ export function decodePayload(b: Uint8Array): SealPayload {
 
 const big = (b: Uint8Array) => b.reduce((a, x) => (a << 8n) | BigInt(x), 0n);
 
-function decodeV1(b: Uint8Array): SealPayload {
+/**
+ * v1 decode up to (not including) the canonical re-encode compare: every check before it, in the app's order. Exported so the tests can
+ * prove the explicit P26 rule on its own (inside decodeV1 the re-encode would also reject those bytes). Throws only PayloadError.
+ */
+export function parseV1(b: Uint8Array): { fields: SealFields; recoveryBit: 0 | 1; signature: Uint8Array } {
   if (b.length !== SIZE_V1) throw new PayloadError('length');
   const v = new DataView(b.buffer, b.byteOffset, b.byteLength);
   const flags = v.getUint16(1);
@@ -127,7 +131,11 @@ function decodeV1(b: Uint8Array): SealPayload {
     keyTag: v.getInt32(35),
     noFingerprint,
   };
-  const recoveryBit = ((flags >> 6) & 1) as 0 | 1;
+  return { fields, recoveryBit: ((flags >> 6) & 1) as 0 | 1, signature };
+}
+
+function decodeV1(b: Uint8Array): SealPayload {
+  const { fields, recoveryBit, signature } = parseV1(b);
   const header = encodeHeader(fields, recoveryBit);
   for (let i = 0; i < HEADER_V1; i++) if (header[i] !== b[i]) throw new PayloadError('noncanonical');
   return { fields, recoveryBit, signature, signed: encodeHeader(fields, 0) };

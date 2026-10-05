@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { URL_PREFIX } from '../src/config';
-import { PayloadError, decodeFragment, decodePayload, encodeHeader, payloadFromUrl } from '../src/payload';
+import { PayloadError, decodeFragment, decodePayload, encodeHeader, parseV1, payloadFromUrl } from '../src/payload';
 
 // v1_case0 of the vectors (canonical, verifies with the test key).
 const CASE0 = 'AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ';
@@ -72,5 +72,15 @@ describe('payload', () => {
     expect(encodeHeader({ ...d.fields, phash: 0n, noFingerprint: true }, 0)[2] & 0x80).toBe(0x80);
     expect(encodeHeader({ ...d.fields, phash: 0n, noFingerprint: false }, 0)[2] & 0x80).toBe(0);
     expect(ruleOf(() => encodeHeader({ ...d.fields, noFingerprint: true }, 0))).toBe('noncanonical');
+  });
+  // The explicit P26 rule on its own: parseV1 is decode before the canonical re-encode compare, so the re-encode (and encodeHeader's own
+  // refusal) cannot reject these bytes first. Only the rule after the GPS sentinel can.
+  it('the decode step before the re-encode compare rejects NO_FINGERPRINT with a fingerprint by itself', () => {
+    const b = Uint8Array.from(Buffer.from(CASE0, 'base64url')); const flagged = b.slice(); flagged[2] |= 0x80;
+    expect(ruleOf(() => parseV1(flagged))).toBe('noncanonical');
+    const zero = flagged.slice(); zero.fill(0, 23, 31);
+    expect(parseV1(zero).fields).toMatchObject({ noFingerprint: true, phash: 0n });
+    expect(parseV1(b).fields.noFingerprint).toBe(false);
+    const gps = flagged.slice(); new DataView(gps.buffer).setInt16(21, -32768); expect(ruleOf(() => parseV1(gps))).toBe('gps_time_without_skew');
   });
 });

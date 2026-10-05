@@ -45,6 +45,11 @@ npm run e2e         # Playwright (Chromium, WebKit, Firefox, mobile Chrome), aga
 npm run verify-file -- photo.jpg   # the level-1 pipeline on one photo, from a shell
 ```
 
+`verify-file` decodes with **sharp, pinned at exactly 0.35.5** (libjpeg-turbo, byte-identical to Chromium and Firefox; see
+`scripts/decode-node.ts`). A bump of sharp (or its bundled libvips/mozjpeg) can change pixels: re-measure the browser pins in
+`test/helpers/browser-rgba.ts` in real browsers (`npm run e2e`, the "byte-identical to this browser" test) before accepting it, and never
+update the pins from node alone.
+
 ## Golden vectors
 
 `test/vectors/` (JSON, `.sha256`, `fixtures/*.png`) is a byte-identical copy of the CameraStamp app repo's `docs/verify/`. Never edit or re-record it here: copy it with the procedure in the app's `docs/verify/README.md` and check it with the app's `scripts/check-vectors-sync.sh`.

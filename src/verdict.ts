@@ -23,7 +23,11 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
   const hamming = flagged ? null : i.hamming;                             // P28: never a hash compare for a NO_FINGERPRINT seal
   const texture = flagged ? i.texture : null;
   const flatMismatch = texture !== null && texture > FLAT_MISMATCH_TEXTURE;
-  const c2paContent = hamming === null && texture === null && i.level2?.kind === 'ok';   // F-M13: a valid original file binds the content itself
+  // F-M13: a valid original file binds the content itself. P30: that holds for a NO_FINGERPRINT seal too — the C2PA hard binding over the
+  // exact bytes proves more than any pHash, so a flagged seal whose original file passes level 2 is green (worded check_content_c2pa,
+  // "the original file's content is unchanged"); P28's texture yellow is a level-1 (pixel) answer only. A picture with detail still reads
+  // red: it cannot be the dark/flat photo that was sealed, whatever level 2 says.
+  const c2paContent = i.level2?.kind === 'ok' && hamming === null && (flagged ? !flatMismatch : texture === null);
   if (c2paContent) checks.push({ key: 'check_content_c2pa', status: 'pass' });
   else if (flagged && texture !== null) checks.push(flatMismatch ? { key: 'check_flat_mismatch', status: 'fail' } : { key: 'check_too_flat', status: 'warn' });
   else if (hamming === null) checks.push({ key: 'check_not_compared', status: 'info' });
@@ -43,7 +47,7 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
   const color = ((): [Color, string] => {
     if (i.level2?.kind === 'invalid' || (hamming !== null && hamming > b)) return ['red', 'verdict_red'];
     if (flatMismatch) return ['red', 'verdict_flat_mismatch'];
-    if (texture !== null) return ['yellow', 'verdict_too_flat'];
+    if (texture !== null && !c2paContent) return ['yellow', 'verdict_too_flat'];
     if (hamming === null && !c2paContent) return ['yellow', 'verdict_info_not_compared'];
     if (hamming !== null && hamming > a) return ['yellow', 'verdict_maybe_edited'];
     if (warns.length) return ['yellow', warns[0].key];
