@@ -31,6 +31,10 @@ npx playwright install chromium webkit firefox
 npm run e2e         # Playwright, against `vite preview`
 ```
 
+## Golden vectors
+
+`test/vectors/` (JSON, `.sha256`, `fixtures/*.png`) is a byte-identical copy of the CameraStamp app repo's `docs/verify/`. Never edit or re-record it here: copy it with the procedure in the app's `docs/verify/README.md` and check it with the app's `scripts/check-vectors-sync.sh`.
+
 ## Deploy
 
 Pushing to `main` runs `.github/workflows/deploy.yml` (tests, build, GitHub Pages via Actions).

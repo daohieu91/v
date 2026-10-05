@@ -1,0 +1,1239 @@
+{
+    "schema": 1,
+    "comment": "Golden vectors shared by the CameraStamp app (source: docs/verify/verify-vectors.json) and the web verifier (byte-identical copy: test/vectors/verify-vectors.json). The testKey is a PUBLIC TEST KEY, never a real one. All coordinates are synthetic. Regenerate in the app repo only; see docs/verify/README.md.",
+    "urlPrefix": "https://daohieu91.github.io/v/#",
+    "maxFragmentLength": 138,
+    "thresholds": [
+        8,
+        16
+    ],
+    "testKey": {
+        "label": "TEST KEY - public, d = SHA-256(\"camerastamp-test-key-v1\") mod n; never use outside tests",
+        "d": "063e36d67b4dfa8414cec96fcf43b76688475b55635f221908c607347692f83b",
+        "publicKey": "043a336eeda2c82b3955c947e81fc5c79924b105eb5848efb13e1e4301790530577a20e06f004362e469c57cf6468e7b6de0aa5714034e461c5cbab4646717ec44",
+        "keyId": "f18fa21b6b1a2c70",
+        "keyTag": -242245093
+    },
+    "table": [
+        [
+            4091,
+            4052,
+            3973,
+            3857,
+            3703,
+            3513,
+            3290,
+            3035,
+            2751,
+            2440,
+            2106,
+            1751,
+            1380,
+            995,
+            601,
+            201,
+            -201,
+            -601,
+            -995,
+            -1380,
+            -1751,
+            -2106,
+            -2440,
+            -2751,
+            -3035,
+            -3290,
+            -3513,
+            -3703,
+            -3857,
+            -3973,
+            -4052,
+            -4091
+        ],
+        [
+            4076,
+            3920,
+            3612,
+            3166,
+            2598,
+            1931,
+            1189,
+            401,
+            -401,
+            -1189,
+            -1931,
+            -2598,
+            -3166,
+            -3612,
+            -3920,
+            -4076,
+            -4076,
+            -3920,
+            -3612,
+            -3166,
+            -2598,
+            -1931,
+            -1189,
+            -401,
+            401,
+            1189,
+            1931,
+            2598,
+            3166,
+            3612,
+            3920,
+            4076
+        ],
+        [
+            4052,
+            3703,
+            3035,
+            2106,
+            995,
+            -201,
+            -1380,
+            -2440,
+            -3290,
+            -3857,
+            -4091,
+            -3973,
+            -3513,
+            -2751,
+            -1751,
+            -601,
+            601,
+            1751,
+            2751,
+            3513,
+            3973,
+            4091,
+            3857,
+            3290,
+            2440,
+            1380,
+            201,
+            -995,
+            -2106,
+            -3035,
+            -3703,
+            -4052
+        ],
+        [
+            4017,
+            3406,
+            2276,
+            799,
+            -799,
+            -2276,
+            -3406,
+            -4017,
+            -4017,
+            -3406,
+            -2276,
+            -799,
+            799,
+            2276,
+            3406,
+            4017,
+            4017,
+            3406,
+            2276,
+            799,
+            -799,
+            -2276,
+            -3406,
+            -4017,
+            -4017,
+            -3406,
+            -2276,
+            -799,
+            799,
+            2276,
+            3406,
+            4017
+        ],
+        [
+            3973,
+            3035,
+            1380,
+            -601,
+            -2440,
+            -3703,
+            -4091,
+            -3513,
+            -2106,
+            -201,
+            1751,
+            3290,
+            4052,
+            3857,
+            2751,
+            995,
+            -995,
+            -2751,
+            -3857,
+            -4052,
+            -3290,
+            -1751,
+            201,
+            2106,
+            3513,
+            4091,
+            3703,
+            2440,
+            601,
+            -1380,
+            -3035,
+            -3973
+        ],
+        [
+            3920,
+            2598,
+            401,
+            -1931,
+            -3612,
+            -4076,
+            -3166,
+            -1189,
+            1189,
+            3166,
+            4076,
+            3612,
+            1931,
+            -401,
+            -2598,
+            -3920,
+            -3920,
+            -2598,
+            -401,
+            1931,
+            3612,
+            4076,
+            3166,
+            1189,
+            -1189,
+            -3166,
+            -4076,
+            -3612,
+            -1931,
+            401,
+            2598,
+            3920
+        ],
+        [
+            3857,
+            2106,
+            -601,
+            -3035,
+            -4091,
+            -3290,
+            -995,
+            1751,
+            3703,
+            3973,
+            2440,
+            -201,
+            -2751,
+            -4052,
+            -3513,
+            -1380,
+            1380,
+            3513,
+            4052,
+            2751,
+            201,
+            -2440,
+            -3973,
+            -3703,
+            -1751,
+            995,
+            3290,
+            4091,
+            3035,
+            601,
+            -2106,
+            -3857
+        ],
+        [
+            3784,
+            1567,
+            -1567,
+            -3784,
+            -3784,
+            -1567,
+            1567,
+            3784,
+            3784,
+            1567,
+            -1567,
+            -3784,
+            -3784,
+            -1567,
+            1567,
+            3784,
+            3784,
+            1567,
+            -1567,
+            -3784,
+            -3784,
+            -1567,
+            1567,
+            3784,
+            3784,
+            1567,
+            -1567,
+            -3784,
+            -3784,
+            -1567,
+            1567,
+            3784
+        ]
+    ],
+    "generators": {
+        "synth": "x=i%w, y=i/w; R=(x*255/w + seed*13)&255; G=(y*255/h + seed*29)&255; B=((x/max(1,w/7) + y/max(1,h/5) + seed)%2==0) ? 40 : 210 (integer division)",
+        "noise": "s=seed (uint32); per pixel: s=(s*1664525+1013904223) mod 2^32; v=s>>>8; R=(v>>16)&255, G=(v>>8)&255, B=v&255",
+        "flat": "every pixel = seed as 0xAARRGGBB (signed int32)"
+    },
+    "images": [
+        {
+            "name": "synth_97x61_s3",
+            "gen": "synth",
+            "w": 97,
+            "h": 61,
+            "seed": 3,
+            "frame": [
+                10,
+                200,
+                250,
+                255
+            ],
+            "rgbaB64": "J1fS/ylX0v8sV9L/LlfS/zFX0v80V9L/NlfS/zlX0v88V9L/PlfS/0FX0v9DV9L/RlfS/0lXKP9LVyj/Tlco/1FXKP9TVyj/Vlco/1hXKP9bVyj/Xlco/2BXKP9jVyj/Zlco/2hXKP9rV9L/bVfS/3BX0v9zV9L/dVfS/3hX0v97V9L/fVfS/4BX0v+DV9L/hVfS/4hX0v+KV9L/jVco/5BXKP+SVyj/lVco/5hXKP+aVyj/nVco/59XKP+iVyj/pVco/6dXKP+qVyj/rVco/69X0v+yV9L/tFfS/7dX0v+6V9L/vFfS/79X0v/CV9L/xFfS/8dX0v/JV9L/zFfS/89X0v/RVyj/1Fco/9dXKP/ZVyj/3Fco/99XKP/hVyj/5Fco/+ZXKP/pVyj/7Fco/+5XKP/xVyj/9FfS//ZX0v/5V9L/+1fS//5X0v8BV9L/A1fS/wZX0v8JV9L/C1fS/w5X0v8QV9L/E1fS/xZXKP8YVyj/G1co/x5XKP8gVyj/I1co/ydb0v8pW9L/LFvS/y5b0v8xW9L/NFvS/zZb0v85W9L/PFvS/z5b0v9BW9L/Q1vS/0Zb0v9JWyj/S1so/05bKP9RWyj/U1so/1ZbKP9YWyj/W1so/15bKP9gWyj/Y1so/2ZbKP9oWyj/a1vS/21b0v9wW9L/c1vS/3Vb0v94W9L/e1vS/31b0v+AW9L/g1vS/4Vb0v+IW9L/ilvS/41bKP+QWyj/klso/5VbKP+YWyj/mlso/51bKP+fWyj/olso/6VbKP+nWyj/qlso/61bKP+vW9L/slvS/7Rb0v+3W9L/ulvS/7xb0v+/W9L/wlvS/8Rb0v/HW9L/yVvS/8xb0v/PW9L/0Vso/9RbKP/XWyj/2Vso/9xbKP/fWyj/4Vso/+RbKP/mWyj/6Vso/+xbKP/uWyj/8Vso//Rb0v/2W9L/+VvS//tb0v/+W9L/AVvS/wNb0v8GW9L/CVvS/wtb0v8OW9L/EFvS/xNb0v8WWyj/GFso/xtbKP8eWyj/IFso/yNbKP8nX9L/KV/S/yxf0v8uX9L/MV/S/zRf0v82X9L/OV/S/zxf0v8+X9L/QV/S/0Nf0v9GX9L/SV8o/0tfKP9OXyj/UV8o/1NfKP9WXyj/WF8o/1tfKP9eXyj/YF8o/2NfKP9mXyj/aF8o/2tf0v9tX9L/cF/S/3Nf0v91X9L/eF/S/3tf0v99X9L/gF/S/4Nf0v+FX9L/iF/S/4pf0v+NXyj/kF8o/5JfKP+VXyj/mF8o/5pfKP+dXyj/n18o/6JfKP+lXyj/p18o/6pfKP+tXyj/r1/S/7Jf0v+0X9L/t1/S/7pf0v+8X9L/v1/S/8Jf0v/EX9L/x1/S/8lf0v/MX9L/z1/S/9FfKP/UXyj/118o/9lfKP/cXyj/318o/+FfKP/kXyj/5l8o/+lfKP/sXyj/7l8o//FfKP/0X9L/9l/S//lf0v/7X9L//l/S/wFf0v8DX9L/Bl/S/wlf0v8LX9L/Dl/S/xBf0v8TX9L/Fl8o/xhfKP8bXyj/Hl8o/yBfKP8jXyj/J2PS/ylj0v8sY9L/LmPS/zFj0v80Y9L/NmPS/zlj0v88Y9L/PmPS/0Fj0v9DY9L/RmPS/0ljKP9LYyj/TmMo/1FjKP9TYyj/VmMo/1hjKP9bYyj/XmMo/2BjKP9jYyj/ZmMo/2hjKP9rY9L/bWPS/3Bj0v9zY9L/dWPS/3hj0v97Y9L/fWPS/4Bj0v+DY9L/hWPS/4hj0v+KY9L/jWMo/5BjKP+SYyj/lWMo/5hjKP+aYyj/nWMo/59jKP+iYyj/pWMo/6djKP+qYyj/rWMo/69j0v+yY9L/tGPS/7dj0v+6Y9L/vGPS/79j0v/CY9L/xGPS/8dj0v/JY9L/zGPS/89j0v/RYyj/1GMo/9djKP/ZYyj/3GMo/99jKP/hYyj/5GMo/+ZjKP/pYyj/7GMo/+5jKP/xYyj/9GPS//Zj0v/5Y9L/+2PS//5j0v8BY9L/A2PS/wZj0v8JY9L/C2PS/w5j0v8QY9L/E2PS/xZjKP8YYyj/G2Mo/x5jKP8gYyj/I2Mo/ydn0v8pZ9L/LGfS/y5n0v8xZ9L/NGfS/zZn0v85Z9L/PGfS/z5n0v9BZ9L/Q2fS/0Zn0v9JZyj/S2co/05nKP9RZyj/U2co/1ZnKP9YZyj/W2co/15nKP9gZyj/Y2co/2ZnKP9oZyj/a2fS/21n0v9wZ9L/c2fS/3Vn0v94Z9L/e2fS/31n0v+AZ9L/g2fS/4Vn0v+IZ9L/imfS/41nKP+QZyj/kmco/5VnKP+YZyj/mmco/51nKP+fZyj/omco/6VnKP+nZyj/qmco/61nKP+vZ9L/smfS/7Rn0v+3Z9L/umfS/7xn0v+/Z9L/wmfS/8Rn0v/HZ9L/yWfS/8xn0v/PZ9L/0Wco/9RnKP/XZyj/2Wco/9xnKP/fZyj/4Wco/+RnKP/mZyj/6Wco/+xnKP/uZyj/8Wco//Rn0v/2Z9L/+WfS//tn0v/+Z9L/AWfS/wNn0v8GZ9L/CWfS/wtn0v8OZ9L/EGfS/xNn0v8WZyj/GGco/xtnKP8eZyj/IGco/yNnKP8na9L/KWvS/yxr0v8ua9L/MWvS/zRr0v82a9L/OWvS/zxr0v8+a9L/QWvS/0Nr0v9Ga9L/SWso/0trKP9Oayj/UWso/1NrKP9Wayj/WGso/1trKP9eayj/YGso/2NrKP9mayj/aGso/2tr0v9ta9L/cGvS/3Nr0v91a9L/eGvS/3tr0v99a9L/gGvS/4Nr0v+Fa9L/iGvS/4pr0v+Nayj/kGso/5JrKP+Vayj/mGso/5prKP+dayj/n2so/6JrKP+layj/p2so/6prKP+tayj/r2vS/7Jr0v+0a9L/t2vS/7pr0v+8a9L/v2vS/8Jr0v/Ea9L/x2vS/8lr0v/Ma9L/z2vS/9FrKP/Uayj/12so/9lrKP/cayj/32so/+FrKP/kayj/5mso/+lrKP/sayj/7mso//FrKP/0a9L/9mvS//lr0v/7a9L//mvS/wFr0v8Da9L/BmvS/wlr0v8La9L/DmvS/xBr0v8Ta9L/Fmso/xhrKP8bayj/Hmso/yBrKP8jayj/J3DS/ylw0v8scNL/LnDS/zFw0v80cNL/NnDS/zlw0v88cNL/PnDS/0Fw0v9DcNL/RnDS/0lwKP9LcCj/TnAo/1FwKP9TcCj/VnAo/1hwKP9bcCj/XnAo/2BwKP9jcCj/ZnAo/2hwKP9rcNL/bXDS/3Bw0v9zcNL/dXDS/3hw0v97cNL/fXDS/4Bw0v+DcNL/hXDS/4hw0v+KcNL/jXAo/5BwKP+ScCj/lXAo/5hwKP+acCj/nXAo/59wKP+icCj/pXAo/6dwKP+qcCj/rXAo/69w0v+ycNL/tHDS/7dw0v+6cNL/vHDS/79w0v/CcNL/xHDS/8dw0v/JcNL/zHDS/89w0v/RcCj/1HAo/9dwKP/ZcCj/3HAo/99wKP/hcCj/5HAo/+ZwKP/pcCj/7HAo/+5wKP/xcCj/9HDS//Zw0v/5cNL/+3DS//5w0v8BcNL/A3DS/wZw0v8JcNL/C3DS/w5w0v8QcNL/E3DS/xZwKP8YcCj/G3Ao/x5wKP8gcCj/I3Ao/yd00v8pdNL/LHTS/y500v8xdNL/NHTS/zZ00v85dNL/PHTS/z500v9BdNL/Q3TS/0Z00v9JdCj/S3Qo/050KP9RdCj/U3Qo/1Z0KP9YdCj/W3Qo/150KP9gdCj/Y3Qo/2Z0KP9odCj/a3TS/2100v9wdNL/c3TS/3V00v94dNL/e3TS/3100v+AdNL/g3TS/4V00v+IdNL/inTS/410KP+QdCj/knQo/5V0KP+YdCj/mnQo/510KP+fdCj/onQo/6V0KP+ndCj/qnQo/610KP+vdNL/snTS/7R00v+3dNL/unTS/7x00v+/dNL/wnTS/8R00v/HdNL/yXTS/8x00v/PdNL/0XQo/9R0KP/XdCj/2XQo/9x0KP/fdCj/4XQo/+R0KP/mdCj/6XQo/+x0KP/udCj/8XQo//R00v/2dNL/+XTS//t00v/+dNL/AXTS/wN00v8GdNL/CXTS/wt00v8OdNL/EHTS/xN00v8WdCj/GHQo/xt0KP8edCj/IHQo/yN0KP8neNL/KXjS/yx40v8ueNL/MXjS/zR40v82eNL/OXjS/zx40v8+eNL/QXjS/0N40v9GeNL/SXgo/0t4KP9OeCj/UXgo/1N4KP9WeCj/WHgo/1t4KP9eeCj/YHgo/2N4KP9meCj/aHgo/2t40v9teNL/cHjS/3N40v91eNL/eHjS/3t40v99eNL/gHjS/4N40v+FeNL/iHjS/4p40v+NeCj/kHgo/5J4KP+VeCj/mHgo/5p4KP+deCj/n3go/6J4KP+leCj/p3go/6p4KP+teCj/r3jS/7J40v+0eNL/t3jS/7p40v+8eNL/v3jS/8J40v/EeNL/x3jS/8l40v/MeNL/z3jS/9F4KP/UeCj/13go/9l4KP/ceCj/33go/+F4KP/keCj/5ngo/+l4KP/seCj/7ngo//F4KP/0eNL/9njS//l40v/7eNL//njS/wF40v8DeNL/BnjS/wl40v8LeNL/DnjS/xB40v8TeNL/Fngo/xh4KP8beCj/Hngo/yB4KP8jeCj/J3zS/yl80v8sfNL/LnzS/zF80v80fNL/NnzS/zl80v88fNL/PnzS/0F80v9DfNL/RnzS/0l8KP9LfCj/Tnwo/1F8KP9TfCj/Vnwo/1h8KP9bfCj/Xnwo/2B8KP9jfCj/Znwo/2h8KP9rfNL/bXzS/3B80v9zfNL/dXzS/3h80v97fNL/fXzS/4B80v+DfNL/hXzS/4h80v+KfNL/jXwo/5B8KP+SfCj/lXwo/5h8KP+afCj/nXwo/598KP+ifCj/pXwo/6d8KP+qfCj/rXwo/6980v+yfNL/tHzS/7d80v+6fNL/vHzS/7980v/CfNL/xHzS/8d80v/JfNL/zHzS/8980v/RfCj/1Hwo/9d8KP/ZfCj/3Hwo/998KP/hfCj/5Hwo/+Z8KP/pfCj/7Hwo/+58KP/xfCj/9HzS//Z80v/5fNL/+3zS//580v8BfNL/A3zS/wZ80v8JfNL/C3zS/w580v8QfNL/E3zS/xZ8KP8YfCj/G3wo/x58KP8gfCj/I3wo/yeA0v8pgNL/LIDS/y6A0v8xgNL/NIDS/zaA0v85gNL/PIDS/z6A0v9BgNL/Q4DS/0aA0v9JgCj/S4Ao/06AKP9RgCj/U4Ao/1aAKP9YgCj/W4Ao/16AKP9ggCj/Y4Ao/2aAKP9ogCj/a4DS/22A0v9wgNL/c4DS/3WA0v94gNL/e4DS/32A0v+AgNL/g4DS/4WA0v+IgNL/ioDS/42AKP+QgCj/koAo/5WAKP+YgCj/moAo/52AKP+fgCj/ooAo/6WAKP+ngCj/qoAo/62AKP+vgNL/soDS/7SA0v+3gNL/uoDS/7yA0v+/gNL/woDS/8SA0v/HgNL/yYDS/8yA0v/PgNL/0YAo/9SAKP/XgCj/2YAo/9yAKP/fgCj/4YAo/+SAKP/mgCj/6YAo/+yAKP/ugCj/8YAo//SA0v/2gNL/+YDS//uA0v/+gNL/AYDS/wOA0v8GgNL/CYDS/wuA0v8OgNL/EIDS/xOA0v8WgCj/GIAo/xuAKP8egCj/IIAo/yOAKP8nhNL/KYTS/yyE0v8uhNL/MYTS/zSE0v82hNL/OYTS/zyE0v8+hNL/QYTS/0OE0v9GhNL/SYQo/0uEKP9OhCj/UYQo/1OEKP9WhCj/WIQo/1uEKP9ehCj/YIQo/2OEKP9mhCj/aIQo/2uE0v9thNL/cITS/3OE0v91hNL/eITS/3uE0v99hNL/gITS/4OE0v+FhNL/iITS/4qE0v+NhCj/kIQo/5KEKP+VhCj/mIQo/5qEKP+dhCj/n4Qo/6KEKP+lhCj/p4Qo/6qEKP+thCj/r4TS/7KE0v+0hNL/t4TS/7qE0v+8hNL/v4TS/8KE0v/EhNL/x4TS/8mE0v/MhNL/z4TS/9GEKP/UhCj/14Qo/9mEKP/chCj/34Qo/+GEKP/khCj/5oQo/+mEKP/shCj/7oQo//GEKP/0hNL/9oTS//mE0v/7hNL//oTS/wGE0v8DhNL/BoTS/wmE0v8LhNL/DoTS/xCE0v8ThNL/FoQo/xiEKP8bhCj/HoQo/yCEKP8jhCj/J4ko/ymJKP8siSj/Loko/zGJKP80iSj/Noko/zmJKP88iSj/Poko/0GJKP9DiSj/Roko/0mJ0v9LidL/TonS/1GJ0v9TidL/VonS/1iJ0v9bidL/XonS/2CJ0v9jidL/ZonS/2iJ0v9riSj/bYko/3CJKP9ziSj/dYko/3iJKP97iSj/fYko/4CJKP+DiSj/hYko/4iJKP+KiSj/jYnS/5CJ0v+SidL/lYnS/5iJ0v+aidL/nYnS/5+J0v+iidL/pYnS/6eJ0v+qidL/rYnS/6+JKP+yiSj/tIko/7eJKP+6iSj/vIko/7+JKP/CiSj/xIko/8eJKP/JiSj/zIko/8+JKP/RidL/1InS/9eJ0v/ZidL/3InS/9+J0v/hidL/5InS/+aJ0v/pidL/7InS/+6J0v/xidL/9Iko//aJKP/5iSj/+4ko//6JKP8BiSj/A4ko/waJKP8JiSj/C4ko/w6JKP8QiSj/E4ko/xaJ0v8YidL/G4nS/x6J0v8gidL/I4nS/yeNKP8pjSj/LI0o/y6NKP8xjSj/NI0o/zaNKP85jSj/PI0o/z6NKP9BjSj/Q40o/0aNKP9JjdL/S43S/06N0v9RjdL/U43S/1aN0v9YjdL/W43S/16N0v9gjdL/Y43S/2aN0v9ojdL/a40o/22NKP9wjSj/c40o/3WNKP94jSj/e40o/32NKP+AjSj/g40o/4WNKP+IjSj/io0o/42N0v+QjdL/ko3S/5WN0v+YjdL/mo3S/52N0v+fjdL/oo3S/6WN0v+njdL/qo3S/62N0v+vjSj/so0o/7SNKP+3jSj/uo0o/7yNKP+/jSj/wo0o/8SNKP/HjSj/yY0o/8yNKP/PjSj/0Y3S/9SN0v/XjdL/2Y3S/9yN0v/fjdL/4Y3S/+SN0v/mjdL/6Y3S/+yN0v/ujdL/8Y3S//SNKP/2jSj/+Y0o//uNKP/+jSj/AY0o/wONKP8GjSj/CY0o/wuNKP8OjSj/EI0o/xONKP8WjdL/GI3S/xuN0v8ejdL/II3S/yON0v8nkSj/KZEo/yyRKP8ukSj/MZEo/zSRKP82kSj/OZEo/zyRKP8+kSj/QZEo/0ORKP9GkSj/SZHS/0uR0v9OkdL/UZHS/1OR0v9WkdL/WJHS/1uR0v9ekdL/YJHS/2OR0v9mkdL/aJHS/2uRKP9tkSj/cJEo/3ORKP91kSj/eJEo/3uRKP99kSj/gJEo/4ORKP+FkSj/iJEo/4qRKP+NkdL/kJHS/5KR0v+VkdL/mJHS/5qR0v+dkdL/n5HS/6KR0v+lkdL/p5HS/6qR0v+tkdL/r5Eo/7KRKP+0kSj/t5Eo/7qRKP+8kSj/v5Eo/8KRKP/EkSj/x5Eo/8mRKP/MkSj/z5Eo/9GR0v/UkdL/15HS/9mR0v/ckdL/35HS/+GR0v/kkdL/5pHS/+mR0v/skdL/7pHS//GR0v/0kSj/9pEo//mRKP/7kSj//pEo/wGRKP8DkSj/BpEo/wmRKP8LkSj/DpEo/xCRKP8TkSj/FpHS/xiR0v8bkdL/HpHS/yCR0v8jkdL/J5Uo/ymVKP8slSj/LpUo/zGVKP80lSj/NpUo/zmVKP88lSj/PpUo/0GVKP9DlSj/RpUo/0mV0v9LldL/TpXS/1GV0v9TldL/VpXS/1iV0v9bldL/XpXS/2CV0v9jldL/ZpXS/2iV0v9rlSj/bZUo/3CVKP9zlSj/dZUo/3iVKP97lSj/fZUo/4CVKP+DlSj/hZUo/4iVKP+KlSj/jZXS/5CV0v+SldL/lZXS/5iV0v+aldL/nZXS/5+V0v+ildL/pZXS/6eV0v+qldL/rZXS/6+VKP+ylSj/tJUo/7eVKP+6lSj/vJUo/7+VKP/ClSj/xJUo/8eVKP/JlSj/zJUo/8+VKP/RldL/1JXS/9eV0v/ZldL/3JXS/9+V0v/hldL/5JXS/+aV0v/pldL/7JXS/+6V0v/xldL/9JUo//aVKP/5lSj/+5Uo//6VKP8BlSj/A5Uo/waVKP8JlSj/C5Uo/w6VKP8QlSj/E5Uo/xaV0v8YldL/G5XS/x6V0v8gldL/I5XS/yeZKP8pmSj/LJko/y6ZKP8xmSj/NJko/zaZKP85mSj/PJko/z6ZKP9BmSj/Q5ko/0aZKP9JmdL/S5nS/06Z0v9RmdL/U5nS/1aZ0v9YmdL/W5nS/16Z0v9gmdL/Y5nS/2aZ0v9omdL/a5ko/22ZKP9wmSj/c5ko/3WZKP94mSj/e5ko/32ZKP+AmSj/g5ko/4WZKP+ImSj/ipko/42Z0v+QmdL/kpnS/5WZ0v+YmdL/mpnS/52Z0v+fmdL/opnS/6WZ0v+nmdL/qpnS/62Z0v+vmSj/spko/7SZKP+3mSj/upko/7yZKP+/mSj/wpko/8SZKP/HmSj/yZko/8yZKP/PmSj/0ZnS/9SZ0v/XmdL/2ZnS/9yZ0v/fmdL/4ZnS/+SZ0v/mmdL/6ZnS/+yZ0v/umdL/8ZnS//SZKP/2mSj/+Zko//uZKP/+mSj/AZko/wOZKP8GmSj/CZko/wuZKP8OmSj/EJko/xOZKP8WmdL/GJnS/xuZ0v8emdL/IJnS/yOZ0v8nnij/KZ4o/yyeKP8unij/MZ4o/zSeKP82nij/OZ4o/zyeKP8+nij/QZ4o/0OeKP9Gnij/SZ7S/0ue0v9OntL/UZ7S/1Oe0v9WntL/WJ7S/1ue0v9entL/YJ7S/2Oe0v9mntL/aJ7S/2ueKP9tnij/cJ4o/3OeKP91nij/eJ4o/3ueKP99nij/gJ4o/4OeKP+Fnij/iJ4o/4qeKP+NntL/kJ7S/5Ke0v+VntL/mJ7S/5qe0v+dntL/n57S/6Ke0v+lntL/p57S/6qe0v+tntL/r54o/7KeKP+0nij/t54o/7qeKP+8nij/v54o/8KeKP/Enij/x54o/8meKP/Mnij/z54o/9Ge0v/UntL/157S/9me0v/cntL/357S/+Ge0v/kntL/5p7S/+me0v/sntL/7p7S//Ge0v/0nij/9p4o//meKP/7nij//p4o/wGeKP8Dnij/Bp4o/wmeKP8Lnij/Dp4o/xCeKP8Tnij/Fp7S/xie0v8bntL/Hp7S/yCe0v8jntL/J6Io/ymiKP8soij/LqIo/zGiKP80oij/NqIo/zmiKP88oij/PqIo/0GiKP9Doij/RqIo/0mi0v9LotL/TqLS/1Gi0v9TotL/VqLS/1ii0v9botL/XqLS/2Ci0v9jotL/ZqLS/2ii0v9roij/baIo/3CiKP9zoij/daIo/3iiKP97oij/faIo/4CiKP+Doij/haIo/4iiKP+Koij/jaLS/5Ci0v+SotL/laLS/5ii0v+aotL/naLS/5+i0v+iotL/paLS/6ei0v+qotL/raLS/6+iKP+yoij/tKIo/7eiKP+6oij/vKIo/7+iKP/Coij/xKIo/8eiKP/Joij/zKIo/8+iKP/RotL/1KLS/9ei0v/ZotL/3KLS/9+i0v/hotL/5KLS/+ai0v/potL/7KLS/+6i0v/xotL/9KIo//aiKP/5oij/+6Io//6iKP8Boij/A6Io/waiKP8Joij/C6Io/w6iKP8Qoij/E6Io/xai0v8YotL/G6LS/x6i0v8gotL/I6LS/yemKP8ppij/LKYo/y6mKP8xpij/NKYo/zamKP85pij/PKYo/z6mKP9Bpij/Q6Yo/0amKP9JptL/S6bS/06m0v9RptL/U6bS/1am0v9YptL/W6bS/16m0v9gptL/Y6bS/2am0v9optL/a6Yo/22mKP9wpij/c6Yo/3WmKP94pij/e6Yo/32mKP+Apij/g6Yo/4WmKP+Ipij/iqYo/42m0v+QptL/kqbS/5Wm0v+YptL/mqbS/52m0v+fptL/oqbS/6Wm0v+nptL/qqbS/62m0v+vpij/sqYo/7SmKP+3pij/uqYo/7ymKP+/pij/wqYo/8SmKP/Hpij/yaYo/8ymKP/Ppij/0abS/9Sm0v/XptL/2abS/9ym0v/fptL/4abS/+Sm0v/mptL/6abS/+ym0v/uptL/8abS//SmKP/2pij/+aYo//umKP/+pij/AaYo/wOmKP8Gpij/CaYo/wumKP8Opij/EKYo/xOmKP8WptL/GKbS/xum0v8eptL/IKbS/yOm0v8nqij/Kaoo/yyqKP8uqij/Maoo/zSqKP82qij/Oaoo/zyqKP8+qij/Qaoo/0OqKP9Gqij/SarS/0uq0v9OqtL/UarS/1Oq0v9WqtL/WKrS/1uq0v9eqtL/YKrS/2Oq0v9mqtL/aKrS/2uqKP9tqij/cKoo/3OqKP91qij/eKoo/3uqKP99qij/gKoo/4OqKP+Fqij/iKoo/4qqKP+NqtL/kKrS/5Kq0v+VqtL/mKrS/5qq0v+dqtL/n6rS/6Kq0v+lqtL/p6rS/6qq0v+tqtL/r6oo/7KqKP+0qij/t6oo/7qqKP+8qij/v6oo/8KqKP/Eqij/x6oo/8mqKP/Mqij/z6oo/9Gq0v/UqtL/16rS/9mq0v/cqtL/36rS/+Gq0v/kqtL/5qrS/+mq0v/sqtL/7qrS//Gq0v/0qij/9qoo//mqKP/7qij//qoo/wGqKP8Dqij/Bqoo/wmqKP8Lqij/Dqoo/xCqKP8Tqij/FqrS/xiq0v8bqtL/HqrS/yCq0v8jqtL/J64o/ymuKP8srij/Lq4o/zGuKP80rij/Nq4o/zmuKP88rij/Pq4o/0GuKP9Drij/Rq4o/0mu0v9LrtL/Tq7S/1Gu0v9TrtL/Vq7S/1iu0v9brtL/Xq7S/2Cu0v9jrtL/Zq7S/2iu0v9rrij/ba4o/3CuKP9zrij/da4o/3iuKP97rij/fa4o/4CuKP+Drij/ha4o/4iuKP+Krij/ja7S/5Cu0v+SrtL/la7S/5iu0v+artL/na7S/5+u0v+irtL/pa7S/6eu0v+qrtL/ra7S/6+uKP+yrij/tK4o/7euKP+6rij/vK4o/7+uKP/Crij/xK4o/8euKP/Jrij/zK4o/8+uKP/RrtL/1K7S/9eu0v/ZrtL/3K7S/9+u0v/hrtL/5K7S/+au0v/prtL/7K7S/+6u0v/xrtL/9K4o//auKP/5rij/+64o//6uKP8Brij/A64o/wauKP8Jrij/C64o/w6uKP8Qrij/E64o/xau0v8YrtL/G67S/x6u0v8grtL/I67S/yeyKP8psij/LLIo/y6yKP8xsij/NLIo/zayKP85sij/PLIo/z6yKP9Bsij/Q7Io/0ayKP9JstL/S7LS/06y0v9RstL/U7LS/1ay0v9YstL/W7LS/16y0v9gstL/Y7LS/2ay0v9ostL/a7Io/22yKP9wsij/c7Io/3WyKP94sij/e7Io/32yKP+Asij/g7Io/4WyKP+Isij/irIo/42y0v+QstL/krLS/5Wy0v+YstL/mrLS/52y0v+fstL/orLS/6Wy0v+nstL/qrLS/62y0v+vsij/srIo/7SyKP+3sij/urIo/7yyKP+/sij/wrIo/8SyKP/Hsij/ybIo/8yyKP/Psij/0bLS/9Sy0v/XstL/2bLS/9yy0v/fstL/4bLS/+Sy0v/mstL/6bLS/+yy0v/ustL/8bLS//SyKP/2sij/+bIo//uyKP/+sij/AbIo/wOyKP8Gsij/CbIo/wuyKP8Osij/ELIo/xOyKP8WstL/GLLS/xuy0v8estL/ILLS/yOy0v8ntyj/Kbco/yy3KP8utyj/Mbco/zS3KP82tyj/Obco/zy3KP8+tyj/Qbco/0O3KP9Gtyj/SbfS/0u30v9Ot9L/UbfS/1O30v9Wt9L/WLfS/1u30v9et9L/YLfS/2O30v9mt9L/aLfS/2u3KP9ttyj/cLco/3O3KP91tyj/eLco/3u3KP99tyj/gLco/4O3KP+Ftyj/iLco/4q3KP+Nt9L/kLfS/5K30v+Vt9L/mLfS/5q30v+dt9L/n7fS/6K30v+lt9L/p7fS/6q30v+tt9L/r7co/7K3KP+0tyj/t7co/7q3KP+8tyj/v7co/8K3KP/Etyj/x7co/8m3KP/Mtyj/z7co/9G30v/Ut9L/17fS/9m30v/ct9L/37fS/+G30v/kt9L/5rfS/+m30v/st9L/7rfS//G30v/0tyj/9rco//m3KP/7tyj//rco/wG3KP8Dtyj/Brco/wm3KP8Ltyj/Drco/xC3KP8Ttyj/FrfS/xi30v8bt9L/HrfS/yC30v8jt9L/J7vS/ym70v8su9L/LrvS/zG70v80u9L/NrvS/zm70v88u9L/PrvS/0G70v9Du9L/RrvS/0m7KP9Luyj/Trso/1G7KP9Tuyj/Vrso/1i7KP9buyj/Xrso/2C7KP9juyj/Zrso/2i7KP9ru9L/bbvS/3C70v9zu9L/dbvS/3i70v97u9L/fbvS/4C70v+Du9L/hbvS/4i70v+Ku9L/jbso/5C7KP+Suyj/lbso/5i7KP+auyj/nbso/5+7KP+iuyj/pbso/6e7KP+quyj/rbso/6+70v+yu9L/tLvS/7e70v+6u9L/vLvS/7+70v/Cu9L/xLvS/8e70v/Ju9L/zLvS/8+70v/Ruyj/1Lso/9e7KP/Zuyj/3Lso/9+7KP/huyj/5Lso/+a7KP/puyj/7Lso/+67KP/xuyj/9LvS//a70v/5u9L/+7vS//670v8Bu9L/A7vS/wa70v8Ju9L/C7vS/w670v8Qu9L/E7vS/xa7KP8Yuyj/G7so/x67KP8guyj/I7so/ye/0v8pv9L/LL/S/y6/0v8xv9L/NL/S/za/0v85v9L/PL/S/z6/0v9Bv9L/Q7/S/0a/0v9Jvyj/S78o/06/KP9Rvyj/U78o/1a/KP9Yvyj/W78o/16/KP9gvyj/Y78o/2a/KP9ovyj/a7/S/22/0v9wv9L/c7/S/3W/0v94v9L/e7/S/32/0v+Av9L/g7/S/4W/0v+Iv9L/ir/S/42/KP+Qvyj/kr8o/5W/KP+Yvyj/mr8o/52/KP+fvyj/or8o/6W/KP+nvyj/qr8o/62/KP+vv9L/sr/S/7S/0v+3v9L/ur/S/7y/0v+/v9L/wr/S/8S/0v/Hv9L/yb/S/8y/0v/Pv9L/0b8o/9S/KP/Xvyj/2b8o/9y/KP/fvyj/4b8o/+S/KP/mvyj/6b8o/+y/KP/uvyj/8b8o//S/0v/2v9L/+b/S//u/0v/+v9L/Ab/S/wO/0v8Gv9L/Cb/S/wu/0v8Ov9L/EL/S/xO/0v8Wvyj/GL8o/xu/KP8evyj/IL8o/yO/KP8nw9L/KcPS/yzD0v8uw9L/McPS/zTD0v82w9L/OcPS/zzD0v8+w9L/QcPS/0PD0v9Gw9L/ScMo/0vDKP9Owyj/UcMo/1PDKP9Wwyj/WMMo/1vDKP9ewyj/YMMo/2PDKP9mwyj/aMMo/2vD0v9tw9L/cMPS/3PD0v91w9L/eMPS/3vD0v99w9L/gMPS/4PD0v+Fw9L/iMPS/4rD0v+Nwyj/kMMo/5LDKP+Vwyj/mMMo/5rDKP+dwyj/n8Mo/6LDKP+lwyj/p8Mo/6rDKP+twyj/r8PS/7LD0v+0w9L/t8PS/7rD0v+8w9L/v8PS/8LD0v/Ew9L/x8PS/8nD0v/Mw9L/z8PS/9HDKP/Uwyj/18Mo/9nDKP/cwyj/38Mo/+HDKP/kwyj/5sMo/+nDKP/swyj/7sMo//HDKP/0w9L/9sPS//nD0v/7w9L//sPS/wHD0v8Dw9L/BsPS/wnD0v8Lw9L/DsPS/xDD0v8Tw9L/FsMo/xjDKP8bwyj/HsMo/yDDKP8jwyj/J8fS/ynH0v8sx9L/LsfS/zHH0v80x9L/NsfS/znH0v88x9L/PsfS/0HH0v9Dx9L/RsfS/0nHKP9Lxyj/Tsco/1HHKP9Txyj/Vsco/1jHKP9bxyj/Xsco/2DHKP9jxyj/Zsco/2jHKP9rx9L/bcfS/3DH0v9zx9L/dcfS/3jH0v97x9L/fcfS/4DH0v+Dx9L/hcfS/4jH0v+Kx9L/jcco/5DHKP+Sxyj/lcco/5jHKP+axyj/ncco/5/HKP+ixyj/pcco/6fHKP+qxyj/rcco/6/H0v+yx9L/tMfS/7fH0v+6x9L/vMfS/7/H0v/Cx9L/xMfS/8fH0v/Jx9L/zMfS/8/H0v/Rxyj/1Mco/9fHKP/Zxyj/3Mco/9/HKP/hxyj/5Mco/+bHKP/pxyj/7Mco/+7HKP/xxyj/9MfS//bH0v/5x9L/+8fS//7H0v8Bx9L/A8fS/wbH0v8Jx9L/C8fS/w7H0v8Qx9L/E8fS/xbHKP8Yxyj/G8co/x7HKP8gxyj/I8co/yfM0v8pzNL/LMzS/y7M0v8xzNL/NMzS/zbM0v85zNL/PMzS/z7M0v9BzNL/Q8zS/0bM0v9JzCj/S8wo/07MKP9RzCj/U8wo/1bMKP9YzCj/W8wo/17MKP9gzCj/Y8wo/2bMKP9ozCj/a8zS/23M0v9wzNL/c8zS/3XM0v94zNL/e8zS/33M0v+AzNL/g8zS/4XM0v+IzNL/iszS/43MKP+QzCj/kswo/5XMKP+YzCj/mswo/53MKP+fzCj/oswo/6XMKP+nzCj/qswo/63MKP+vzNL/sszS/7TM0v+3zNL/uszS/7zM0v+/zNL/wszS/8TM0v/HzNL/yczS/8zM0v/PzNL/0cwo/9TMKP/XzCj/2cwo/9zMKP/fzCj/4cwo/+TMKP/mzCj/6cwo/+zMKP/uzCj/8cwo//TM0v/2zNL/+czS//vM0v/+zNL/AczS/wPM0v8GzNL/CczS/wvM0v8OzNL/EMzS/xPM0v8WzCj/GMwo/xvMKP8ezCj/IMwo/yPMKP8n0NL/KdDS/yzQ0v8u0NL/MdDS/zTQ0v820NL/OdDS/zzQ0v8+0NL/QdDS/0PQ0v9G0NL/SdAo/0vQKP9O0Cj/UdAo/1PQKP9W0Cj/WNAo/1vQKP9e0Cj/YNAo/2PQKP9m0Cj/aNAo/2vQ0v9t0NL/cNDS/3PQ0v910NL/eNDS/3vQ0v990NL/gNDS/4PQ0v+F0NL/iNDS/4rQ0v+N0Cj/kNAo/5LQKP+V0Cj/mNAo/5rQKP+d0Cj/n9Ao/6LQKP+l0Cj/p9Ao/6rQKP+t0Cj/r9DS/7LQ0v+00NL/t9DS/7rQ0v+80NL/v9DS/8LQ0v/E0NL/x9DS/8nQ0v/M0NL/z9DS/9HQKP/U0Cj/19Ao/9nQKP/c0Cj/39Ao/+HQKP/k0Cj/5tAo/+nQKP/s0Cj/7tAo//HQKP/00NL/9tDS//nQ0v/70NL//tDS/wHQ0v8D0NL/BtDS/wnQ0v8L0NL/DtDS/xDQ0v8T0NL/FtAo/xjQKP8b0Cj/HtAo/yDQKP8j0Cj/J9TS/ynU0v8s1NL/LtTS/zHU0v801NL/NtTS/znU0v881NL/PtTS/0HU0v9D1NL/RtTS/0nUKP9L1Cj/TtQo/1HUKP9T1Cj/VtQo/1jUKP9b1Cj/XtQo/2DUKP9j1Cj/ZtQo/2jUKP9r1NL/bdTS/3DU0v9z1NL/ddTS/3jU0v971NL/fdTS/4DU0v+D1NL/hdTS/4jU0v+K1NL/jdQo/5DUKP+S1Cj/ldQo/5jUKP+a1Cj/ndQo/5/UKP+i1Cj/pdQo/6fUKP+q1Cj/rdQo/6/U0v+y1NL/tNTS/7fU0v+61NL/vNTS/7/U0v/C1NL/xNTS/8fU0v/J1NL/zNTS/8/U0v/R1Cj/1NQo/9fUKP/Z1Cj/3NQo/9/UKP/h1Cj/5NQo/+bUKP/p1Cj/7NQo/+7UKP/x1Cj/9NTS//bU0v/51NL/+9TS//7U0v8B1NL/A9TS/wbU0v8J1NL/C9TS/w7U0v8Q1NL/E9TS/xbUKP8Y1Cj/G9Qo/x7UKP8g1Cj/I9Qo/yfY0v8p2NL/LNjS/y7Y0v8x2NL/NNjS/zbY0v852NL/PNjS/z7Y0v9B2NL/Q9jS/0bY0v9J2Cj/S9go/07YKP9R2Cj/U9go/1bYKP9Y2Cj/W9go/17YKP9g2Cj/Y9go/2bYKP9o2Cj/a9jS/23Y0v9w2NL/c9jS/3XY0v942NL/e9jS/33Y0v+A2NL/g9jS/4XY0v+I2NL/itjS/43YKP+Q2Cj/ktgo/5XYKP+Y2Cj/mtgo/53YKP+f2Cj/otgo/6XYKP+n2Cj/qtgo/63YKP+v2NL/stjS/7TY0v+32NL/utjS/7zY0v+/2NL/wtjS/8TY0v/H2NL/ydjS/8zY0v/P2NL/0dgo/9TYKP/X2Cj/2dgo/9zYKP/f2Cj/4dgo/+TYKP/m2Cj/6dgo/+zYKP/u2Cj/8dgo//TY0v/22NL/+djS//vY0v/+2NL/AdjS/wPY0v8G2NL/CdjS/wvY0v8O2NL/ENjS/xPY0v8W2Cj/GNgo/xvYKP8e2Cj/INgo/yPYKP8n3NL/KdzS/yzc0v8u3NL/MdzS/zTc0v823NL/OdzS/zzc0v8+3NL/QdzS/0Pc0v9G3NL/Sdwo/0vcKP9O3Cj/Udwo/1PcKP9W3Cj/WNwo/1vcKP9e3Cj/YNwo/2PcKP9m3Cj/aNwo/2vc0v9t3NL/cNzS/3Pc0v913NL/eNzS/3vc0v993NL/gNzS/4Pc0v+F3NL/iNzS/4rc0v+N3Cj/kNwo/5LcKP+V3Cj/mNwo/5rcKP+d3Cj/n9wo/6LcKP+l3Cj/p9wo/6rcKP+t3Cj/r9zS/7Lc0v+03NL/t9zS/7rc0v+83NL/v9zS/8Lc0v/E3NL/x9zS/8nc0v/M3NL/z9zS/9HcKP/U3Cj/19wo/9ncKP/c3Cj/39wo/+HcKP/k3Cj/5two/+ncKP/s3Cj/7two//HcKP/03NL/9tzS//nc0v/73NL//tzS/wHc0v8D3NL/BtzS/wnc0v8L3NL/DtzS/xDc0v8T3NL/Ftwo/xjcKP8b3Cj/Htwo/yDcKP8j3Cj/J+DS/yng0v8s4NL/LuDS/zHg0v804NL/NuDS/zng0v884NL/PuDS/0Hg0v9D4NL/RuDS/0ngKP9L4Cj/TuAo/1HgKP9T4Cj/VuAo/1jgKP9b4Cj/XuAo/2DgKP9j4Cj/ZuAo/2jgKP9r4NL/beDS/3Dg0v9z4NL/deDS/3jg0v974NL/feDS/4Dg0v+D4NL/heDS/4jg0v+K4NL/jeAo/5DgKP+S4Cj/leAo/5jgKP+a4Cj/neAo/5/gKP+i4Cj/peAo/6fgKP+q4Cj/reAo/6/g0v+y4NL/tODS/7fg0v+64NL/vODS/7/g0v/C4NL/xODS/8fg0v/J4NL/zODS/8/g0v/R4Cj/1OAo/9fgKP/Z4Cj/3OAo/9/gKP/h4Cj/5OAo/+bgKP/p4Cj/7OAo/+7gKP/x4Cj/9ODS//bg0v/54NL/++DS//7g0v8B4NL/A+DS/wbg0v8J4NL/C+DS/w7g0v8Q4NL/E+DS/xbgKP8Y4Cj/G+Ao/x7gKP8g4Cj/I+Ao/yfl0v8p5dL/LOXS/y7l0v8x5dL/NOXS/zbl0v855dL/POXS/z7l0v9B5dL/Q+XS/0bl0v9J5Sj/S+Uo/07lKP9R5Sj/U+Uo/1blKP9Y5Sj/W+Uo/17lKP9g5Sj/Y+Uo/2blKP9o5Sj/a+XS/23l0v9w5dL/c+XS/3Xl0v945dL/e+XS/33l0v+A5dL/g+XS/4Xl0v+I5dL/iuXS/43lKP+Q5Sj/kuUo/5XlKP+Y5Sj/muUo/53lKP+f5Sj/ouUo/6XlKP+n5Sj/quUo/63lKP+v5dL/suXS/7Tl0v+35dL/uuXS/7zl0v+/5dL/wuXS/8Tl0v/H5dL/yeXS/8zl0v/P5dL/0eUo/9TlKP/X5Sj/2eUo/9zlKP/f5Sj/4eUo/+TlKP/m5Sj/6eUo/+zlKP/u5Sj/8eUo//Tl0v/25dL/+eXS//vl0v/+5dL/AeXS/wPl0v8G5dL/CeXS/wvl0v8O5dL/EOXS/xPl0v8W5Sj/GOUo/xvlKP8e5Sj/IOUo/yPlKP8n6dL/KenS/yzp0v8u6dL/MenS/zTp0v826dL/OenS/zzp0v8+6dL/QenS/0Pp0v9G6dL/Seko/0vpKP9O6Sj/Ueko/1PpKP9W6Sj/WOko/1vpKP9e6Sj/YOko/2PpKP9m6Sj/aOko/2vp0v9t6dL/cOnS/3Pp0v916dL/eOnS/3vp0v996dL/gOnS/4Pp0v+F6dL/iOnS/4rp0v+N6Sj/kOko/5LpKP+V6Sj/mOko/5rpKP+d6Sj/n+ko/6LpKP+l6Sj/p+ko/6rpKP+t6Sj/r+nS/7Lp0v+06dL/t+nS/7rp0v+86dL/v+nS/8Lp0v/E6dL/x+nS/8np0v/M6dL/z+nS/9HpKP/U6Sj/1+ko/9npKP/c6Sj/3+ko/+HpKP/k6Sj/5uko/+npKP/s6Sj/7uko//HpKP/06dL/9unS//np0v/76dL//unS/wHp0v8D6dL/BunS/wnp0v8L6dL/DunS/xDp0v8T6dL/Fuko/xjpKP8b6Sj/Huko/yDpKP8j6Sj/J+0o/yntKP8s7Sj/Lu0o/zHtKP807Sj/Nu0o/zntKP887Sj/Pu0o/0HtKP9D7Sj/Ru0o/0nt0v9L7dL/Tu3S/1Ht0v9T7dL/Vu3S/1jt0v9b7dL/Xu3S/2Dt0v9j7dL/Zu3S/2jt0v9r7Sj/be0o/3DtKP9z7Sj/de0o/3jtKP977Sj/fe0o/4DtKP+D7Sj/he0o/4jtKP+K7Sj/je3S/5Dt0v+S7dL/le3S/5jt0v+a7dL/ne3S/5/t0v+i7dL/pe3S/6ft0v+q7dL/re3S/6/tKP+y7Sj/tO0o/7ftKP+67Sj/vO0o/7/tKP/C7Sj/xO0o/8ftKP/J7Sj/zO0o/8/tKP/R7dL/1O3S/9ft0v/Z7dL/3O3S/9/t0v/h7dL/5O3S/+bt0v/p7dL/7O3S/+7t0v/x7dL/9O0o//btKP/57Sj/++0o//7tKP8B7Sj/A+0o/wbtKP8J7Sj/C+0o/w7tKP8Q7Sj/E+0o/xbt0v8Y7dL/G+3S/x7t0v8g7dL/I+3S/yfxKP8p8Sj/LPEo/y7xKP8x8Sj/NPEo/zbxKP858Sj/PPEo/z7xKP9B8Sj/Q/Eo/0bxKP9J8dL/S/HS/07x0v9R8dL/U/HS/1bx0v9Y8dL/W/HS/17x0v9g8dL/Y/HS/2bx0v9o8dL/a/Eo/23xKP9w8Sj/c/Eo/3XxKP948Sj/e/Eo/33xKP+A8Sj/g/Eo/4XxKP+I8Sj/ivEo/43x0v+Q8dL/kvHS/5Xx0v+Y8dL/mvHS/53x0v+f8dL/ovHS/6Xx0v+n8dL/qvHS/63x0v+v8Sj/svEo/7TxKP+38Sj/uvEo/7zxKP+/8Sj/wvEo/8TxKP/H8Sj/yfEo/8zxKP/P8Sj/0fHS/9Tx0v/X8dL/2fHS/9zx0v/f8dL/4fHS/+Tx0v/m8dL/6fHS/+zx0v/u8dL/8fHS//TxKP/28Sj/+fEo//vxKP/+8Sj/AfEo/wPxKP8G8Sj/CfEo/wvxKP8O8Sj/EPEo/xPxKP8W8dL/GPHS/xvx0v8e8dL/IPHS/yPx0v8n9Sj/KfUo/yz1KP8u9Sj/MfUo/zT1KP829Sj/OfUo/zz1KP8+9Sj/QfUo/0P1KP9G9Sj/SfXS/0v10v9O9dL/UfXS/1P10v9W9dL/WPXS/1v10v9e9dL/YPXS/2P10v9m9dL/aPXS/2v1KP9t9Sj/cPUo/3P1KP919Sj/ePUo/3v1KP999Sj/gPUo/4P1KP+F9Sj/iPUo/4r1KP+N9dL/kPXS/5L10v+V9dL/mPXS/5r10v+d9dL/n/XS/6L10v+l9dL/p/XS/6r10v+t9dL/r/Uo/7L1KP+09Sj/t/Uo/7r1KP+89Sj/v/Uo/8L1KP/E9Sj/x/Uo/8n1KP/M9Sj/z/Uo/9H10v/U9dL/1/XS/9n10v/c9dL/3/XS/+H10v/k9dL/5vXS/+n10v/s9dL/7vXS//H10v/09Sj/9vUo//n1KP/79Sj//vUo/wH1KP8D9Sj/BvUo/wn1KP8L9Sj/DvUo/xD1KP8T9Sj/FvXS/xj10v8b9dL/HvXS/yD10v8j9dL/J/oo/yn6KP8s+ij/Lvoo/zH6KP80+ij/Nvoo/zn6KP88+ij/Pvoo/0H6KP9D+ij/Rvoo/0n60v9L+tL/TvrS/1H60v9T+tL/VvrS/1j60v9b+tL/XvrS/2D60v9j+tL/ZvrS/2j60v9r+ij/bfoo/3D6KP9z+ij/dfoo/3j6KP97+ij/ffoo/4D6KP+D+ij/hfoo/4j6KP+K+ij/jfrS/5D60v+S+tL/lfrS/5j60v+a+tL/nfrS/5/60v+i+tL/pfrS/6f60v+q+tL/rfrS/6/6KP+y+ij/tPoo/7f6KP+6+ij/vPoo/7/6KP/C+ij/xPoo/8f6KP/J+ij/zPoo/8/6KP/R+tL/1PrS/9f60v/Z+tL/3PrS/9/60v/h+tL/5PrS/+b60v/p+tL/7PrS/+760v/x+tL/9Poo//b6KP/5+ij/+/oo//76KP8B+ij/A/oo/wb6KP8J+ij/C/oo/w76KP8Q+ij/E/oo/xb60v8Y+tL/G/rS/x760v8g+tL/I/rS/yf+KP8p/ij/LP4o/y7+KP8x/ij/NP4o/zb+KP85/ij/PP4o/z7+KP9B/ij/Q/4o/0b+KP9J/tL/S/7S/07+0v9R/tL/U/7S/1b+0v9Y/tL/W/7S/17+0v9g/tL/Y/7S/2b+0v9o/tL/a/4o/23+KP9w/ij/c/4o/3X+KP94/ij/e/4o/33+KP+A/ij/g/4o/4X+KP+I/ij/iv4o/43+0v+Q/tL/kv7S/5X+0v+Y/tL/mv7S/53+0v+f/tL/ov7S/6X+0v+n/tL/qv7S/63+0v+v/ij/sv4o/7T+KP+3/ij/uv4o/7z+KP+//ij/wv4o/8T+KP/H/ij/yf4o/8z+KP/P/ij/0f7S/9T+0v/X/tL/2f7S/9z+0v/f/tL/4f7S/+T+0v/m/tL/6f7S/+z+0v/u/tL/8f7S//T+KP/2/ij/+f4o//v+KP/+/ij/Af4o/wP+KP8G/ij/Cf4o/wv+KP8O/ij/EP4o/xP+KP8W/tL/GP7S/xv+0v8e/tL/IP7S/yP+0v8nAij/KQIo/ywCKP8uAij/MQIo/zQCKP82Aij/OQIo/zwCKP8+Aij/QQIo/0MCKP9GAij/SQLS/0sC0v9OAtL/UQLS/1MC0v9WAtL/WALS/1sC0v9eAtL/YALS/2MC0v9mAtL/aALS/2sCKP9tAij/cAIo/3MCKP91Aij/eAIo/3sCKP99Aij/gAIo/4MCKP+FAij/iAIo/4oCKP+NAtL/kALS/5IC0v+VAtL/mALS/5oC0v+dAtL/nwLS/6IC0v+lAtL/pwLS/6oC0v+tAtL/rwIo/7ICKP+0Aij/twIo/7oCKP+8Aij/vwIo/8ICKP/EAij/xwIo/8kCKP/MAij/zwIo/9EC0v/UAtL/1wLS/9kC0v/cAtL/3wLS/+EC0v/kAtL/5gLS/+kC0v/sAtL/7gLS//EC0v/0Aij/9gIo//kCKP/7Aij//gIo/wECKP8DAij/BgIo/wkCKP8LAij/DgIo/xACKP8TAij/FgLS/xgC0v8bAtL/HgLS/yAC0v8jAtL/JwYo/ykGKP8sBij/LgYo/zEGKP80Bij/NgYo/zkGKP88Bij/PgYo/0EGKP9DBij/RgYo/0kG0v9LBtL/TgbS/1EG0v9TBtL/VgbS/1gG0v9bBtL/XgbS/2AG0v9jBtL/ZgbS/2gG0v9rBij/bQYo/3AGKP9zBij/dQYo/3gGKP97Bij/fQYo/4AGKP+DBij/hQYo/4gGKP+KBij/jQbS/5AG0v+SBtL/lQbS/5gG0v+aBtL/nQbS/58G0v+iBtL/pQbS/6cG0v+qBtL/rQbS/68GKP+yBij/tAYo/7cGKP+6Bij/vAYo/78GKP/CBij/xAYo/8cGKP/JBij/zAYo/88GKP/RBtL/1AbS/9cG0v/ZBtL/3AbS/98G0v/hBtL/5AbS/+YG0v/pBtL/7AbS/+4G0v/xBtL/9AYo//YGKP/5Bij/+wYo//4GKP8BBij/AwYo/wYGKP8JBij/CwYo/w4GKP8QBij/EwYo/xYG0v8YBtL/GwbS/x4G0v8gBtL/IwbS/ycKKP8pCij/LAoo/y4KKP8xCij/NAoo/zYKKP85Cij/PAoo/z4KKP9BCij/Qwoo/0YKKP9JCtL/SwrS/04K0v9RCtL/UwrS/1YK0v9YCtL/WwrS/14K0v9gCtL/YwrS/2YK0v9oCtL/awoo/20KKP9wCij/cwoo/3UKKP94Cij/ewoo/30KKP+ACij/gwoo/4UKKP+ICij/igoo/40K0v+QCtL/kgrS/5UK0v+YCtL/mgrS/50K0v+fCtL/ogrS/6UK0v+nCtL/qgrS/60K0v+vCij/sgoo/7QKKP+3Cij/ugoo/7wKKP+/Cij/wgoo/8QKKP/HCij/yQoo/8wKKP/PCij/0QrS/9QK0v/XCtL/2QrS/9wK0v/fCtL/4QrS/+QK0v/mCtL/6QrS/+wK0v/uCtL/8QrS//QKKP/2Cij/+Qoo//sKKP/+Cij/AQoo/wMKKP8GCij/CQoo/wsKKP8OCij/EAoo/xMKKP8WCtL/GArS/xsK0v8eCtL/IArS/yMK0v8nDij/KQ4o/ywOKP8uDij/MQ4o/zQOKP82Dij/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I0Uo/ydJ0v8pSdL/LEnS/y5J0v8xSdL/NEnS/zZJ0v85SdL/PEnS/z5J0v9BSdL/Q0nS/0ZJ0v9JSSj/S0ko/05JKP9RSSj/U0ko/1ZJKP9YSSj/W0ko/15JKP9gSSj/Y0ko/2ZJKP9oSSj/a0nS/21J0v9wSdL/c0nS/3VJ0v94SdL/e0nS/31J0v+ASdL/g0nS/4VJ0v+ISdL/iknS/41JKP+QSSj/kkko/5VJKP+YSSj/mkko/51JKP+fSSj/okko/6VJKP+nSSj/qkko/61JKP+vSdL/sknS/7RJ0v+3SdL/uknS/7xJ0v+/SdL/wknS/8RJ0v/HSdL/yUnS/8xJ0v/PSdL/0Uko/9RJKP/XSSj/2Uko/9xJKP/fSSj/4Uko/+RJKP/mSSj/6Uko/+xJKP/uSSj/8Uko//RJ0v/2SdL/+UnS//tJ0v/+SdL/AUnS/wNJ0v8GSdL/CUnS/wtJ0v8OSdL/EEnS/xNJ0v8WSSj/GEko/xtJKP8eSSj/IEko/yNJKP8nTdL/KU3S/yxN0v8uTdL/MU3S/zRN0v82TdL/OU3S/zxN0v8+TdL/QU3S/0NN0v9GTdL/SU0o/0tNKP9OTSj/UU0o/1NNKP9WTSj/WE0o/1tNKP9eTSj/YE0o/2NNKP9mTSj/aE0o/2tN0v9tTdL/cE3S/3NN0v91TdL/eE3S/3tN0v99TdL/gE3S/4NN0v+FTdL/iE3S/4pN0v+NTSj/kE0o/5JNKP+VTSj/mE0o/5pNKP+dTSj/n00o/6JNKP+lTSj/p00o/6pNKP+tTSj/r03S/7JN0v+0TdL/t03S/7pN0v+8TdL/v03S/8JN0v/ETdL/x03S/8lN0v/MTdL/z03S/9FNKP/UTSj/100o/9lNKP/cTSj/300o/+FNKP/kTSj/5k0o/+lNKP/sTSj/7k0o//FNKP/0TdL/9k3S//lN0v/7TdL//k3S/wFN0v8DTdL/Bk3S/wlN0v8LTdL/Dk3S/xBN0v8TTdL/Fk0o/xhNKP8bTSj/Hk0o/yBNKP8jTSj/J1Eo/ylRKP8sUSj/LlEo/zFRKP80USj/NlEo/zlRKP88USj/PlEo/0FRKP9DUSj/RlEo/0lR0v9LUdL/TlHS/1FR0v9TUdL/VlHS/1hR0v9bUdL/XlHS/2BR0v9jUdL/ZlHS/2hR0v9rUSj/bVEo/3BRKP9zUSj/dVEo/3hRKP97USj/fVEo/4BRKP+DUSj/hVEo/4hRKP+KUSj/jVHS/5BR0v+SUdL/lVHS/5hR0v+aUdL/nVHS/59R0v+iUdL/pVHS/6dR0v+qUdL/rVHS/69RKP+yUSj/tFEo/7dRKP+6USj/vFEo/79RKP/CUSj/xFEo/8dRKP/JUSj/zFEo/89RKP/RUdL/1FHS/9dR0v/ZUdL/3FHS/99R0v/hUdL/5FHS/+ZR0v/pUdL/7FHS/+5R0v/xUdL/9FEo//ZRKP/5USj/+1Eo//5RKP8BUSj/A1Eo/wZRKP8JUSj/C1Eo/w5RKP8QUSj/E1Eo/xZR0v8YUdL/G1HS/x5R0v8gUdL/I1HS/w==",
+            "phash": "2ed62efec021d02f"
+        },
+        {
+            "name": "synth_32x32_s1",
+            "gen": "synth",
+            "w": 32,
+            "h": 32,
+            "seed": 1,
+            "frame": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "rgbaB64": "DR3S/xQd0v8cHdL/JB3S/ywdKP80HSj/PB0o/0QdKP9MHdL/VB3S/1wd0v9kHdL/bB0o/3QdKP98HSj/hB0o/4wd0v+UHdL/nB3S/6Qd0v+sHSj/tB0o/7wdKP/EHSj/zB3S/9Qd0v/cHdL/5B3S/+wdKP/0HSj//B0o/wQdKP8NJNL/FCTS/xwk0v8kJNL/LCQo/zQkKP88JCj/RCQo/0wk0v9UJNL/XCTS/2Qk0v9sJCj/dCQo/3wkKP+EJCj/jCTS/5Qk0v+cJNL/pCTS/6wkKP+0JCj/vCQo/8QkKP/MJNL/1CTS/9wk0v/kJNL/7CQo//QkKP/8JCj/BCQo/w0s0v8ULNL/HCzS/yQs0v8sLCj/NCwo/zwsKP9ELCj/TCzS/1Qs0v9cLNL/ZCzS/2wsKP90LCj/fCwo/4QsKP+MLNL/lCzS/5ws0v+kLNL/rCwo/7QsKP+8LCj/xCwo/8ws0v/ULNL/3CzS/+Qs0v/sLCj/9Cwo//wsKP8ELCj/DTTS/xQ00v8cNNL/JDTS/yw0KP80NCj/PDQo/0Q0KP9MNNL/VDTS/1w00v9kNNL/bDQo/3Q0KP98NCj/hDQo/4w00v+UNNL/nDTS/6Q00v+sNCj/tDQo/7w0KP/ENCj/zDTS/9Q00v/cNNL/5DTS/+w0KP/0NCj//DQo/wQ0KP8NPNL/FDzS/xw80v8kPNL/LDwo/zQ8KP88PCj/RDwo/0w80v9UPNL/XDzS/2Q80v9sPCj/dDwo/3w8KP+EPCj/jDzS/5Q80v+cPNL/pDzS/6w8KP+0PCj/vDwo/8Q8KP/MPNL/1DzS/9w80v/kPNL/7Dwo//Q8KP/8PCj/BDwo/w1E0v8URNL/HETS/yRE0v8sRCj/NEQo/zxEKP9ERCj/TETS/1RE0v9cRNL/ZETS/2xEKP90RCj/fEQo/4REKP+MRNL/lETS/5xE0v+kRNL/rEQo/7REKP+8RCj/xEQo/8xE0v/URNL/3ETS/+RE0v/sRCj/9EQo//xEKP8ERCj/DUwo/xRMKP8cTCj/JEwo/yxM0v80TNL/PEzS/0RM0v9MTCj/VEwo/1xMKP9kTCj/bEzS/3RM0v98TNL/hEzS/4xMKP+UTCj/nEwo/6RMKP+sTNL/tEzS/7xM0v/ETNL/zEwo/9RMKP/cTCj/5Ewo/+xM0v/0TNL//EzS/wRM0v8NVCj/FFQo/xxUKP8kVCj/LFTS/zRU0v88VNL/RFTS/0xUKP9UVCj/XFQo/2RUKP9sVNL/dFTS/3xU0v+EVNL/jFQo/5RUKP+cVCj/pFQo/6xU0v+0VNL/vFTS/8RU0v/MVCj/1FQo/9xUKP/kVCj/7FTS//RU0v/8VNL/BFTS/w1cKP8UXCj/HFwo/yRcKP8sXNL/NFzS/zxc0v9EXNL/TFwo/1RcKP9cXCj/ZFwo/2xc0v90XNL/fFzS/4Rc0v+MXCj/lFwo/5xcKP+kXCj/rFzS/7Rc0v+8XNL/xFzS/8xcKP/UXCj/3Fwo/+RcKP/sXNL/9FzS//xc0v8EXNL/DWQo/xRkKP8cZCj/JGQo/yxk0v80ZNL/PGTS/0Rk0v9MZCj/VGQo/1xkKP9kZCj/bGTS/3Rk0v98ZNL/hGTS/4xkKP+UZCj/nGQo/6RkKP+sZNL/tGTS/7xk0v/EZNL/zGQo/9RkKP/cZCj/5GQo/+xk0v/0ZNL//GTS/wRk0v8NbCj/FGwo/xxsKP8kbCj/LGzS/zRs0v88bNL/RGzS/0xsKP9UbCj/XGwo/2RsKP9sbNL/dGzS/3xs0v+EbNL/jGwo/5RsKP+cbCj/pGwo/6xs0v+0bNL/vGzS/8Rs0v/MbCj/1Gwo/9xsKP/kbCj/7GzS//Rs0v/8bNL/BGzS/w10KP8UdCj/HHQo/yR0KP8sdNL/NHTS/zx00v9EdNL/THQo/1R0KP9cdCj/ZHQo/2x00v90dNL/fHTS/4R00v+MdCj/lHQo/5x0KP+kdCj/rHTS/7R00v+8dNL/xHTS/8x0KP/UdCj/3HQo/+R0KP/sdNL/9HTS//x00v8EdNL/DXzS/xR80v8cfNL/JHzS/yx8KP80fCj/PHwo/0R8KP9MfNL/VHzS/1x80v9kfNL/bHwo/3R8KP98fCj/hHwo/4x80v+UfNL/nHzS/6R80v+sfCj/tHwo/7x8KP/EfCj/zHzS/9R80v/cfNL/5HzS/+x8KP/0fCj//Hwo/wR8KP8NhNL/FITS/xyE0v8khNL/LIQo/zSEKP88hCj/RIQo/0yE0v9UhNL/XITS/2SE0v9shCj/dIQo/3yEKP+EhCj/jITS/5SE0v+chNL/pITS/6yEKP+0hCj/vIQo/8SEKP/MhNL/1ITS/9yE0v/khNL/7IQo//SEKP/8hCj/BIQo/w2M0v8UjNL/HIzS/ySM0v8sjCj/NIwo/zyMKP9EjCj/TIzS/1SM0v9cjNL/ZIzS/2yMKP90jCj/fIwo/4SMKP+MjNL/lIzS/5yM0v+kjNL/rIwo/7SMKP+8jCj/xIwo/8yM0v/UjNL/3IzS/+SM0v/sjCj/9Iwo//yMKP8EjCj/DZTS/xSU0v8clNL/JJTS/yyUKP80lCj/PJQo/0SUKP9MlNL/VJTS/1yU0v9klNL/bJQo/3SUKP98lCj/hJQo/4yU0v+UlNL/nJTS/6SU0v+slCj/tJQo/7yUKP/ElCj/zJTS/9SU0v/clNL/5JTS/+yUKP/0lCj//JQo/wSUKP8NnNL/FJzS/xyc0v8knNL/LJwo/zScKP88nCj/RJwo/0yc0v9UnNL/XJzS/2Sc0v9snCj/dJwo/3ycKP+EnCj/jJzS/5Sc0v+cnNL/pJzS/6ycKP+0nCj/vJwo/8ScKP/MnNL/1JzS/9yc0v/knNL/7Jwo//ScKP/8nCj/BJwo/w2k0v8UpNL/HKTS/ySk0v8spCj/NKQo/zykKP9EpCj/TKTS/1Sk0v9cpNL/ZKTS/2ykKP90pCj/fKQo/4SkKP+MpNL/lKTS/5yk0v+kpNL/rKQo/7SkKP+8pCj/xKQo/8yk0v/UpNL/3KTS/+Sk0v/spCj/9KQo//ykKP8EpCj/Dawo/xSsKP8crCj/JKwo/yys0v80rNL/PKzS/0Ss0v9MrCj/VKwo/1ysKP9krCj/bKzS/3Ss0v98rNL/hKzS/4ysKP+UrCj/nKwo/6SsKP+srNL/tKzS/7ys0v/ErNL/zKwo/9SsKP/crCj/5Kwo/+ys0v/0rNL//KzS/wSs0v8NtCj/FLQo/xy0KP8ktCj/LLTS/zS00v88tNL/RLTS/0y0KP9UtCj/XLQo/2S0KP9stNL/dLTS/3y00v+EtNL/jLQo/5S0KP+ctCj/pLQo/6y00v+0tNL/vLTS/8S00v/MtCj/1LQo/9y0KP/ktCj/7LTS//S00v/8tNL/BLTS/w28KP8UvCj/HLwo/yS8KP8svNL/NLzS/zy80v9EvNL/TLwo/1S8KP9cvCj/ZLwo/2y80v90vNL/fLzS/4S80v+MvCj/lLwo/5y8KP+kvCj/rLzS/7S80v+8vNL/xLzS/8y8KP/UvCj/3Lwo/+S8KP/svNL/9LzS//y80v8EvNL/DcQo/xTEKP8cxCj/JMQo/yzE0v80xNL/PMTS/0TE0v9MxCj/VMQo/1zEKP9kxCj/bMTS/3TE0v98xNL/hMTS/4zEKP+UxCj/nMQo/6TEKP+sxNL/tMTS/7zE0v/ExNL/zMQo/9TEKP/cxCj/5MQo/+zE0v/0xNL//MTS/wTE0v8NzCj/FMwo/xzMKP8kzCj/LMzS/zTM0v88zNL/RMzS/0zMKP9UzCj/XMwo/2TMKP9szNL/dMzS/3zM0v+EzNL/jMwo/5TMKP+czCj/pMwo/6zM0v+0zNL/vMzS/8TM0v/MzCj/1Mwo/9zMKP/kzCj/7MzS//TM0v/8zNL/BMzS/w3UKP8U1Cj/HNQo/yTUKP8s1NL/NNTS/zzU0v9E1NL/TNQo/1TUKP9c1Cj/ZNQo/2zU0v901NL/fNTS/4TU0v+M1Cj/lNQo/5zUKP+k1Cj/rNTS/7TU0v+81NL/xNTS/8zUKP/U1Cj/3NQo/+TUKP/s1NL/9NTS//zU0v8E1NL/DdzS/xTc0v8c3NL/JNzS/yzcKP803Cj/PNwo/0TcKP9M3NL/VNzS/1zc0v9k3NL/bNwo/3TcKP983Cj/hNwo/4zc0v+U3NL/nNzS/6Tc0v+s3Cj/tNwo/7zcKP/E3Cj/zNzS/9Tc0v/c3NL/5NzS/+zcKP/03Cj//Nwo/wTcKP8N5NL/FOTS/xzk0v8k5NL/LOQo/zTkKP885Cj/ROQo/0zk0v9U5NL/XOTS/2Tk0v9s5Cj/dOQo/3zkKP+E5Cj/jOTS/5Tk0v+c5NL/pOTS/6zkKP+05Cj/vOQo/8TkKP/M5NL/1OTS/9zk0v/k5NL/7OQo//TkKP/85Cj/BOQo/w3s0v8U7NL/HOzS/yTs0v8s7Cj/NOwo/zzsKP9E7Cj/TOzS/1Ts0v9c7NL/ZOzS/2zsKP907Cj/fOwo/4TsKP+M7NL/lOzS/5zs0v+k7NL/rOwo/7TsKP+87Cj/xOwo/8zs0v/U7NL/3OzS/+Ts0v/s7Cj/9Owo//zsKP8E7Cj/DfTS/xT00v8c9NL/JPTS/yz0KP809Cj/PPQo/0T0KP9M9NL/VPTS/1z00v9k9NL/bPQo/3T0KP989Cj/hPQo/4z00v+U9NL/nPTS/6T00v+s9Cj/tPQo/7z0KP/E9Cj/zPTS/9T00v/c9NL/5PTS/+z0KP/09Cj//PQo/wT0KP8N/NL/FPzS/xz80v8k/NL/LPwo/zT8KP88/Cj/RPwo/0z80v9U/NL/XPzS/2T80v9s/Cj/dPwo/3z8KP+E/Cj/jPzS/5T80v+c/NL/pPzS/6z8KP+0/Cj/vPwo/8T8KP/M/NL/1PzS/9z80v/k/NL/7Pwo//T8KP/8/Cj/BPwo/w0E0v8UBNL/HATS/yQE0v8sBCj/NAQo/zwEKP9EBCj/TATS/1QE0v9cBNL/ZATS/2wEKP90BCj/fAQo/4QEKP+MBNL/lATS/5wE0v+kBNL/rAQo/7QEKP+8BCj/xAQo/8wE0v/UBNL/3ATS/+QE0v/sBCj/9AQo//wEKP8EBCj/DQwo/xQMKP8cDCj/JAwo/ywM0v80DNL/PAzS/0QM0v9MDCj/VAwo/1wMKP9kDCj/bAzS/3QM0v98DNL/hAzS/4wMKP+UDCj/nAwo/6QMKP+sDNL/tAzS/7wM0v/EDNL/zAwo/9QMKP/cDCj/5Awo/+wM0v/0DNL//AzS/wQM0v8NFCj/FBQo/xwUKP8kFCj/LBTS/zQU0v88FNL/RBTS/0wUKP9UFCj/XBQo/2QUKP9sFNL/dBTS/3wU0v+EFNL/jBQo/5QUKP+cFCj/pBQo/6wU0v+0FNL/vBTS/8QU0v/MFCj/1BQo/9wUKP/kFCj/7BTS//QU0v/8FNL/BBTS/w==",
+            "phash": "fbbeaeaabb450100"
+        },
+        {
+            "name": "synth_33x35_s9",
+            "gen": "synth",
+            "w": 33,
+            "h": 35,
+            "seed": 9,
+            "frame": [
+                0,
+                0,
+                255,
+                255
+            ],
+            "rgbaB64": "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F2PS/x9j0v8mY9L/LmMo/zZjKP89Yyj/RWMo/01j0v9VY9L/XGPS/2Rj0v9sYyj/dWvS/3xr0v+Ea9L/jGvS/5NrKP+bayj/o2so/6trKP+ya9L/umvS/8Jr0v/Ka9L/0Wso/9lrKP/hayj/6Gso//Br0v/4a9L/AGvS/wdr0v8Payj/F2so/x9rKP8mayj/LmvS/zZr0v89a9L/RWvS/01rKP9Vayj/XGso/2RrKP9sa9L/dXLS/3xy0v+EctL/jHLS/5NyKP+bcij/o3Io/6tyKP+yctL/unLS/8Jy0v/KctL/0XIo/9lyKP/hcij/6HIo//By0v/4ctL/AHLS/wdy0v8Pcij/F3Io/x9yKP8mcij/LnLS/zZy0v89ctL/RXLS/01yKP9Vcij/XHIo/2RyKP9sctL/dXnS/3x50v+EedL/jHnS/5N5KP+beSj/o3ko/6t5KP+yedL/unnS/8J50v/KedL/0Xko/9l5KP/heSj/6Hko//B50v/4edL/AHnS/wd50v8PeSj/F3ko/x95KP8meSj/LnnS/zZ50v89edL/RXnS/015KP9VeSj/XHko/2R5KP9sedL/dYDS/3yA0v+EgNL/jIDS/5OAKP+bgCj/o4Ao/6uAKP+ygNL/uoDS/8KA0v/KgNL/0YAo/9mAKP/hgCj/6IAo//CA0v/4gNL/AIDS/weA0v8PgCj/F4Ao/x+AKP8mgCj/LoDS/zaA0v89gNL/RYDS/02AKP9VgCj/XIAo/2SAKP9sgNL/dYjS/3yI0v+EiNL/jIjS/5OIKP+biCj/o4go/6uIKP+yiNL/uojS/8KI0v/KiNL/0Ygo/9mIKP/hiCj/6Igo//CI0v/4iNL/AIjS/weI0v8PiCj/F4go/x+IKP8miCj/LojS/zaI0v89iNL/RYjS/02IKP9ViCj/XIgo/2SIKP9siNL/dY/S/3yP0v+Ej9L/jI/S/5OPKP+bjyj/o48o/6uPKP+yj9L/uo/S/8KP0v/Kj9L/0Y8o/9mPKP/hjyj/6I8o//CP0v/4j9L/AI/S/weP0v8Pjyj/F48o/x+PKP8mjyj/Lo/S/zaP0v89j9L/RY/S/02PKP9Vjyj/XI8o/2SPKP9sj9L/dZbS/3yW0v+EltL/jJbS/5OWKP+blij/o5Yo/6uWKP+yltL/upbS/8KW0v/KltL/0ZYo/9mWKP/hlij/6JYo//CW0v/4ltL/AJbS/weW0v8Plij/F5Yo/x+WKP8mlij/LpbS/zaW0v89ltL/RZbS/02WKP9Vlij/XJYo/2SWKP9sltL/dZ4o/3yeKP+Enij/jJ4o/5Oe0v+bntL/o57S/6ue0v+ynij/up4o/8KeKP/Knij/0Z7S/9me0v/hntL/6J7S//CeKP/4nij/AJ4o/weeKP8PntL/F57S/x+e0v8mntL/Lp4o/zaeKP89nij/RZ4o/02e0v9VntL/XJ7S/2Se0v9snij/daUo/3ylKP+EpSj/jKUo/5Ol0v+bpdL/o6XS/6ul0v+ypSj/uqUo/8KlKP/KpSj/0aXS/9ml0v/hpdL/6KXS//ClKP/4pSj/AKUo/welKP8PpdL/F6XS/x+l0v8mpdL/LqUo/zalKP89pSj/RaUo/02l0v9VpdL/XKXS/2Sl0v9spSj/dawo/3ysKP+ErCj/jKwo/5Os0v+brNL/o6zS/6us0v+yrCj/uqwo/8KsKP/KrCj/0azS/9ms0v/hrNL/6KzS//CsKP/4rCj/AKwo/wesKP8PrNL/F6zS/x+s0v8mrNL/Lqwo/zasKP89rCj/Rawo/02s0v9VrNL/XKzS/2Ss0v9srCj/dbMo/3yzKP+Esyj/jLMo/5Oz0v+bs9L/o7PS/6uz0v+ysyj/urMo/8KzKP/Ksyj/0bPS/9mz0v/hs9L/6LPS//CzKP/4syj/ALMo/wezKP8Ps9L/F7PS/x+z0v8ms9L/LrMo/zazKP89syj/RbMo/02z0v9Vs9L/XLPS/2Sz0v9ssyj/dbso/3y7KP+Euyj/jLso/5O70v+bu9L/o7vS/6u70v+yuyj/urso/8K7KP/Kuyj/0bvS/9m70v/hu9L/6LvS//C7KP/4uyj/ALso/we7KP8Pu9L/F7vS/x+70v8mu9L/Lrso/za7KP89uyj/Rbso/0270v9Vu9L/XLvS/2S70v9suyj/dcIo/3zCKP+Ewij/jMIo/5PC0v+bwtL/o8LS/6vC0v+ywij/usIo/8LCKP/Kwij/0cLS/9nC0v/hwtL/6MLS//DCKP/4wij/AMIo/wfCKP8PwtL/F8LS/x/C0v8mwtL/LsIo/zbCKP89wij/RcIo/03C0v9VwtL/XMLS/2TC0v9swij/dcko/3zJKP+EySj/jMko/5PJ0v+bydL/o8nS/6vJ0v+yySj/usko/8LJKP/KySj/0cnS/9nJ0v/hydL/6MnS//DJKP/4ySj/AMko/wfJKP8PydL/F8nS/x/J0v8mydL/Lsko/zbJKP89ySj/Rcko/03J0v9VydL/XMnS/2TJ0v9sySj/ddHS/3zR0v+E0dL/jNHS/5PRKP+b0Sj/o9Eo/6vRKP+y0dL/utHS/8LR0v/K0dL/0dEo/9nRKP/h0Sj/6NEo//DR0v/40dL/ANHS/wfR0v8P0Sj/F9Eo/x/RKP8m0Sj/LtHS/zbR0v890dL/RdHS/03RKP9V0Sj/XNEo/2TRKP9s0dL/ddjS/3zY0v+E2NL/jNjS/5PYKP+b2Cj/o9go/6vYKP+y2NL/utjS/8LY0v/K2NL/0dgo/9nYKP/h2Cj/6Ngo//DY0v/42NL/ANjS/wfY0v8P2Cj/F9go/x/YKP8m2Cj/LtjS/zbY0v892NL/RdjS/03YKP9V2Cj/XNgo/2TYKP9s2NL/dd/S/3zf0v+E39L/jN/S/5PfKP+b3yj/o98o/6vfKP+y39L/ut/S/8Lf0v/K39L/0d8o/9nfKP/h3yj/6N8o//Df0v/439L/AN/S/wff0v8P3yj/F98o/x/fKP8m3yj/Lt/S/zbf0v8939L/Rd/S/03fKP9V3yj/XN8o/2TfKP9s39L/debS/3zm0v+E5tL/jObS/5PmKP+b5ij/o+Yo/6vmKP+y5tL/uubS/8Lm0v/K5tL/0eYo/9nmKP/h5ij/6OYo//Dm0v/45tL/AObS/wfm0v8P5ij/F+Yo/x/mKP8m5ij/LubS/zbm0v895tL/RebS/03mKP9V5ij/XOYo/2TmKP9s5tL/de7S/3zu0v+E7tL/jO7S/5PuKP+b7ij/o+4o/6vuKP+y7tL/uu7S/8Lu0v/K7tL/0e4o/9nuKP/h7ij/6O4o//Du0v/47tL/AO7S/wfu0v8P7ij/F+4o/x/uKP8m7ij/Lu7S/zbu0v897tL/Re7S/03uKP9V7ij/XO4o/2TuKP9s7tL/dfXS/3z10v+E9dL/jPXS/5P1KP+b9Sj/o/Uo/6v1KP+y9dL/uvXS/8L10v/K9dL/0fUo/9n1KP/h9Sj/6PUo//D10v/49dL/APXS/wf10v8P9Sj/F/Uo/x/1KP8m9Sj/LvXS/zb10v899dL/RfXS/031KP9V9Sj/XPUo/2T1KP9s9dL/dfzS/3z80v+E/NL/jPzS/5P8KP+b/Cj/o/wo/6v8KP+y/NL/uvzS/8L80v/K/NL/0fwo/9n8KP/h/Cj/6Pwo//D80v/4/NL/APzS/wf80v8P/Cj/F/wo/x/8KP8m/Cj/LvzS/zb80v89/NL/RfzS/038KP9V/Cj/XPwo/2T8KP9s/NL/",
+            "phash": "0000000000000000"
+        }
+    ],
+    "phashFixtures": [
+        {
+            "name": "synth_320x240_s2_bottom_mask",
+            "file": "fixtures/synth_320x240_s2.png",
+            "fileSha256": "44ba3b94c43969313c71c053da04f32d86e03e8dc900fb8e4a87b286c13b20d3",
+            "source": "synth",
+            "w": 320,
+            "h": 240,
+            "rgbaSha256": "b61fe968fa5a85ea71f70c918f8a6a4d47e095f31faab3cd849a1ff68726ba1b",
+            "frame": [
+                0,
+                190,
+                255,
+                255
+            ],
+            "phash": "2bd52b01d57ed4c1"
+        },
+        {
+            "name": "synth_641x479_s7_odd_mask",
+            "file": "fixtures/synth_641x479_s7.png",
+            "fileSha256": "46e0967484107e2f7fba833b8f9d5f631be4673aa08d9d48351eed779ba85b91",
+            "source": "synth",
+            "w": 641,
+            "h": 479,
+            "rgbaSha256": "4aeb1109284b26e7ec34874a9f23f6721f37263cf2b5e1b5c025fe2146d03836",
+            "frame": [
+                3,
+                150,
+                252,
+                254
+            ],
+            "phash": "926d6c96b6698396"
+        },
+        {
+            "name": "coffee_cc0_600x400_bottom_mask",
+            "file": "fixtures/coffee_cc0_600x400.png",
+            "fileSha256": "271a12d47c0da47c333b160cd24b39dd6dcca347cdaeae95f4226968a91dcedf",
+            "source": "src/test/resources/phash/coffee_cc0.jpg",
+            "w": 600,
+            "h": 400,
+            "rgbaSha256": "8e3e54ad7fc4cd192e4f378fcac9ef65550611c38edb5a93ccf6b9e21b17ab48",
+            "frame": [
+                0,
+                200,
+                255,
+                255
+            ],
+            "phash": "14057b991b6e6567"
+        },
+        {
+            "name": "coffee_cc0_600x400_no_mask",
+            "file": "fixtures/coffee_cc0_600x400.png",
+            "fileSha256": "271a12d47c0da47c333b160cd24b39dd6dcca347cdaeae95f4226968a91dcedf",
+            "source": "src/test/resources/phash/coffee_cc0.jpg",
+            "w": 600,
+            "h": 400,
+            "rgbaSha256": "8e3e54ad7fc4cd192e4f378fcac9ef65550611c38edb5a93ccf6b9e21b17ab48",
+            "frame": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "phash": "05404f991f6d6f65"
+        }
+    ],
+    "phashGenerated": [
+        {
+            "name": "synth_2000x1500_s7_halve1_bottom_mask",
+            "gen": "synth",
+            "w": 2000,
+            "h": 1500,
+            "seed": 7,
+            "frame": [
+                0,
+                200,
+                255,
+                255
+            ],
+            "phash": "966c967c6d836992"
+        },
+        {
+            "name": "noise_2051x1027_s9_halve2_odd",
+            "gen": "noise",
+            "w": 2051,
+            "h": 1027,
+            "seed": 9,
+            "frame": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "phash": "ea0a7e6a813a73c9"
+        },
+        {
+            "name": "noise_4100x2100_s4_halve3_mask",
+            "gen": "noise",
+            "w": 4100,
+            "h": 2100,
+            "seed": 4,
+            "frame": [
+                0,
+                210,
+                255,
+                255
+            ],
+            "phash": "f5151fca1876e981"
+        },
+        {
+            "name": "synth_4100x64_s8_halve1_then_stop",
+            "gen": "synth",
+            "w": 4100,
+            "h": 64,
+            "seed": 8,
+            "frame": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "phash": "0ba12b0101fe7efe"
+        },
+        {
+            "name": "noise_1025x1025_s2_halve1_corner_mask",
+            "gen": "noise",
+            "w": 1025,
+            "h": 1025,
+            "seed": 2,
+            "frame": [
+                200,
+                0,
+                255,
+                60
+            ],
+            "phash": "5c8ff85a44fc2562"
+        },
+        {
+            "name": "synth_1024x1024_s6_no_halve",
+            "gen": "synth",
+            "w": 1024,
+            "h": 1024,
+            "seed": 6,
+            "frame": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "phash": "eb0129012bfe29fe"
+        },
+        {
+            "name": "synth_4001x63_s4_no_halve_short_side",
+            "gen": "synth",
+            "w": 4001,
+            "h": 63,
+            "seed": 4,
+            "frame": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "phash": "a1a9a92121fea1fe"
+        },
+        {
+            "name": "synth_211x149_s11_centre_mask",
+            "gen": "synth",
+            "w": 211,
+            "h": 149,
+            "seed": 11,
+            "frame": [
+                64,
+                64,
+                191,
+                191
+            ],
+            "phash": "9c8cf2de34639c61"
+        },
+        {
+            "name": "noise_2051x1027_s3_halve2_corner_dilated",
+            "gen": "noise",
+            "w": 2051,
+            "h": 1027,
+            "seed": 3,
+            "frame": [
+                0,
+                0,
+                100,
+                100
+            ],
+            "phash": "e4a234c7ed01df31"
+        },
+        {
+            "name": "noise_1025x1025_s8_halve1_mid_dilated",
+            "gen": "noise",
+            "w": 1025,
+            "h": 1025,
+            "seed": 8,
+            "frame": [
+                140,
+                120,
+                255,
+                200
+            ],
+            "phash": "a4a93e37d4370d2c"
+        },
+        {
+            "name": "synth_2047x1531_s5_halve1_odd_dilated",
+            "gen": "synth",
+            "w": 2047,
+            "h": 1531,
+            "seed": 5,
+            "frame": [
+                0,
+                150,
+                200,
+                254
+            ],
+            "phash": "165eac565eab015e"
+        },
+        {
+            "name": "noise_3001x2003_s6_halve2_odd_stamp_dilated",
+            "gen": "noise",
+            "w": 3001,
+            "h": 2003,
+            "seed": 6,
+            "frame": [
+                37,
+                180,
+                251,
+                249
+            ],
+            "phash": "db5f44b9b3d40889"
+        },
+        {
+            "name": "noise_100x100_s3_fully_masked",
+            "gen": "noise",
+            "w": 100,
+            "h": 100,
+            "seed": 3,
+            "frame": [
+                0,
+                0,
+                255,
+                255
+            ],
+            "phash": "0000000000000000"
+        },
+        {
+            "name": "noise_2050x1100_s1_halve1_fully_masked",
+            "gen": "noise",
+            "w": 2050,
+            "h": 1100,
+            "seed": 1,
+            "frame": [
+                0,
+                0,
+                255,
+                255
+            ],
+            "phash": "0000000000000000"
+        },
+        {
+            "name": "flat_640x480_grey",
+            "gen": "flat",
+            "w": 640,
+            "h": 480,
+            "seed": -8355712,
+            "frame": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "phash": "0000000000000000"
+        }
+    ],
+    "payloads": [
+        {
+            "name": "v1_case0",
+            "fields": {
+                "epochSeconds": 1759407420,
+                "tzOffsetMinutes": 540,
+                "location": {
+                    "latE5": 3012345,
+                    "lngE5": 14054321,
+                    "accuracyM": 6,
+                    "ageTens": 0,
+                    "approximate": false,
+                    "stale": false
+                },
+                "autoTime": true,
+                "clockSkewSeconds": 2,
+                "softwareKey": false,
+                "phash": "5a5a00ff12345678",
+                "frame": [
+                    4,
+                    202,
+                    252,
+                    255
+                ],
+                "keyTag": -242245093
+            },
+            "recoveryBit": 1,
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": "f18fa21b6b1a2c70"
+        },
+        {
+            "name": "v1_case1",
+            "fields": {
+                "epochSeconds": 1759407421,
+                "tzOffsetMinutes": 540,
+                "location": null,
+                "autoTime": true,
+                "clockSkewSeconds": null,
+                "softwareKey": false,
+                "phash": "0000000000000001",
+                "frame": [
+                    4,
+                    202,
+                    252,
+                    255
+                ],
+                "keyTag": -242245093
+            },
+            "recoveryBit": 1,
+            "bytesHex": "0100480068de6d3d021c0000000000000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "base64url": "AQBIAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "url": "https://daohieu91.github.io/v/#AQBIAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "expectKeyId": "f18fa21b6b1a2c70"
+        },
+        {
+            "name": "v1_case2",
+            "fields": {
+                "epochSeconds": 1759407422,
+                "tzOffsetMinutes": 420,
+                "location": {
+                    "latE5": 1023456,
+                    "lngE5": 11098765,
+                    "accuracyM": 3200,
+                    "ageTens": 14,
+                    "approximate": true,
+                    "stale": true
+                },
+                "autoTime": true,
+                "clockSkewSeconds": -1,
+                "softwareKey": false,
+                "phash": "ffffffffffffffff",
+                "frame": [
+                    0,
+                    180,
+                    255,
+                    255
+                ],
+                "keyTag": -242245093
+            },
+            "recoveryBit": 1,
+            "bytesHex": "01005f0068de6d3e01a4000f9de000a95a8d0c800effffffffffffffffffff00b4fffff18fa21bf12441cd97cd25fdb7eec6843b536bc501433210a50f168aada4b496fc2e91b52e56282cbf9fab3a88cc3ccbf02cbaf1d0b7c4d73eba5c769058a7ff2bf5775e",
+            "base64url": "AQBfAGjebT4BpAAPneAAqVqNDIAO_____________wC0___xj6Ib8SRBzZfNJf237saEO1NrxQFDMhClDxaKraS0lvwukbUuVigsv5-rOojMPMvwLLrx0LfE1z66XHaQWKf_K_V3Xg",
+            "url": "https://daohieu91.github.io/v/#AQBfAGjebT4BpAAPneAAqVqNDIAO_____________wC0___xj6Ib8SRBzZfNJf237saEO1NrxQFDMhClDxaKraS0lvwukbUuVigsv5-rOojMPMvwLLrx0LfE1z66XHaQWKf_K_V3Xg",
+            "expectKeyId": "f18fa21b6b1a2c70"
+        },
+        {
+            "name": "v1_case3",
+            "fields": {
+                "epochSeconds": 1759407423,
+                "tzOffsetMinutes": 0,
+                "location": {
+                    "latE5": -4512345,
+                    "lngE5": -123456,
+                    "accuracyM": 12,
+                    "ageTens": 0,
+                    "approximate": false,
+                    "stale": false
+                },
+                "autoTime": false,
+                "clockSkewSeconds": -32767,
+                "softwareKey": false,
+                "phash": "7fffffffffffffff",
+                "frame": [
+                    100,
+                    200,
+                    255,
+                    255
+                ],
+                "keyTag": -242245093
+            },
+            "recoveryBit": 0,
+            "bytesHex": "0100110068de6d3f0000ffbb25a7fffe1dc0000c0080017fffffffffffffff64c8fffff18fa21b696fe2eace3e39245a870e1c3a4f150fdaec3b8a4d78b98c4d65c18827e040d84e51d45c7d8e309deaf9e6dae6ab769927633e0e58fa8ad907133db9df51f995",
+            "base64url": "AQARAGjebT8AAP-7Jaf__h3AAAwAgAF__________2TI___xj6IbaW_i6s4-OSRahw4cOk8VD9rsO4pNeLmMTWXBiCfgQNhOUdRcfY4wner55trmq3aZJ2M-Dlj6itkHEz2531H5lQ",
+            "url": "https://daohieu91.github.io/v/#AQARAGjebT8AAP-7Jaf__h3AAAwAgAF__________2TI___xj6IbaW_i6s4-OSRahw4cOk8VD9rsO4pNeLmMTWXBiCfgQNhOUdRcfY4wner55trmq3aZJ2M-Dlj6itkHEz2531H5lQ",
+            "expectKeyId": "f18fa21b6b1a2c70"
+        },
+        {
+            "name": "v1_case4",
+            "fields": {
+                "epochSeconds": 1759407424,
+                "tzOffsetMinutes": -180,
+                "location": {
+                    "latE5": -2234567,
+                    "lngE5": -3012345,
+                    "accuracyM": 65535,
+                    "ageTens": 255,
+                    "approximate": false,
+                    "stale": true
+                },
+                "autoTime": true,
+                "clockSkewSeconds": 0,
+                "softwareKey": true,
+                "phash": "8000000000000000",
+                "frame": [
+                    4,
+                    202,
+                    252,
+                    255
+                ],
+                "keyTag": -242245093
+            },
+            "recoveryBit": 1,
+            "bytesHex": "01007d0068de6d40ff4cffdde739ffd20907ffffff0000800000000000000004cafcfff18fa21b04f91e49b4d28dd0e9ae62534285efeaa29a4d4c14aac7f2a556e1ef1537f1283a38cccff0c3090d08f6b9842767e1e1f04ecfab2ed2dd8c5ff0c5ac86f66c91",
+            "base64url": "AQB9AGjebUD_TP_d5zn_0gkH____AACAAAAAAAAAAATK_P_xj6IbBPkeSbTSjdDprmJTQoXv6qKaTUwUqsfypVbh7xU38Sg6OMzP8MMJDQj2uYQnZ-Hh8E7Pqy7S3Yxf8MWshvZskQ",
+            "url": "https://daohieu91.github.io/v/#AQB9AGjebUD_TP_d5zn_0gkH____AACAAAAAAAAAAATK_P_xj6IbBPkeSbTSjdDprmJTQoXv6qKaTUwUqsfypVbh7xU38Sg6OMzP8MMJDQj2uYQnZ-Hh8E7Pqy7S3Yxf8MWshvZskQ",
+            "expectKeyId": "f18fa21b6b1a2c70"
+        },
+        {
+            "name": "v1_case5",
+            "fields": {
+                "epochSeconds": 1759407425,
+                "tzOffsetMinutes": -600,
+                "location": {
+                    "latE5": -3386882,
+                    "lngE5": -15120929,
+                    "accuracyM": 30,
+                    "ageTens": 1,
+                    "approximate": false,
+                    "stale": false
+                },
+                "autoTime": true,
+                "clockSkewSeconds": 32767,
+                "softwareKey": false,
+                "phash": "0123456789abcdef",
+                "frame": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "keyTag": -242245093
+            },
+            "recoveryBit": 0,
+            "bytesHex": "0100190068de6d41fda8ffcc51feff1945df001e017fff0123456789abcdef00000000f18fa21ba4c49d6ea420fd7e93e5a7dbfcc7165fad7192742149fc5739ca0e30d0622e3621d8c12f54be635b2ca2ac28852ee709c4300a15dbb387b6d262c750ae65eed2",
+            "base64url": "AQAZAGjebUH9qP_MUf7_GUXfAB4Bf_8BI0VniavN7wAAAADxj6IbpMSdbqQg_X6T5afb_McWX61xknQhSfxXOcoOMNBiLjYh2MEvVL5jWyyirCiFLucJxDAKFduzh7bSYsdQrmXu0g",
+            "url": "https://daohieu91.github.io/v/#AQAZAGjebUH9qP_MUf7_GUXfAB4Bf_8BI0VniavN7wAAAADxj6IbpMSdbqQg_X6T5afb_McWX61xknQhSfxXOcoOMNBiLjYh2MEvVL5jWyyirCiFLucJxDAKFduzh7bSYsdQrmXu0g",
+            "expectKeyId": "f18fa21b6b1a2c70"
+        },
+        {
+            "name": "v1_case6",
+            "fields": {
+                "epochSeconds": 1099511627775,
+                "tzOffsetMinutes": 840,
+                "location": {
+                    "latE5": -9000000,
+                    "lngE5": 18000000,
+                    "accuracyM": 65534,
+                    "ageTens": 255,
+                    "approximate": true,
+                    "stale": false
+                },
+                "autoTime": true,
+                "clockSkewSeconds": 1,
+                "softwareKey": true,
+                "phash": "0000000000000000",
+                "frame": [
+                    0,
+                    0,
+                    255,
+                    255
+                ],
+                "keyTag": -242245093
+            },
+            "recoveryBit": 1,
+            "bytesHex": "01007bffffffffff0348ff76abc00112a880fffeff000100000000000000000000fffff18fa21b29887a58f6466325c210546f3461aa8741cf6f346bcbd3148275e560517aa28558336be155fc8e4d534afbaa50b9bf962102e9888d3d4dbe536bf63edf75e2ac",
+            "base64url": "AQB7______8DSP92q8ABEqiA__7_AAEAAAAAAAAAAAAA___xj6IbKYh6WPZGYyXCEFRvNGGqh0HPbzRry9MUgnXlYFF6ooVYM2vhVfyOTVNK-6pQub-WIQLpiI09Tb5Ta_Y-33XirA",
+            "url": "https://daohieu91.github.io/v/#AQB7______8DSP92q8ABEqiA__7_AAEAAAAAAAAAAAAA___xj6IbKYh6WPZGYyXCEFRvNGGqh0HPbzRry9MUgnXlYFF6ooVYM2vhVfyOTVNK-6pQub-WIQLpiI09Tb5Ta_Y-33XirA",
+            "expectKeyId": "f18fa21b6b1a2c70"
+        },
+        {
+            "name": "v1_high_s",
+            "fields": {
+                "epochSeconds": 1759407420,
+                "tzOffsetMinutes": 540,
+                "location": {
+                    "latE5": 3012345,
+                    "lngE5": 14054321,
+                    "accuracyM": 6,
+                    "ageTens": 0,
+                    "approximate": false,
+                    "stale": false
+                },
+                "autoTime": true,
+                "clockSkewSeconds": 2,
+                "softwareKey": false,
+                "phash": "5a5a00ff12345678",
+                "frame": [
+                    4,
+                    202,
+                    252,
+                    255
+                ],
+                "keyTag": -242245093
+            },
+            "recoveryBit": 0,
+            "bytesHex": "0100190068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cddd1b2b9a43f9650f9658f33acc7a769c39dcc0b77ebde91b14b0b3e06ff122314",
+            "base64url": "AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3RsrmkP5ZQ-WWPM6zHp2nDncwLd-vekbFLCz4G_xIjFA",
+            "url": "https://daohieu91.github.io/v/#AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3RsrmkP5ZQ-WWPM6zHp2nDncwLd-vekbFLCz4G_xIjFA",
+            "expectKeyId": "f18fa21b6b1a2c70"
+        },
+        {
+            "name": "v1_tampered_time",
+            "tamper": "epoch",
+            "bytesHex": "0100590068de6d3d021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebT0CHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebT0CHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_epoch_high_byte",
+            "tamper": "epoch",
+            "bytesHex": "0100590168de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAWjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAWjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_flags_auto_time",
+            "tamper": "flag_auto_time",
+            "bytesHex": "0100510068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBRAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBRAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_flags_software_key",
+            "tamper": "flag_software_key",
+            "bytesHex": "0100790068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQB5AGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQB5AGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_flags_approximate",
+            "tamper": "flag_approximate",
+            "bytesHex": "01005b0068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBbAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBbAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_flags_stale",
+            "tamper": "flag_stale",
+            "bytesHex": "01005d0068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBdAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBdAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_recovery_bit",
+            "tamper": "recovery_bit",
+            "bytesHex": "0100190068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_gps_time_removed",
+            "tamper": "flag_gps_time",
+            "bytesHex": "0100490068de6d3c021c002df6f900d673b100060080005a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBJAGjebTwCHAAt9vkA1nOxAAYAgABaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBJAGjebTwCHAAt9vkA1nOxAAYAgABaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_location_removed",
+            "tamper": "flag_location",
+            "bytesHex": "0100580068de6d3c021c0000000000000000ffff0000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBYAGjebTwCHAAAAAAAAAAA__8AAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBYAGjebTwCHAAAAAAAAAAA__8AAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_location_added",
+            "tamper": "location_added",
+            "bytesHex": "0100490068de6d3d021c00000000000000000005008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "base64url": "AQBJAGjebT0CHAAAAAAAAAAAAAUAgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "url": "https://daohieu91.github.io/v/#AQBJAGjebT0CHAAAAAAAAAAAAAUAgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_tz",
+            "tamper": "tz",
+            "bytesHex": "0100590068de6d3c021d002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHQAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHQAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_lat",
+            "tamper": "lat",
+            "bytesHex": "0100590068de6d3c021c002df6f800d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vgA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vgA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_lng",
+            "tamper": "lng",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b000060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOwAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOwAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_accuracy",
+            "tamper": "accuracy",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100070000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAcAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAcAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_age",
+            "tamper": "age",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060100025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYBAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYBAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_skew",
+            "tamper": "skew",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000035a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAANaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAANaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_phash",
+            "tamper": "phash",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567904cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeQTK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeQTK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_frame",
+            "tamper": "frame",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567805cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeAXK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeAXK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_key_tag",
+            "tamper": "key_tag",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21abaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IauqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IauqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_r",
+            "tamper": "r",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdc2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHNwuTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHNwuTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_s",
+            "tamper": "s",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023c",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPA",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPA",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_high_s_bit_not_flipped",
+            "tamper": "high_s_bit_not_flipped",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cddd1b2b9a43f9650f9658f33acc7a769c39dcc0b77ebde91b14b0b3e06ff122314",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3RsrmkP5ZQ-WWPM6zHp2nDncwLd-vekbFLCz4G_xIjFA",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3RsrmkP5ZQ-WWPM6zHp2nDncwLd-vekbFLCz4G_xIjFA",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_wrong_key_tag",
+            "tamper": "wrong_key_tag",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21a3bf317ae0705867364a0e1300bb837042ba2deb351112fe8c8e4b4263d8b2aa52d704ae89723b1e13a0a83398f3a4ee104c01d7e2f9bc13e9214d64a76b25cda",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IaO_MXrgcFhnNkoOEwC7g3BCui3rNRES_oyOS0Jj2LKqUtcErolyOx4ToKgzmPOk7hBMAdfi-bwT6SFNZKdrJc2g",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IaO_MXrgcFhnNkoOEwC7g3BCui3rNRES_oyOS0Jj2LKqUtcErolyOx4ToKgzmPOk7hBMAdfi-bwT6SFNZKdrJc2g",
+            "expectKeyId": null
+        }
+    ],
+    "rejects": [
+        {
+            "name": "nc_reserved_flag_bit7",
+            "rule": "noncanonical",
+            "fragment": "AQDZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100d90068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "derivedFrom": "v1_case0"
+        },
+        {
+            "name": "nc_reserved_flag_bit8",
+            "rule": "noncanonical",
+            "fragment": "AQFZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0101590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "derivedFrom": "v1_case0"
+        },
+        {
+            "name": "nc_reserved_flag_bit15",
+            "rule": "noncanonical",
+            "fragment": "AYBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0180590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "derivedFrom": "v1_case0"
+        },
+        {
+            "name": "nc_approximate_without_location",
+            "rule": "noncanonical",
+            "fragment": "AQBKAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "bytesHex": "01004a0068de6d3d021c0000000000000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "derivedFrom": "v1_case1"
+        },
+        {
+            "name": "nc_stale_without_location",
+            "rule": "noncanonical",
+            "fragment": "AQBMAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "bytesHex": "01004c0068de6d3d021c0000000000000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "derivedFrom": "v1_case1"
+        },
+        {
+            "name": "nc_lat_without_location",
+            "rule": "noncanonical",
+            "fragment": "AQBIAGjebT0CHAAAAAEAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "bytesHex": "0100480068de6d3d021c0000000100000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "derivedFrom": "v1_case1"
+        },
+        {
+            "name": "nc_lng_without_location",
+            "rule": "noncanonical",
+            "fragment": "AQBIAGjebT0CHAAAAACAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "bytesHex": "0100480068de6d3d021c0000000080000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "derivedFrom": "v1_case1"
+        },
+        {
+            "name": "nc_accuracy_without_location",
+            "rule": "noncanonical",
+            "fragment": "AQBIAGjebT0CHAAAAAAAAAAAAAYAgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "bytesHex": "0100480068de6d3d021c00000000000000000006008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "derivedFrom": "v1_case1"
+        },
+        {
+            "name": "nc_age_without_location",
+            "rule": "noncanonical",
+            "fragment": "AQBIAGjebT0CHAAAAAAAAAAA__8BgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "bytesHex": "0100480068de6d3d021c0000000000000000ffff018000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "derivedFrom": "v1_case1"
+        },
+        {
+            "name": "nc_skew_without_gps_flag",
+            "rule": "noncanonical",
+            "fragment": "AQBIAGjebT0CHAAAAAAAAAAA__8AAAUAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "bytesHex": "0100480068de6d3d021c0000000000000000ffff000005000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "derivedFrom": "v1_case1"
+        },
+        {
+            "name": "gps_time_with_skew_none",
+            "rule": "gps_time_without_skew",
+            "fragment": "AQBYAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "bytesHex": "0100580068de6d3d021c0000000000000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5"
+        },
+        {
+            "name": "v1_tampered_r_zero",
+            "rule": "signature_range",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b00000000000000000000000000000000000000000000000000000000000000002e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+        },
+        {
+            "name": "v1_tampered_s_eq_n",
+            "rule": "signature_range",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3_____AAAAAP__________vOb6racXnoTzucrC_GMlUQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cddffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551"
+        },
+        {
+            "name": "v1_inverted_frame",
+            "rule": "inverted_frame",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeP3K_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff12345678fdcafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+        },
+        {
+            "name": "v1_inverted_frame_y",
+            "rule": "inverted_frame",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeAT__P7xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804fffcfef18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+        },
+        {
+            "name": "version_0",
+            "rule": "version",
+            "fragment": "AABZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0000590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+        },
+        {
+            "name": "version_2",
+            "rule": "version",
+            "fragment": "AgBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0200590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+        },
+        {
+            "name": "length_102",
+            "rule": "length",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VEC",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd5102"
+        },
+        {
+            "name": "length_104",
+            "rule": "length",
+            "fragmentRule": "fragment_too_long",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQA",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d00"
+        },
+        {
+            "name": "empty",
+            "rule": "empty",
+            "fragment": "",
+            "bytesHex": ""
+        },
+        {
+            "name": "b64_nonzero_pad_bits",
+            "rule": "base64url_pad_bits",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPR",
+            "derivedFrom": "v1_case0"
+        },
+        {
+            "name": "b64_length_137",
+            "rule": "base64url_length",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECP"
+        },
+        {
+            "name": "b64_standard_alphabet_plus",
+            "rule": "base64url_char",
+            "fragment": "+QBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ"
+        },
+        {
+            "name": "b64_padding_char",
+            "rule": "base64url_char",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECP="
+        },
+        {
+            "name": "fragment_139",
+            "rule": "fragment_too_long",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQA"
+        },
+        {
+            "name": "fragment_4096",
+            "rule": "fragment_too_long",
+            "fragment": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+    ],
+    "hamming": [
+        {
+            "a": "0000000000000000",
+            "b": "0000000000000000",
+            "d": 0
+        },
+        {
+            "a": "0000000000000000",
+            "b": "ffffffffffffffff",
+            "d": 64
+        },
+        {
+            "a": "0f0f0f0f0f0f0f0f",
+            "b": "00ff00ff00ff00ff",
+            "d": 32
+        },
+        {
+            "a": "8000000000000000",
+            "b": "0000000000000001",
+            "d": 2
+        },
+        {
+            "a": "5a5a00ff12345678",
+            "b": "5a5a00ff12345679",
+            "d": 1
+        }
+    ]
+}
