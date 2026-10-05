@@ -1,5 +1,5 @@
 import { URL_PREFIX } from './config';
-import { MAX_FRAGMENT_LEN, encodeHeader, type SealPayload } from './payload';
+import { HEADER_V1, MAX_FRAGMENT_LEN, encodeHeader, type SealPayload } from './payload';
 import type { Analysis } from './analyze';
 import type { Check, L2Summary } from './verdict';
 /**
@@ -23,10 +23,12 @@ export function validReply(m: unknown): Reply | null {
   if (!isObj(m)) return null;
   if (m.ok === false) return { ok: false, ...(m.need === 'pixels' ? { need: 'pixels' as const } : {}), ...(m.err === 'oversize' || m.err === 'format' ? { err: m.err as 'oversize' | 'format' } : {}) };
   if (m.ok !== true || !isObj(m.r) || !isObj(m.dec)) return null;
-  const { url, hamming, texture } = m.r; const d = m.dec;
+  const { url, hamming, texture, qrInPicture, geometry } = m.r; const d = m.dec;
   const urlOk = url === null || (typeof url === 'string' && url.startsWith(URL_PREFIX) && url.length <= URL_PREFIX.length + MAX_FRAGMENT_LEN);
   if (!urlOk || !(hamming === null || isInt(hamming, 0, 64)) || !(texture === null || isInt(texture, 0, 2 ** 36 - 1)) || !isInt(d.w, 1, 8192) || !isInt(d.h, 1, 8192) || !['plain', 'resize', 'page'].includes(d.via as string)) return null;
-  return { ok: true, r: { url: url as string | null, hamming: hamming as number | null, texture: texture as number | null }, dec: { w: d.w, h: d.h, via: d.via as 'plain' | 'resize' | 'page' } };
+  if (typeof qrInPicture !== 'boolean' || !(geometry === null || ['ok', 'mismatch', 'unknown'].includes(geometry as string))) return null;
+  return { ok: true, r: { url: url as string | null, hamming: hamming as number | null, texture: texture as number | null, qrInPicture, geometry: geometry as Analysis['geometry'] },
+    dec: { w: d.w, h: d.h, via: d.via as 'plain' | 'resize' | 'page' } };
 }
 const STATUS = ['pass', 'warn', 'fail', 'info'];
 function validCheck(c: unknown): Check | null {
@@ -45,7 +47,7 @@ export function validL2Reply(m: unknown): { summary: L2Summary; payload: SealPay
   let payload: SealPayload | null = null;
   if (m.payload !== null && m.payload !== undefined) {
     const p = m.payload; if (!isObj(p) || !isObj(p.fields) || !(p.signature instanceof Uint8Array) || p.signature.length !== 64
-      || !(p.signed instanceof Uint8Array) || p.signed.length !== 39 || (p.recoveryBit !== 0 && p.recoveryBit !== 1)) return null;
+      || !(p.signed instanceof Uint8Array) || p.signed.length !== HEADER_V1 || (p.recoveryBit !== 0 && p.recoveryBit !== 1)) return null;
     try { const h = encodeHeader(p.fields as unknown as SealPayload['fields'], 0); if (h.some((x, i) => x !== (p.signed as Uint8Array)[i])) return null; } catch { return null; }
     payload = p as unknown as SealPayload;
   }

@@ -39,13 +39,39 @@ describe('i18n', () => {
   });
   it('uses the P24/P25 wording (supersedes spec §7.3)', () => {
     const vi = dict('vi'), en = dict('en');
-    expect(en.verdict_green).toBe('Unchanged since it was sealed'); expect(vi.verdict_green).toBe('Chưa bị sửa kể từ lúc niêm phong');
+    expect(en.verdict_green_exact).toBe('Unchanged since it was sealed'); expect(vi.verdict_green_exact).toBe('Chưa bị sửa kể từ lúc niêm phong');
     expect(en.verdict_info_not_compared).toBe('Seal is valid — photo not compared yet'); expect(vi.verdict_info_not_compared).toBe('Niêm phong hợp lệ — chưa so ảnh');
     expect(en.label_time).toBe('Sealed at'); expect(vi.label_time).toBe('Thời điểm niêm phong'); expect(vi.label_place).toBe('Vị trí niêm phong');
     expect(en.proves_title_neutral).toBe('What this check shows'); expect(vi.proves_title_neutral).toBe('Kiểm tra này cho thấy gì');
     expect(en.footer_app).toBe('Checked with CameraStamp — get the app'); expect(vi.footer_app).toBe('Kiểm tra bằng CameraStamp — tải app');
     expect(vi.verdict_red).toBe('Ảnh hoặc thông tin đã bị thay đổi'); expect(vi.footer_local).toBe('Kiểm tra ngay trên máy bạn');
     expect(vi.footer_upload).toBe('Ảnh không được tải lên');
+  });
+  // P44: level 1 is a 64-bit perceptual hash: it shows the picture MATCHES what was sealed, never that it is unchanged or that any edit
+  // shows. "Unchanged" belongs to the exact bytes of a bound original only (verdict_green_exact, check_content_c2pa, l2_signature_ok).
+  it('P44: level-1 copy says "matches what was sealed" and never claims unchanged / not edited / any change detected', () => {
+    const en = dict('en'), vi = dict('vi');
+    expect(en.verdict_green).toBe('Matches what was sealed'); expect(vi.verdict_green).toBe('Khớp với lúc niêm phong');
+    expect(en.proves_small_edits).toMatch(/^Noticeable changes to the picture are detected; tiny edits may not be/);
+    expect(vi.proves_small_edits).toMatch(/^Thay đổi đáng kể trên ảnh sẽ bị phát hiện; chỉnh sửa rất nhỏ có thể không/);
+    const L1 = ['verdict_green', 'verdict_green_sub', 'proves_l1', 'proves_small_edits', 'check_image_match', 'verdict_maybe_edited', 'check_image_maybe'];
+    const OVER: Record<string, RegExp> = { en: /unchanged|not (been )?edited|not changed|any change|one detail|untouched/i,
+      vi: /không đổi|chưa bị sửa|không bị (thay đổi|sửa)|mọi thay đổi|một chi tiết/i, hi: /नहीं बदल|बदला नहीं/, id: /tidak berubah|tidak diedit|setiap perubahan/i,
+      es: /sin cambios|no ha cambiado|cualquier cambio/i, 'pt-BR': /sem altera|não mud|qualquer altera/i, it: /invariat|non è cambiat|qualsiasi modific/i,
+      pl: /bez zmian|nie zmienił|każda zmiana/i, th: /ไม่เปลี่ยน/, ms: /tidak berubah|sebarang perubahan/i };
+    for (const l of LOCALES) { const d = dict(l);
+      for (const k of L1) expect(OVER[l].test(d[k]), `${l}.${k} overclaims: "${d[k]}"`).toBe(false);
+      expect(d.verdict_green, l).not.toBe(d.verdict_green_exact); }
+  });
+  it('P42 / P41 / I4 copy: withheld location, maybe cropped, code not in the photo', () => {
+    const en = dict('en'), vi = dict('vi');
+    expect(en.info_location_withheld).toBe('Location not included in this seal'); expect(vi.info_location_withheld).toBe('Vị trí không nằm trong niêm phong này');
+    expect(en.verdict_maybe_cropped).toBe('This photo may have been cropped'); expect(vi.verdict_maybe_cropped).toBe('Ảnh này có thể đã bị cắt');
+    for (const l of LOCALES) { const d = dict(l);
+      expect(d.info_location_withheld, l).not.toBe(d.info_no_location);
+      for (const k of ['info_location_withheld', 'verdict_maybe_cropped', 'check_geometry_mismatch', 'verdict_code_not_in_photo', 'check_code_not_in_photo', 'verdict_l2_resaved'])
+        expect(d[k], `${l}.${k}`).toBeTypeOf('string'); }
+    expect(en.info_location_withheld).not.toMatch(/no location/i);
   });
   it('has the NO_FINGERPRINT copy (P26/P28) in every locale', () => {
     const en = dict('en'), vi = dict('vi');

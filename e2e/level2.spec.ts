@@ -53,12 +53,27 @@ test('the same original against Google\'s real roots (the live page today): YELL
   await expect(line(page, 'l2_chain_bad')).toHaveText("Key not certified by Google");
   await expect(line(page, 'l2_real_device')).toHaveCount(0);
 });
-test('tampered original (one byte of the picture changed): red, "the file was changed"', async ({ page }) => {
+test('tampered original (one byte of the picture changed): never green, "the file was changed"', async ({ page }) => {
   const b = readFileSync('e2e/fixtures/original_hw.jpg'); const sos = b.lastIndexOf(Buffer.from([0xff, 0xda])); b[sos + 4000] ^= 0x01;
   await withFakeRoot(page); await page.goto('./'); await pick(page, { name: 'tampered.jpg', mimeType: 'image/jpeg', buffer: b });
-  await expect(band(page)).toHaveAttribute('data-verdict', 'red');
+  await expect(band(page)).toHaveAttribute('data-verdict', /red|yellow/);    // M13: yellow only if the damaged picture still matches its own QR
   await expect(line(page, 'l2_invalid')).toHaveText("The original file's signature is not valid: the file was changed");
   await expect(line(page, 'l2_chain_ok')).toHaveCount(0);
+});
+test('M13: an original re-saved with its C2PA data kept (bytes changed, picture identical) is yellow "re-saved or edited", not red', async ({ page }) => {
+  const b = readFileSync('e2e/fixtures/original_hw.jpg'); const com = Buffer.from([0xff, 0xfe, 0x00, 0x0a, ...Buffer.from('resaved!')]);
+  const buf = Buffer.concat([b.subarray(0, 2), com, b.subarray(2)]);                 // a JPEG comment after SOI: the data hash breaks, no pixel moves
+  await withFakeRoot(page); await page.goto('./'); await pick(page, { name: 'resaved.jpg', mimeType: 'image/jpeg', buffer: buf });
+  await expect(band(page)).toHaveAttribute('data-verdict', 'yellow');
+  await expect(band(page)).toHaveText('Re-saved or edited after sealing — the picture still matches its seal');
+  await expect(line(page, 'l2_invalid')).toBeVisible(); await expect(line(page, 'proves_l1')).toHaveCount(0);
+});
+test('I2: a time-stamp from a self-made TSA carrying DigiCert\'s names gets no "confirmed by" line', async ({ page, browserName }) => {
+  test.skip(!ROUTABLE(browserName), 'needs the injected fake root (no routing on WebKit)');
+  await withFakeRoot(page); await page.goto('./'); await pick(page, 'original_tsa_forged.jpg');
+  await expect(line(page, 'l2_signature_ok')).toBeVisible();
+  await expect(line(page, 'l2_no_tsa')).toHaveText('No independent timestamp'); await expect(line(page, 'l2_tsa')).toHaveCount(0);
+  await expect(page.locator('#app')).not.toContainText('DigiCert');
 });
 test('software attestation (API 24–27 / emulator shape): yellow "software key — lower trust", app and boot unknown', async ({ page }) => {
   await withFakeRoot(page); await page.goto('./'); await pick(page, 'original_sw.jpg');

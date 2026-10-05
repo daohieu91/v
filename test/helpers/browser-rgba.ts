@@ -4,6 +4,6 @@
  * decoder) gives different pixels on both, and up to +10 bits of distance on the Task 10B corpus.
  */
 export const BROWSER_RGBA: Record<string, string> = {
-  'sealed_1600_q70.jpg': '7f4ebe2cc1ca69b0bcc65cb4771e6523b29f3a255d3bc2bc5136d844afbb357e',   // carries an sRGB ICC profile
-  'dark_sealed.jpg': '692bf19dac7043bb9b73f385985a9af1209eb39a9fa3fead67d68864984c03ee',
+  'sealed_1600_q70.jpg': 'c2f322de4ab0a613c56d6aa4b771ef7006dda6db8d242bb1b9990258c5acf53c',   // carries an sRGB ICC profile
+  'dark_sealed.jpg': '688b8ff4d514ffc6ddb4706f2f8b22cb03dd41189616f8910877234b625d99fb',
 };

@@ -1,7 +1,8 @@
 {
   "brand": "CameraStamp",
   "title": "Verifica una foto",
-  "verdict_green": "Invariata da quando è stata sigillata",
+  "verdict_green": "Corrisponde a quanto sigillato",
+  "verdict_green_exact": "Invariata da quando è stata sigillata",
   "verdict_info_not_compared": "Il sigillo è valido — foto non ancora confrontata",
   "verdict_maybe_edited": "Potrebbe essere stata leggermente modificata",
   "verdict_red": "La foto o le informazioni sono state cambiate",
@@ -21,7 +22,7 @@
   "check_content_c2pa": "Il contenuto del file originale non è cambiato",
   "device_unknown": "Dispositivo reale non ancora confermato — serve il file originale",
   "proves_title": "Che cosa dimostra",
-  "proves_l1": "Questa foto e questi dati non sono cambiati da quando sono stati sigillati con la chiave {id}",
+  "proves_l1": "I dati mostrati qui sono esattamente quelli sigillati dalla chiave {id}, e l'immagine corrisponde a quanto sigillato",
   "proves_not_device": "Non indica quale app o telefono ha creato il sigillo: per confermare un dispositivo reale serve il file originale",
   "proves_screen": "Non si può rilevare una foto scattata a uno schermo che mostra un'immagine falsa",
   "label_time": "Sigillata il",
@@ -83,5 +84,13 @@
   "l2_error": "Impossibile leggere questo file qui: prova un altro browser o un computer",
   "verdict_l2_bad": "Il sigillo del file originale non è affidabile",
   "error_too_big_video": "Questo video supera i 100 MB e non può essere controllato qui",
-  "verdict_uncertified": "Chiave non certificata — affidabilità minore"
+  "verdict_uncertified": "Chiave non certificata — affidabilità minore",
+  "verdict_green_sub": "Sigillato con la chiave {id} — app e telefono che l'hanno creato non sono confermati",
+  "proves_small_edits": "Le modifiche evidenti all'immagine vengono rilevate; quelle minime forse no (il file originale prova ogni byte)",
+  "info_location_withheld": "La posizione non è inclusa in questo sigillo",
+  "verdict_code_not_in_photo": "Nessun codice leggibile in questa foto — confrontata solo con il sigillo del link",
+  "check_code_not_in_photo": "Il codice della foto stessa non è stato letto, quindi nulla nella foto la collega a questo sigillo",
+  "verdict_maybe_cropped": "Questa foto potrebbe essere stata ritagliata",
+  "check_geometry_mismatch": "La forma della foto o la posizione del codice non corrispondono alla foto sigillata: potrebbe essere stata ritagliata o incorniciata (per esempio, uno screenshot)",
+  "verdict_l2_resaved": "Salvata di nuovo o modificata dopo la sigillatura — l'immagine corrisponde ancora al suo sigillo"
 }

@@ -8,7 +8,7 @@ import { MAX_VIDEO_BYTES, URL_PREFIX } from './config';
 import { decodeFragment, payloadFromUrl, sealIdentity, type SealPayload } from './payload';
 import type { Analysis } from './analyze';
 import { render } from './ui';
-import { verdict, type L2Summary, type Verdict } from './verdict';
+import { verdict, type L2Summary, type Picture, type Verdict } from './verdict';
 
 const root = document.getElementById('app')!;
 let locale = pickLocale(navigator.languages?.length ? navigator.languages : [navigator.language ?? 'en']);
@@ -22,8 +22,8 @@ const draw = () => render(root, { dict, locale, ...state, attested, onPick: pick
 const fragment = () => location.hash.slice(1);
 function fromHash(): SealPayload | null { try { return decodeFragment(fragment()); } catch { return null; } }
 /** The verdict comes from checkSeal alone (never from a recovered key); `payload` null or a failed seal is red. */
-function show(payload: SealPayload | null, h: number | null, texture: number | null, l2: L2Summary | null, notice: string | null = null) {
-  state = { verdict: verdict({ payload, seal: payload ? checkSeal(payload) : null, hamming: h, texture, level2: l2 }), payload, message: null, notice }; draw(); }
+function show(payload: SealPayload | null, h: number | null, texture: number | null, l2: L2Summary | null, notice: string | null = null, picture: Picture | null = null) {
+  state = { verdict: verdict({ payload, seal: payload ? checkSeal(payload) : null, hamming: h, texture, level2: l2, picture }), payload, message: null, notice }; draw(); }
 const fail = (message: string) => { state = { verdict: null, payload: null, message, notice: null }; draw(); };
 class Refused extends Error { constructor(readonly key: string) { super(key); } }
 
@@ -61,16 +61,17 @@ async function pick(f: File) {
   try {
     const c2pa = await sniffC2pa(f);
     let payload: SealPayload | null = null; let h: number | null = null; let tex: number | null = null; let code = false; let r0url: string | null = null;
+    let picture: Picture | null = null;
     if (!video) {
       const r = await analyzeOffThread(f, fromHash() ? fragment() : null);
-      r0url = r.url;
+      r0url = r.url; picture = { qr: r.qrInPicture, geometry: r.geometry };
       if (r.url) { code = true; payload = payloadFromUrl(r.url); h = payload ? r.hamming : null; tex = payload ? r.texture : null; }
     }
     // The photo's own seal wins over the link's; say so when they differ (identity = header + r, P18 a), and make the URL match.
     const linked = fromHash(); let notice: string | null = null;
     if (payload && linked && sealIdentity(payload) !== sealIdentity(linked)) notice = 'notice_other_seal';
     // Only when the page was opened from a link: a photo checked on the bare page leaves nothing in the URL or the history.
-    if (payload && r0url && fragment() && r0url !== URL_PREFIX + fragment()) history.replaceState(null, '', '#' + r0url.slice(URL_PREFIX.length));
+    if (payload && r0url && picture?.qr && fragment() && r0url !== URL_PREFIX + fragment()) history.replaceState(null, '', '#' + r0url.slice(URL_PREFIX.length));
     const seal = payload ? checkSeal(payload) : null;
     const l2 = c2pa ? await runLevel2(f, seal?.ok ? seal.keyIdHex : null) : null;
     if (!payload && l2?.payload) payload = l2.payload;                              // a video original: level 2 carries the fields
@@ -78,7 +79,7 @@ async function pick(f: File) {
     if (!payload && !code && !(l2?.payload || l2?.summary.kind === 'invalid')) return fail('no_code');   // e.g. another app's C2PA file
     // The file's binding stands for the content only if the seal in the file IS the seal shown (P30; identity = header + r, P18 a).
     const l2s = l2 && payload && !(l2.payload && sealIdentity(l2.payload) === sealIdentity(payload)) ? { ...l2.summary, bound: false } : l2?.summary ?? null;
-    show(payload, h, tex, l2s, notice);
+    show(payload, h, tex, l2s, notice, picture);
   } catch (e) { fail(e instanceof Refused ? e.key : 'error_read'); }
   finally { busy = false; }
 }

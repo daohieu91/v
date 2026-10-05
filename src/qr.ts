@@ -1,11 +1,15 @@
 import jsQR from 'jsqr';
 import { URL_PREFIX } from './config';
+import type { Finders } from './geometry';
 export type Img = { data: Uint8ClampedArray; w: number; h: number };
 export type Step = { kind: 'full' | 'scale' | 'corner' | 'band'; x0: number; y0: number; w: number; h: number };
 const SCALES = [1600, 1000] as const;
 
-const jsqrScan = (im: Img): string | null => {
-  const r = jsQR(im.data, im.w, im.h, { inversionAttempts: 'dontInvert' }); return r && r.data.startsWith(URL_PREFIX) ? r.data : null; };
+/** A seal URL read from the picture, with jsQR's finder-pattern centres (null if the scanner gives none) in the scanned buffer's pixels. */
+export type Hit = { url: string; finders: Finders | null };
+const jsqrScan = (im: Img): Hit | null => {
+  const r = jsQR(im.data, im.w, im.h, { inversionAttempts: 'dontInvert' }); if (!r || !r.data.startsWith(URL_PREFIX)) return null;
+  const l = r.location; return { url: r.data, finders: { tl: l.topLeftFinderPattern, tr: l.topRightFinderPattern, bl: l.bottomLeftFinderPattern } }; };
 
 /**
  * Ruling P22, in this order: the whole image; downscaled to ~1600 and ~1000 px wide (never upscaled: zxing/jsQR miss some full-size
@@ -38,11 +42,19 @@ function crop(im: Img, s: Step): Img {
   for (let y = 0; y < s.h; y++) { const a = ((y + s.y0) * im.w + s.x0) * 4; out.set(im.data.subarray(a, a + s.w * 4), y * s.w * 4); }
   return { data: out, w: s.w, h: s.h };
 }
-/** The seal URL in the picture, or null after every step of the plan missed. Each step's buffer is dropped before the next. */
-export function findSealUrl(im: Img, scan: (im: Img) => string | null = jsqrScan): string | null {
+/**
+ * The seal in the picture, or null after every step of the plan missed. Each step's buffer is dropped before the next. The finder
+ * centres are mapped back to the full picture (a scale step is a uniform box resize: × w / s.w; a crop step adds its origin), for P41.
+ */
+export function findSeal(im: Img, scan: (im: Img) => Hit | null = jsqrScan): Hit | null {
   for (const s of scanPlan(im.w, im.h)) {
     const r = scan(s.kind === 'full' ? im : s.kind === 'scale' ? resize(im, s.w, s.h) : crop(im, s));
-    if (r) return r;
+    if (!r) continue;
+    const kx = s.kind === 'scale' ? im.w / s.w : 1, ky = s.kind === 'scale' ? im.h / s.h : 1;
+    const map = (p: { x: number; y: number }) => ({ x: p.x * kx + s.x0, y: p.y * ky + s.y0 });
+    return { url: r.url, finders: r.finders ? { tl: map(r.finders.tl), tr: map(r.finders.tr), bl: map(r.finders.bl) } : null };
   }
   return null;
 }
+/** The seal URL in the picture, or null. */
+export const findSealUrl = (im: Img, scan?: (im: Img) => Hit | null): string | null => findSeal(im, scan)?.url ?? null;

@@ -27,6 +27,7 @@ export function render(root: HTMLElement, s: View) {
   const v = s.verdict;
   root.append(el('section', { 'data-verdict': v === 'pending' ? 'pending' : v ? v.color : 'none', class: 'band', role: 'status' },
     v === 'pending' ? t(d, 'working') : v ? line(d, v.headline, v.checks.find(c => c.key === v.headline)?.params) : ''));
+  if (v && v !== 'pending' && v.sub) root.append(el('p', { class: 'band-sub', 'data-sub': v.sub.key }, line(d, v.sub.key, v.sub.params)));
   if (s.message) root.append(el('p', { class: 'message' }, line(d, s.message)));
   if (s.notice && v && v !== 'pending') root.append(el('p', { class: 'message notice', 'data-notice': s.notice }, line(d, s.notice)));
   const p = s.payload?.fields;

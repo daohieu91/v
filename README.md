@@ -24,8 +24,16 @@ This is a best-effort defence, not a guarantee.
 
 - Open `https://daohieu91.github.io/v/#<seal>` (the phone camera opens it from the QR): the seal is checked at once and the band is
   yellow, "seal is valid — photo not compared yet". Choose the received photo to compare its content: green, yellow or red.
-- The verdict comes only from `checkSeal` (the key tag check). A level-1 green means "this photo and these details are unchanged since
-  key <8-byte id> sealed them" (shown on green only). It does not prove which app or phone made the seal: that needs the original file (level 2, `l2.html`).
+- The verdict comes only from `checkSeal` (the key tag check). A level-1 green means "the details are exactly as key <8-byte id> sealed them,
+  and the picture matches what was sealed" (P44: a 64-bit perceptual hash sees noticeable changes, not tiny retouches; only a bound original
+  file, level 2, is "unchanged"). It does not prove which app or phone made the seal: that needs the original file (level 2, `l2.html`).
+- Payload v1 is 105 bytes (URL 171 chars, fragment ≤ 140): flag bit 8 = LOCATION_WITHHELD (P42: the stamp did not show coordinates, so the
+  seal has none; the page says "Location not included in this seal"), and a signed aspect at header bytes 39–40 (P41b).
+- **Crop detection (P41/P41b, `src/geometry.ts`).** The page compares the picture's aspect with the signed one, and the QR's size and position
+  (jsQR's finder centres) with where the app's layout puts it (a port of `StampLayout.qrSidePx` and the QR placement, checked against
+  `test/fixtures/geometry/qrside-java.json`, a literal Java transcription). A mismatch is yellow "This photo may have been cropped", never green
+  (red only when the fingerprint itself says so). A picked photo whose own QR is not read is never green either (I4): with a link it is
+  compared with the link's seal and capped at yellow. Tolerances come from `scripts/calibrate-geometry.mts` (numbers in `src/geometry.ts`).
 - Decode, QR search (full image, ~1600 and ~1000 px wide, bottom-right corner, bottom band) and the fingerprint run in a Web Worker.
   Files over 40 MB are refused. The size is read from the header (JPEG incl. EXIF orientation, PNG, WebP, GIF, BMP, HEIF/AVIF): above 4096 px
   the browser decodes straight at the bounded size, never at full size; a large file of unknown size is refused.
@@ -38,12 +46,16 @@ This is a best-effort defence, not a guarantee.
 - Runs in a same-origin iframe, the only page whose CSP allows `wasm-unsafe-eval`. The iframe and c2pa-web (pinned 0.15.3, its 9 MB wasm
   under SRI) load only when a picked file carries C2PA data. Videos up to 100 MB (checked by level 2 only), photos up to 40 MB.
 - c2pa-web validates the file (any failure but `signingCredential.untrusted` is red; a `timeStamp.*` failure only drops the TSA line).
+  "Confirmed by <TSA>" also needs our own check (`src/l2/tsa.ts`, I2): the token's CMS signature, ESS signing certificate and a chain to
+  one of the app's pinned TSA roots (`src/l2/tsa-roots.ts`: DigiCert Trusted Root G4, DigiCert Assured ID, FreeTSA; they expire 2031–2041).
+  c2pa-web's `timeStamp.validated` alone is not trust: it accepts a self-made "DigiCert" (`e2e/fixtures/original_tsa_forged.jpg`).
+- M8: once a non-dev release digest is in `SIGNING_DIGESTS`, our package signed by any other certificate is "not made by the app" (red).
   `src/l2/jumbf.ts` reads the COSE signer and RFC 3161 token by slices; `src/l2/x509.ts` + `attestation.ts` check the Android attestation
   chain (links, CA issuers, KeyDescription in the leaf only, Google root by key, `public/attestation/status.json`); `device.ts` makes one
   line per condition. "Sealed by a key in the secure hardware of a real device" needs all of them, a REGISTERED release digest
   (`SIGNING_DIGESTS` in `src/config.ts`: the debug key is `dev`, any other digest is "not yet registered") and attested key = C2PA signer
   key = seal key (= the QR's key when there is one).
-- Fixtures are synthetic: `npx tsx scripts/make-l2-fixtures.ts` (c2patool on PATH; the public test key; FAKE roots that e2e injects).
+- Fixtures are synthetic: `npx tsx scripts/make-l2-fixtures.ts` (c2patool on PATH; the public test key; FAKE roots that e2e injects). Then `npx tsx scripts/make-fixtures.ts` (derived level-1 fixtures) and `npx tsx scripts/make-crop-fixtures.ts` (the low-texture crop set).
 - WebKit + Playwright: any `page.route` breaks c2pa-web's blob: worker, so `e2e/level2.spec.ts` routes nothing on WebKit and skips the two
   tests that need an injected root or revocation list there.
 

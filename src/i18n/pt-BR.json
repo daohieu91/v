@@ -1,7 +1,8 @@
 {
   "brand": "CameraStamp",
   "title": "Verificar uma foto",
-  "verdict_green": "Sem alterações desde que foi selada",
+  "verdict_green": "Corresponde ao que recebeu o selo",
+  "verdict_green_exact": "Sem alterações desde que foi selada",
   "verdict_info_not_compared": "O selo é válido — a foto ainda não foi comparada",
   "verdict_maybe_edited": "Pode ter sido levemente editada",
   "verdict_red": "A foto ou as informações foram alteradas",
@@ -21,7 +22,7 @@
   "check_content_c2pa": "O conteúdo do arquivo original não foi alterado",
   "device_unknown": "Aparelho real ainda não confirmado — é preciso o arquivo original",
   "proves_title": "O que isto comprova",
-  "proves_l1": "Esta foto e estes dados não mudaram desde que foram selados pela chave {id}",
+  "proves_l1": "Os dados mostrados aqui são exatamente os que a chave {id} selou, e a imagem corresponde ao que recebeu o selo",
   "proves_not_device": "Isto não mostra qual app ou celular criou o selo: confirmar um aparelho real exige o arquivo original",
   "proves_screen": "Uma foto tirada de uma tela mostrando uma imagem falsa não pode ser detectada",
   "label_time": "Selada em",
@@ -83,5 +84,13 @@
   "l2_error": "Não foi possível ler este arquivo aqui — tente outro navegador ou um computador",
   "verdict_l2_bad": "Não é possível confiar no selo do arquivo original",
   "error_too_big_video": "Este vídeo tem mais de 100 MB e não pode ser verificado aqui",
-  "verdict_uncertified": "Chave não certificada — menor confiança"
+  "verdict_uncertified": "Chave não certificada — menor confiança",
+  "verdict_green_sub": "Selado com a chave {id} — não está confirmado qual app ou celular o fez",
+  "proves_small_edits": "Mudanças perceptíveis na imagem são detectadas; edições muito pequenas talvez não (o arquivo original prova cada byte)",
+  "info_location_withheld": "A localização não foi incluída neste selo",
+  "verdict_code_not_in_photo": "Nenhum código legível nesta foto — comparada apenas com o selo do link",
+  "check_code_not_in_photo": "O código da própria foto não foi lido, então nada na foto a liga a este selo",
+  "verdict_maybe_cropped": "Esta foto pode ter sido cortada",
+  "check_geometry_mismatch": "O formato da foto ou a posição do código não batem com a foto selada: ela pode ter sido cortada ou emoldurada (por exemplo, uma captura de tela)",
+  "verdict_l2_resaved": "Salva de novo ou editada depois do selo — a imagem ainda corresponde ao selo"
 }

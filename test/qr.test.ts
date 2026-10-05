@@ -1,7 +1,7 @@
 import jpeg from 'jpeg-js';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { findSealUrl, scanPlan, type Img } from '../src/qr';
+import { findSeal, findSealUrl, scanPlan, type Img } from '../src/qr';
 import { analyze } from '../src/analyze';
 import { payloadFromUrl } from '../src/payload';
 import { checkSeal } from '../src/crypto';
@@ -25,10 +25,27 @@ describe('QR detection (P22: several scales before "no code")', () => {
   it('tries each later scale when the earlier ones miss', () => {
     const im: Img = { data: new Uint8ClampedArray(4000 * 3000 * 4), w: 4000, h: 3000 };
     for (let k = 0; k < 5; k++) { const seen: string[] = [];
-      const r = findSealUrl(im, (x) => { seen.push(`${x.w}x${x.h}`); return seen.length === k + 1 ? 'HIT' : null; });
+      const r = findSealUrl(im, (x) => { seen.push(`${x.w}x${x.h}`); return seen.length === k + 1 ? { url: 'HIT', finders: null } : null; });
       expect(r, `step ${k}`).toBe('HIT'); expect(seen.length).toBe(k + 1); }
     const seen: string[] = []; expect(findSealUrl(im, (x) => { seen.push(`${x.w}x${x.h}`); return null; })).toBeNull();
     expect(seen).toEqual(['4000x3000', '1600x1200', '1000x750', '1800x1500', '4000x1500']);
+  });
+});
+describe('finder points for P41 are in the full picture\'s pixels, whichever step read the QR', () => {
+  it('maps a scale step back by the scale, a crop step by its origin', () => {
+    const im: Img = { data: new Uint8ClampedArray(4000 * 3000 * 4), w: 4000, h: 3000 };
+    const f = { tl: { x: 10, y: 20 }, tr: { x: 110, y: 20 }, bl: { x: 10, y: 120 } };
+    const at = (k: number) => { let n = 0; return findSeal(im, () => (n++ === k ? { url: 'HIT', finders: f } : null))!.finders!; };
+    expect(at(0).tl).toEqual({ x: 10, y: 20 });                                           // full
+    expect(at(1).tr).toEqual({ x: 110 * 2.5, y: 20 * 2.5 });                              // 1600 × 1200: × 2.5
+    expect(at(2).bl).toEqual({ x: 10 * 4, y: 120 * 4 });                                  // 1000 × 750: × 4
+    expect(at(3).tl).toEqual({ x: 10 + 2200, y: 20 + 1500 });                              // the bottom-right corner crop
+    expect(at(4).tl).toEqual({ x: 10, y: 20 + 1500 });                                    // the bottom band
+  });
+  it('the real fixture read at a downscaled step lands where the full-size read does', () => {
+    const im = load('sealed.jpg'); const full = findSeal(im)!.finders!;
+    let n = 0; const viaScale = findSeal(im, x => (n++ === 0 ? null : findSeal(x)))!.finders!;   // skip the full step: the 1600-px copy reads it
+    expect(Math.abs(viaScale.tl.x - full.tl.x)).toBeLessThan(2); expect(Math.abs(viaScale.tl.y - full.tl.y)).toBeLessThan(2);
   });
 });
 describe('analyze (the worker body)', () => {
@@ -37,7 +54,7 @@ describe('analyze (the worker body)', () => {
     expect(checkSeal(p).keyIdHex).toBe(V.payloads[0].expectKeyId); expect(r.hamming).toBe(0); });
   it('chat-compressed photo still matches; the copied QR does not', () => {
     expect(analyze(load('sealed_1600_q70.jpg')).hamming).toBeLessThanOrEqual(8); expect(analyze(load('copied_qr.jpg')).hamming).toBeGreaterThan(16); });
-  it('a picture with no code: no URL, no distance', () => expect(analyze(load('cropped_no_qr.jpg'))).toEqual({ url: null, hamming: null, texture: null }));
+  it('a picture with no code: no URL, no distance', () => expect(analyze(load('cropped_no_qr.jpg'))).toEqual({ url: null, hamming: null, texture: null, qrInPicture: false, geometry: null }));
   it('NO_FINGERPRINT seal (P26/P28): no distance, only the texture of the picture', () => {
     const dark = analyze(load('dark_sealed.jpg')), bright = analyze(load('bright_sealed.jpg'));
     const c7 = V.payloads.find((p: { name: string }) => p.name === 'v1_case7');

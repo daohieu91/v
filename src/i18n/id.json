@@ -1,7 +1,8 @@
 {
   "brand": "CameraStamp",
   "title": "Periksa foto",
-  "verdict_green": "Tidak berubah sejak disegel",
+  "verdict_green": "Cocok dengan saat disegel",
+  "verdict_green_exact": "Tidak berubah sejak disegel",
   "verdict_info_not_compared": "Segel valid — foto belum dibandingkan",
   "verdict_maybe_edited": "Mungkin sedikit diedit",
   "verdict_red": "Foto atau informasi telah diubah",
@@ -21,7 +22,7 @@
   "check_content_c2pa": "Isi file asli tidak berubah",
   "device_unknown": "Perangkat asli belum dikonfirmasi — perlu file asli",
   "proves_title": "Apa yang dibuktikan",
-  "proves_l1": "Foto ini dan detail ini tidak berubah sejak disegel dengan kunci {id}",
+  "proves_l1": "Detail yang ditampilkan di sini persis seperti saat disegel dengan kunci {id}, dan gambar cocok dengan saat disegel",
   "proves_not_device": "Ini tidak menunjukkan aplikasi atau ponsel mana yang membuat segel: konfirmasi perangkat asli perlu file asli",
   "proves_screen": "Foto dari layar yang menampilkan gambar palsu tidak dapat dideteksi",
   "label_time": "Disegel pada",
@@ -83,5 +84,13 @@
   "l2_error": "File ini tidak dapat dibaca di sini — coba browser lain atau komputer",
   "verdict_l2_bad": "Segel file asli tidak dapat dipercaya",
   "error_too_big_video": "Video ini lebih besar dari 100 MB dan tidak dapat diperiksa di sini",
-  "verdict_uncertified": "Kunci tidak tersertifikasi — kepercayaan lebih rendah"
+  "verdict_uncertified": "Kunci tidak tersertifikasi — kepercayaan lebih rendah",
+  "verdict_green_sub": "Disegel dengan kunci {id} — aplikasi dan ponsel pembuatnya belum dikonfirmasi",
+  "proves_small_edits": "Perubahan mencolok pada gambar terdeteksi; edit yang sangat kecil mungkin tidak (file asli membuktikan setiap byte)",
+  "info_location_withheld": "Lokasi tidak disertakan dalam segel ini",
+  "verdict_code_not_in_photo": "Tidak ada kode yang terbaca di foto ini — hanya dibandingkan dengan segel dari tautan",
+  "check_code_not_in_photo": "Kode milik foto ini tidak terbaca, jadi tidak ada apa pun di foto yang mengaitkannya dengan segel ini",
+  "verdict_maybe_cropped": "Foto ini mungkin telah dipotong",
+  "check_geometry_mismatch": "Bentuk foto atau posisi kode tidak cocok dengan foto yang disegel: foto mungkin telah dipotong atau dibingkai (misalnya tangkapan layar)",
+  "verdict_l2_resaved": "Disimpan ulang atau diedit setelah disegel — gambar masih cocok dengan segelnya"
 }

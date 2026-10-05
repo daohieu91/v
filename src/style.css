@@ -20,6 +20,7 @@ select { font: inherit; padding: .4rem .5rem; border: 1px solid var(--line); bor
 .band[data-verdict="red"]::before { content: "✗ "; }
 .band[data-verdict="pending"] { background: var(--card); color: var(--muted); font-size: 1.1rem; font-weight: 500; border: 1px solid var(--line); }
 .band[data-verdict="none"]:empty { display: none; }
+.band-sub { margin: .4rem .25rem 0; font-size: .95rem; color: var(--muted); overflow-wrap: anywhere; }
 .message { padding: .75rem 1rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--card); }
 .facts { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem; margin: 1.25rem 0; }
 .facts dt { color: var(--muted); }

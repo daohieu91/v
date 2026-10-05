@@ -33,7 +33,8 @@ describe('device lines (spec §5.2, Task 21 carry-over)', () => {
     const m = await input(); const leaf = m.chain.leaf!;
     const cases: [string, Partial<DeviceInput>, string][] = [
       ['test build (dev digest)', { digests: [{ hex: DEV, dev: true }] }, 'l2_app_dev'],
-      ['unregistered digest (no Play signing digest yet)', { digests: [{ hex: 'aa'.repeat(32), dev: false }] }, 'l2_app_unregistered'],
+      ['unregistered digest (no Play signing digest yet)', { digests: [{ hex: 'aa'.repeat(32), dev: true }] }, 'l2_app_unregistered'],
+      ['M8: a release digest is registered and this one is unknown (a re-packaged app)', { digests: [{ hex: 'aa'.repeat(32), dev: false }] }, 'l2_app_bad'],
       ['another package', { packageName: 'com.example.other' }, 'l2_app_bad'],
       ['chain not certified', { chain: { ...m.chain, chainOk: false } }, 'l2_chain_bad'],
       ['revoked', { chain: { ...m.chain, chainOk: false, revoked: true } }, 'l2_revoked'],

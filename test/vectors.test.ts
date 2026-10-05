@@ -13,6 +13,9 @@ const V = JSON.parse(RAW.toString('utf8'));
 const hex = (b: Uint8Array) => [...b].map(x => x.toString(16).padStart(2, '0')).join('');
 const unhex = (s: string) => (s === '' ? new Uint8Array() : Uint8Array.from(s.match(/../g)!.map(x => parseInt(x, 16))));
 const sha = (b: Uint8Array) => createHash('sha256').update(b).digest('hex');
+/** The key that signed exactly the RECEIVED header bytes (recovery bit cleared): what a verifier without the canonical rule would trust. */
+const signedOver = (b: Uint8Array) => { const msg = b.slice(0, 41); msg[2] &= ~0x40;
+  return recoverRaw(msg, BigInt('0x' + hex(b.slice(41, 73))), BigInt('0x' + hex(b.slice(73, 105))), ((b[2] >> 6) & 1) as 0 | 1); };
 const ruleOf = (f: () => unknown): string => {
   try { f(); } catch (e) { if (e instanceof PayloadError) return e.rule; throw e; }
   return 'ACCEPTED';
@@ -78,7 +81,8 @@ describe('golden vectors (shared with the Android app; one bit off fails both si
       expect(b64urlEncode(bytes), p.name).toBe(p.base64url); expect(b64urlDecode(p.base64url), p.name).toEqual(bytes);
       expect(p.url).toBe(URL_PREFIX + p.base64url);
       const d = decodePayload(bytes);                      // every payload vector is canonical: it must decode
-      expect(hex(encodeHeader(d.fields, d.recoveryBit)), p.name).toBe(p.bytesHex.slice(0, 78));
+      expect(hex(encodeHeader(d.fields, d.recoveryBit)), p.name).toBe(p.bytesHex.slice(0, 82));
+      expect(bytes.length, p.name).toBe(105); expect(p.url.length, p.name).toBe(171);
       expect(payloadFromUrl(p.url), p.name).toEqual(d);
       const s = checkSeal(d);
       if (p.expectKeyId === null) { expect(p.tamper, p.name).toBeTruthy(); expect(s, p.name).toEqual({ ok: false, keyIdHex: null }); continue; }
@@ -92,6 +96,8 @@ describe('golden vectors (shared with the Android app; one bit off fails both si
       expect(d.fields.clockSkewSeconds).toBe(f.clockSkewSeconds); expect(d.fields.softwareKey).toBe(f.softwareKey);
       expect(phashHex(d.fields.phash)).toBe(f.phash); expect([...d.fields.frame]).toEqual(f.frame); expect(d.fields.keyTag).toBe(f.keyTag);
       expect(typeof f.noFingerprint, p.name).toBe('boolean'); expect(d.fields.noFingerprint, p.name).toBe(f.noFingerprint);
+      expect(d.fields.aspect, p.name).toBe(f.aspect); expect(d.fields.locationWithheld, p.name).toBe(f.locationWithheld);
+      expect(typeof f.locationWithheld, p.name).toBe('boolean'); expect(Number.isInteger(f.aspect) && f.aspect >= 1, p.name).toBe(true);
     }
   });
   it('NO_FINGERPRINT (P26): flag bit 7 (0x80 of byte 2) with phash 0 verifies; clearing the flag loses the key', () => {
@@ -109,14 +115,36 @@ describe('golden vectors (shared with the Android app; one bit off fails both si
     const b = unhex(r.bytesHex); expect(b[2] & 0x80).toBe(0x80); expect(b.slice(23, 31).some(x => x !== 0)).toBe(true);
     expect(ruleOf(() => decodePayload(b))).toBe('noncanonical');
     // With the rule skipped it would verify: the signature covers exactly these header bytes (recovery bit cleared) under the test key.
-    const msg = b.slice(0, 39); msg[2] &= ~0x40;
-    const pub = recoverRaw(msg, BigInt('0x' + hex(b.slice(39, 71))), BigInt('0x' + hex(b.slice(71, 103))), ((b[2] >> 6) & 1) as 0 | 1);
-    expect(hex(pub!)).toBe(V.testKey.publicKey);
+    expect(hex(signedOver(b)!)).toBe(V.testKey.publicKey);
     expect(ruleOf(() => decodePayload(unhex(V.rejects.find((x: { name: string }) => x.name === 'nc_no_fingerprint_flag_with_phash').bytesHex)))).toBe('noncanonical');
     // Bit 7 is no longer reserved: the reserved-bit reject moved to bit 9 (0x02 of byte 1).
     const names = V.rejects.map((x: { name: string }) => x.name);
     expect(names).toContain('nc_reserved_flag_bit9'); expect(names).not.toContain('nc_reserved_flag_bit7');
     expect(unhex(V.rejects.find((x: { name: string }) => x.name === 'nc_reserved_flag_bit9').bytesHex)[1]).toBe(0x02);
+  });
+  it('LOCATION_WITHHELD (P42): flag bit 8 (0x01 of byte 1), no location, zero location bytes; clearing it loses the key', () => {
+    const c8 = byName('v1_case8'); const b = unhex(c8.bytesHex);
+    expect(b[1] & 0x01).toBe(0x01); expect(b[2] & 0x01).toBe(0); expect([...b.slice(10, 21)].every(x => x === 0)).toBe(true);
+    const d = decodePayload(b);
+    expect(d.fields.locationWithheld).toBe(true); expect(d.fields.location).toBeNull(); expect(checkSeal(d)).toEqual({ ok: true, keyIdHex: V.testKey.keyId });
+    const t = byName('v1_tampered_location_withheld_cleared'); expect(t.tamper).toBe('flag_location_withheld');
+    const td = decodePayload(unhex(t.bytesHex)); expect(td.fields.locationWithheld).toBe(false); expect(checkSeal(td)).toEqual({ ok: false, keyIdHex: null });
+    // Every no-location payload (withheld or never fixed) has lat, lng, accuracy and age all 0 (accuracy used to be 65535).
+    for (const p of PAY.filter(x => x.fields && x.fields.location === null)) expect([...unhex(p.bytesHex).slice(10, 21)].every(x => x === 0), p.name).toBe(true);
+  });
+  it('aspect (P41b): u16 BE at header bytes 39–40, signed', () => {
+    for (const p of PAY.filter(x => x.fields)) { const b = unhex(p.bytesHex); expect((b[39] << 8) | b[40], p.name).toBe(p.fields.aspect); }
+    const t = byName('v1_tampered_aspect'); expect(t.tamper).toBe('aspect');
+    expect(checkSeal(decodePayload(unhex(t.bytesHex)))).toEqual({ ok: false, keyIdHex: null });
+  });
+  it('every signedDespiteRule reject really verifies over its received header bytes, and is still rejected', () => {
+    const sd = V.rejects.filter((r: { signedDespiteRule?: boolean }) => r.signedDespiteRule);
+    expect(sd.map((r: { name: string }) => r.name).sort()).toEqual(['nc_aspect_zero_validly_signed', 'nc_lat_with_withheld_validly_signed',
+      'nc_no_fingerprint_with_phash_validly_signed', 'nc_withheld_with_location_validly_signed']);
+    for (const r of sd) {
+      const b = unhex(r.bytesHex); expect(hex(signedOver(b)!), r.name).toBe(V.testKey.publicKey);
+      expect(ruleOf(() => decodePayload(b)), r.name).toBe('noncanonical');
+    }
   });
   it('every reject fails with the same rule as the app, as a fragment, a URL and as bytes', () => {
     expect(V.rejects.length).toBeGreaterThan(0);

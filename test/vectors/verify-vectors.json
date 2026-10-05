@@ -2,7 +2,7 @@
     "schema": 1,
     "comment": "Golden vectors shared by the CameraStamp app (source: docs/verify/verify-vectors.json) and the web verifier (byte-identical copy: test/vectors/verify-vectors.json). The testKey is a PUBLIC TEST KEY, never a real one. All coordinates are synthetic. Regenerate in the app repo only; see docs/verify/README.md.",
     "urlPrefix": "https://daohieu91.github.io/v/#",
-    "maxFragmentLength": 138,
+    "maxFragmentLength": 140,
     "thresholds": [
         8,
         16
@@ -737,12 +737,14 @@
                     252,
                     255
                 ],
-                "keyTag": -242245093
+                "keyTag": -242245093,
+                "aspect": 13333,
+                "locationWithheld": false
             },
             "recoveryBit": 1,
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": "f18fa21b6b1a2c70"
         },
         {
@@ -762,12 +764,14 @@
                     252,
                     255
                 ],
-                "keyTag": -242245093
+                "keyTag": -242245093,
+                "aspect": 7500,
+                "locationWithheld": false
             },
-            "recoveryBit": 1,
-            "bytesHex": "0100480068de6d3d021c0000000000000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
-            "base64url": "AQBIAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "url": "https://daohieu91.github.io/v/#AQBIAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "recoveryBit": 0,
+            "bytesHex": "0100080068de6d3d021c00000000000000000000008000000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94",
+            "base64url": "AQAIAGjebT0CHAAAAAAAAAAAAAAAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "url": "https://daohieu91.github.io/v/#AQAIAGjebT0CHAAAAAAAAAAAAAAAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
             "expectKeyId": "f18fa21b6b1a2c70"
         },
         {
@@ -794,12 +798,14 @@
                     255,
                     255
                 ],
-                "keyTag": -242245093
+                "keyTag": -242245093,
+                "aspect": 17778,
+                "locationWithheld": false
             },
-            "recoveryBit": 1,
-            "bytesHex": "01005f0068de6d3e01a4000f9de000a95a8d0c800effffffffffffffffffff00b4fffff18fa21bf12441cd97cd25fdb7eec6843b536bc501433210a50f168aada4b496fc2e91b52e56282cbf9fab3a88cc3ccbf02cbaf1d0b7c4d73eba5c769058a7ff2bf5775e",
-            "base64url": "AQBfAGjebT4BpAAPneAAqVqNDIAO_____________wC0___xj6Ib8SRBzZfNJf237saEO1NrxQFDMhClDxaKraS0lvwukbUuVigsv5-rOojMPMvwLLrx0LfE1z66XHaQWKf_K_V3Xg",
-            "url": "https://daohieu91.github.io/v/#AQBfAGjebT4BpAAPneAAqVqNDIAO_____________wC0___xj6Ib8SRBzZfNJf237saEO1NrxQFDMhClDxaKraS0lvwukbUuVigsv5-rOojMPMvwLLrx0LfE1z66XHaQWKf_K_V3Xg",
+            "recoveryBit": 0,
+            "bytesHex": "01001f0068de6d3e01a4000f9de000a95a8d0c800effffffffffffffffffff00b4fffff18fa21b4572cbbc4c2d49d0cb2e08c74e367e5ec66c42a3cd74627d02bcbc143d9af551af853e43fcd20b2d2bdd980151e3efc2d1747dff4834693376945de7ffa9cbd9f8e5",
+            "base64url": "AQAfAGjebT4BpAAPneAAqVqNDIAO_____________wC0___xj6IbRXLLvEwtSdDLLgjHTjZ-XsZsQqPNdGJ9Ary8FD2a9VGvhT5D_NILLSvdmAFR4-_C0XR9_0g0aTN2lF3n_6nL2fjl",
+            "url": "https://daohieu91.github.io/v/#AQAfAGjebT4BpAAPneAAqVqNDIAO_____________wC0___xj6IbRXLLvEwtSdDLLgjHTjZ-XsZsQqPNdGJ9Ary8FD2a9VGvhT5D_NILLSvdmAFR4-_C0XR9_0g0aTN2lF3n_6nL2fjl",
             "expectKeyId": "f18fa21b6b1a2c70"
         },
         {
@@ -826,12 +832,14 @@
                     255,
                     255
                 ],
-                "keyTag": -242245093
+                "keyTag": -242245093,
+                "aspect": 10000,
+                "locationWithheld": false
             },
-            "recoveryBit": 0,
-            "bytesHex": "0100110068de6d3f0000ffbb25a7fffe1dc0000c0080017fffffffffffffff64c8fffff18fa21b696fe2eace3e39245a870e1c3a4f150fdaec3b8a4d78b98c4d65c18827e040d84e51d45c7d8e309deaf9e6dae6ab769927633e0e58fa8ad907133db9df51f995",
-            "base64url": "AQARAGjebT8AAP-7Jaf__h3AAAwAgAF__________2TI___xj6IbaW_i6s4-OSRahw4cOk8VD9rsO4pNeLmMTWXBiCfgQNhOUdRcfY4wner55trmq3aZJ2M-Dlj6itkHEz2531H5lQ",
-            "url": "https://daohieu91.github.io/v/#AQARAGjebT8AAP-7Jaf__h3AAAwAgAF__________2TI___xj6IbaW_i6s4-OSRahw4cOk8VD9rsO4pNeLmMTWXBiCfgQNhOUdRcfY4wner55trmq3aZJ2M-Dlj6itkHEz2531H5lQ",
+            "recoveryBit": 1,
+            "bytesHex": "0100510068de6d3f0000ffbb25a7fffe1dc0000c0080017fffffffffffffff64c8fffff18fa21b27106ffe5f4ee8403b35aa0a3349a5eef5143582e70207d48bee6d683aedc28939e03807b3ec6d827fd5f540116a53084091cdac55a4ebbb85e94fbcb6bd6e06c636",
+            "base64url": "AQBRAGjebT8AAP-7Jaf__h3AAAwAgAF__________2TI___xj6IbJxBv_l9O6EA7NaoKM0ml7vUUNYLnAgfUi-5taDrtwok54DgHs-xtgn_V9UARalMIQJHNrFWk67uF6U-8tr1uBsY2",
+            "url": "https://daohieu91.github.io/v/#AQBRAGjebT8AAP-7Jaf__h3AAAwAgAF__________2TI___xj6IbJxBv_l9O6EA7NaoKM0ml7vUUNYLnAgfUi-5taDrtwok54DgHs-xtgn_V9UARalMIQJHNrFWk67uF6U-8tr1uBsY2",
             "expectKeyId": "f18fa21b6b1a2c70"
         },
         {
@@ -858,12 +866,14 @@
                     252,
                     255
                 ],
-                "keyTag": -242245093
+                "keyTag": -242245093,
+                "aspect": 1,
+                "locationWithheld": false
             },
-            "recoveryBit": 1,
-            "bytesHex": "01007d0068de6d40ff4cffdde739ffd20907ffffff0000800000000000000004cafcfff18fa21b04f91e49b4d28dd0e9ae62534285efeaa29a4d4c14aac7f2a556e1ef1537f1283a38cccff0c3090d08f6b9842767e1e1f04ecfab2ed2dd8c5ff0c5ac86f66c91",
-            "base64url": "AQB9AGjebUD_TP_d5zn_0gkH____AACAAAAAAAAAAATK_P_xj6IbBPkeSbTSjdDprmJTQoXv6qKaTUwUqsfypVbh7xU38Sg6OMzP8MMJDQj2uYQnZ-Hh8E7Pqy7S3Yxf8MWshvZskQ",
-            "url": "https://daohieu91.github.io/v/#AQB9AGjebUD_TP_d5zn_0gkH____AACAAAAAAAAAAATK_P_xj6IbBPkeSbTSjdDprmJTQoXv6qKaTUwUqsfypVbh7xU38Sg6OMzP8MMJDQj2uYQnZ-Hh8E7Pqy7S3Yxf8MWshvZskQ",
+            "recoveryBit": 0,
+            "bytesHex": "01003d0068de6d40ff4cffdde739ffd20907ffffff0000800000000000000004cafcfff18fa21b000115521cef6113dfeffc37e7762e73f06e54cef4f36794fb57c1e8765a861ec08b105636e20a87adbd659fbf6f77386c32646bbdb25b6565e0e59e57925e4dd676",
+            "base64url": "AQA9AGjebUD_TP_d5zn_0gkH____AACAAAAAAAAAAATK_P_xj6IbAAEVUhzvYRPf7_w353Yuc_BuVM7082eU-1fB6HZahh7AixBWNuIKh629ZZ-_b3c4bDJka72yW2Vl4OWeV5JeTdZ2",
+            "url": "https://daohieu91.github.io/v/#AQA9AGjebUD_TP_d5zn_0gkH____AACAAAAAAAAAAATK_P_xj6IbAAEVUhzvYRPf7_w353Yuc_BuVM7082eU-1fB6HZahh7AixBWNuIKh629ZZ-_b3c4bDJka72yW2Vl4OWeV5JeTdZ2",
             "expectKeyId": "f18fa21b6b1a2c70"
         },
         {
@@ -890,12 +900,14 @@
                     0,
                     0
                 ],
-                "keyTag": -242245093
+                "keyTag": -242245093,
+                "aspect": 65535,
+                "locationWithheld": false
             },
             "recoveryBit": 0,
-            "bytesHex": "0100190068de6d41fda8ffcc51feff1945df001e017fff0123456789abcdef00000000f18fa21ba4c49d6ea420fd7e93e5a7dbfcc7165fad7192742149fc5739ca0e30d0622e3621d8c12f54be635b2ca2ac28852ee709c4300a15dbb387b6d262c750ae65eed2",
-            "base64url": "AQAZAGjebUH9qP_MUf7_GUXfAB4Bf_8BI0VniavN7wAAAADxj6IbpMSdbqQg_X6T5afb_McWX61xknQhSfxXOcoOMNBiLjYh2MEvVL5jWyyirCiFLucJxDAKFduzh7bSYsdQrmXu0g",
-            "url": "https://daohieu91.github.io/v/#AQAZAGjebUH9qP_MUf7_GUXfAB4Bf_8BI0VniavN7wAAAADxj6IbpMSdbqQg_X6T5afb_McWX61xknQhSfxXOcoOMNBiLjYh2MEvVL5jWyyirCiFLucJxDAKFduzh7bSYsdQrmXu0g",
+            "bytesHex": "0100190068de6d41fda8ffcc51feff1945df001e017fff0123456789abcdef00000000f18fa21bffff18d050941b78b9f703ac35b15e7ac5fad1963fe89318ec7b45b8eefc23be1f103593eca91c4cb2f85b723b8aa375ba02742158db879ba3d99af52006dfe0762d",
+            "base64url": "AQAZAGjebUH9qP_MUf7_GUXfAB4Bf_8BI0VniavN7wAAAADxj6Ib__8Y0FCUG3i59wOsNbFeesX60ZY_6JMY7HtFuO78I74fEDWT7KkcTLL4W3I7iqN1ugJ0IVjbh5uj2Zr1IAbf4HYt",
+            "url": "https://daohieu91.github.io/v/#AQAZAGjebUH9qP_MUf7_GUXfAB4Bf_8BI0VniavN7wAAAADxj6Ib__8Y0FCUG3i59wOsNbFeesX60ZY_6JMY7HtFuO78I74fEDWT7KkcTLL4W3I7iqN1ugJ0IVjbh5uj2Zr1IAbf4HYt",
             "expectKeyId": "f18fa21b6b1a2c70"
         },
         {
@@ -922,12 +934,14 @@
                     255,
                     255
                 ],
-                "keyTag": -242245093
+                "keyTag": -242245093,
+                "aspect": 40000,
+                "locationWithheld": false
             },
             "recoveryBit": 1,
-            "bytesHex": "01007bffffffffff0348ff76abc00112a880fffeff000100000000000000000000fffff18fa21b29887a58f6466325c210546f3461aa8741cf6f346bcbd3148275e560517aa28558336be155fc8e4d534afbaa50b9bf962102e9888d3d4dbe536bf63edf75e2ac",
-            "base64url": "AQB7______8DSP92q8ABEqiA__7_AAEAAAAAAAAAAAAA___xj6IbKYh6WPZGYyXCEFRvNGGqh0HPbzRry9MUgnXlYFF6ooVYM2vhVfyOTVNK-6pQub-WIQLpiI09Tb5Ta_Y-33XirA",
-            "url": "https://daohieu91.github.io/v/#AQB7______8DSP92q8ABEqiA__7_AAEAAAAAAAAAAAAA___xj6IbKYh6WPZGYyXCEFRvNGGqh0HPbzRry9MUgnXlYFF6ooVYM2vhVfyOTVNK-6pQub-WIQLpiI09Tb5Ta_Y-33XirA",
+            "bytesHex": "01007bffffffffff0348ff76abc00112a880fffeff000100000000000000000000fffff18fa21b9c40dc8d97485f330e1caeb270386957d13ef83ded765497c848bfbc81342aaf3123301149a233f3010600d439cce2c1e3ae58ac39f6cc93c46b5faaed6b9fc381e8",
+            "base64url": "AQB7______8DSP92q8ABEqiA__7_AAEAAAAAAAAAAAAA___xj6IbnEDcjZdIXzMOHK6ycDhpV9E--D3tdlSXyEi_vIE0Kq8xIzARSaIz8wEGANQ5zOLB465YrDn2zJPEa1-q7Wufw4Ho",
+            "url": "https://daohieu91.github.io/v/#AQB7______8DSP92q8ABEqiA__7_AAEAAAAAAAAAAAAA___xj6IbnEDcjZdIXzMOHK6ycDhpV9E--D3tdlSXyEi_vIE0Kq8xIzARSaIz8wEGANQ5zOLB465YrDn2zJPEa1-q7Wufw4Ho",
             "expectKeyId": "f18fa21b6b1a2c70"
         },
         {
@@ -954,12 +968,41 @@
                     252,
                     255
                 ],
-                "keyTag": -242245093
+                "keyTag": -242245093,
+                "aspect": 13333,
+                "locationWithheld": false
             },
             "recoveryBit": 1,
-            "bytesHex": "0100d90068de6d43021c002df6f900d673b10006000002000000000000000004cafcfff18fa21bbe59fb49c3c6a1ec14270ad0ff0b182634f3adf6e832ebef6a1a241724c9653e39c5315295b93765940bcaf9cb243a43b11295acd20a49b2f1cbb5ef3ea5c392",
-            "base64url": "AQDZAGjebUMCHAAt9vkA1nOxAAYAAAIAAAAAAAAAAATK_P_xj6Ibvln7ScPGoewUJwrQ_wsYJjTzrfboMuvvahokFyTJZT45xTFSlbk3ZZQLyvnLJDpDsRKVrNIKSbLxy7XvPqXDkg",
-            "url": "https://daohieu91.github.io/v/#AQDZAGjebUMCHAAt9vkA1nOxAAYAAAIAAAAAAAAAAATK_P_xj6Ibvln7ScPGoewUJwrQ_wsYJjTzrfboMuvvahokFyTJZT45xTFSlbk3ZZQLyvnLJDpDsRKVrNIKSbLxy7XvPqXDkg",
+            "bytesHex": "0100d90068de6d43021c002df6f900d673b10006000002000000000000000004cafcfff18fa21b3415e684e7eb3f957e52c0bf52f0b948350b695637749094e01b088aa279123d3c99364be2a74d82e7b63293e00f35f8beb67db10b65ed9460a6222b1b3422e433c9",
+            "base64url": "AQDZAGjebUMCHAAt9vkA1nOxAAYAAAIAAAAAAAAAAATK_P_xj6IbNBXmhOfrP5V-UsC_UvC5SDULaVY3dJCU4BsIiqJ5Ej08mTZL4qdNgue2MpPgDzX4vrZ9sQtl7ZRgpiIrGzQi5DPJ",
+            "url": "https://daohieu91.github.io/v/#AQDZAGjebUMCHAAt9vkA1nOxAAYAAAIAAAAAAAAAAATK_P_xj6IbNBXmhOfrP5V-UsC_UvC5SDULaVY3dJCU4BsIiqJ5Ej08mTZL4qdNgue2MpPgDzX4vrZ9sQtl7ZRgpiIrGzQi5DPJ",
+            "expectKeyId": "f18fa21b6b1a2c70"
+        },
+        {
+            "name": "v1_case8",
+            "fields": {
+                "epochSeconds": 1759407428,
+                "tzOffsetMinutes": 540,
+                "location": null,
+                "autoTime": true,
+                "clockSkewSeconds": 2,
+                "softwareKey": false,
+                "noFingerprint": false,
+                "phash": "5a5a00ff12345678",
+                "frame": [
+                    4,
+                    202,
+                    252,
+                    255
+                ],
+                "keyTag": -242245093,
+                "aspect": 7500,
+                "locationWithheld": true
+            },
+            "recoveryBit": 0,
+            "bytesHex": "0101180068de6d44021c000000000000000000000000025a5a00ff1234567804cafcfff18fa21b1d4cc448b52e099b3fdfeb6a099b66dc7e0cf9fca8ec03001dfc39f07a8105d37c080ae9ed2f5253d42d9883351d31fa96b0a8334caf7fe606a4b85221abe075d665",
+            "base64url": "AQEYAGjebUQCHAAAAAAAAAAAAAAAAAJaWgD_EjRWeATK_P_xj6IbHUzESLUuCZs_3-tqCZtm3H4M-fyo7AMAHfw58HqBBdN8CArp7S9SU9QtmIM1HTH6lrCoM0yvf-YGpLhSIavgddZl",
+            "url": "https://daohieu91.github.io/v/#AQEYAGjebUQCHAAAAAAAAAAAAAAAAAJaWgD_EjRWeATK_P_xj6IbHUzESLUuCZs_3-tqCZtm3H4M-fyo7AMAHfw58HqBBdN8CArp7S9SU9QtmIM1HTH6lrCoM0yvf-YGpLhSIavgddZl",
             "expectKeyId": "f18fa21b6b1a2c70"
         },
         {
@@ -986,204 +1029,222 @@
                     252,
                     255
                 ],
-                "keyTag": -242245093
+                "keyTag": -242245093,
+                "aspect": 13333,
+                "locationWithheld": false
             },
             "recoveryBit": 0,
-            "bytesHex": "0100190068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cddd1b2b9a43f9650f9658f33acc7a769c39dcc0b77ebde91b14b0b3e06ff122314",
-            "base64url": "AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3RsrmkP5ZQ-WWPM6zHp2nDncwLd-vekbFLCz4G_xIjFA",
-            "url": "https://daohieu91.github.io/v/#AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3RsrmkP5ZQ-WWPM6zHp2nDncwLd-vekbFLCz4G_xIjFA",
+            "bytesHex": "0100190068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a164012c2b5aef451571a6dd31f36685628e1e5df01087b38aea41f72565dfae3012dd4",
+            "base64url": "AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEsK1rvRRVxpt0x82aFYo4eXfAQh7OK6kH3JWXfrjAS3U",
+            "url": "https://daohieu91.github.io/v/#AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEsK1rvRRVxpt0x82aFYo4eXfAQh7OK6kH3JWXfrjAS3U",
             "expectKeyId": "f18fa21b6b1a2c70"
         },
         {
             "name": "v1_tampered_time",
             "tamper": "epoch",
-            "bytesHex": "0100590068de6d3d021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebT0CHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebT0CHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3d021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebT0CHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebT0CHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_epoch_high_byte",
             "tamper": "epoch",
-            "bytesHex": "0100590168de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAWjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAWjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590168de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAWjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAWjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_flags_auto_time",
             "tamper": "flag_auto_time",
-            "bytesHex": "0100510068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBRAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBRAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100510068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBRAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBRAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_flags_software_key",
             "tamper": "flag_software_key",
-            "bytesHex": "0100790068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQB5AGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQB5AGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100790068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQB5AGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQB5AGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_flags_approximate",
             "tamper": "flag_approximate",
-            "bytesHex": "01005b0068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBbAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBbAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "01005b0068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBbAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBbAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_flags_stale",
             "tamper": "flag_stale",
-            "bytesHex": "01005d0068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBdAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBdAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "01005d0068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBdAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBdAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_no_fingerprint_cleared",
             "tamper": "flag_no_fingerprint",
-            "bytesHex": "0100590068de6d43021c002df6f900d673b10006000002000000000000000004cafcfff18fa21bbe59fb49c3c6a1ec14270ad0ff0b182634f3adf6e832ebef6a1a241724c9653e39c5315295b93765940bcaf9cb243a43b11295acd20a49b2f1cbb5ef3ea5c392",
-            "base64url": "AQBZAGjebUMCHAAt9vkA1nOxAAYAAAIAAAAAAAAAAATK_P_xj6Ibvln7ScPGoewUJwrQ_wsYJjTzrfboMuvvahokFyTJZT45xTFSlbk3ZZQLyvnLJDpDsRKVrNIKSbLxy7XvPqXDkg",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebUMCHAAt9vkA1nOxAAYAAAIAAAAAAAAAAATK_P_xj6Ibvln7ScPGoewUJwrQ_wsYJjTzrfboMuvvahokFyTJZT45xTFSlbk3ZZQLyvnLJDpDsRKVrNIKSbLxy7XvPqXDkg",
+            "bytesHex": "0100590068de6d43021c002df6f900d673b10006000002000000000000000004cafcfff18fa21b3415e684e7eb3f957e52c0bf52f0b948350b695637749094e01b088aa279123d3c99364be2a74d82e7b63293e00f35f8beb67db10b65ed9460a6222b1b3422e433c9",
+            "base64url": "AQBZAGjebUMCHAAt9vkA1nOxAAYAAAIAAAAAAAAAAATK_P_xj6IbNBXmhOfrP5V-UsC_UvC5SDULaVY3dJCU4BsIiqJ5Ej08mTZL4qdNgue2MpPgDzX4vrZ9sQtl7ZRgpiIrGzQi5DPJ",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebUMCHAAt9vkA1nOxAAYAAAIAAAAAAAAAAATK_P_xj6IbNBXmhOfrP5V-UsC_UvC5SDULaVY3dJCU4BsIiqJ5Ej08mTZL4qdNgue2MpPgDzX4vrZ9sQtl7ZRgpiIrGzQi5DPJ",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_recovery_bit",
             "tamper": "recovery_bit",
-            "bytesHex": "0100190068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100190068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_gps_time_removed",
             "tamper": "flag_gps_time",
-            "bytesHex": "0100490068de6d3c021c002df6f900d673b100060080005a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBJAGjebTwCHAAt9vkA1nOxAAYAgABaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBJAGjebTwCHAAt9vkA1nOxAAYAgABaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100490068de6d3c021c002df6f900d673b100060080005a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBJAGjebTwCHAAt9vkA1nOxAAYAgABaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBJAGjebTwCHAAt9vkA1nOxAAYAgABaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_location_removed",
             "tamper": "flag_location",
-            "bytesHex": "0100580068de6d3c021c0000000000000000ffff0000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBYAGjebTwCHAAAAAAAAAAA__8AAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBYAGjebTwCHAAAAAAAAAAA__8AAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100580068de6d3c021c000000000000000000000000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBYAGjebTwCHAAAAAAAAAAAAAAAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBYAGjebTwCHAAAAAAAAAAAAAAAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_location_added",
             "tamper": "location_added",
-            "bytesHex": "0100490068de6d3d021c00000000000000000005008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
-            "base64url": "AQBJAGjebT0CHAAAAAAAAAAAAAUAgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "url": "https://daohieu91.github.io/v/#AQBJAGjebT0CHAAAAAAAAAAAAAUAgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
+            "bytesHex": "0100090068de6d3d021c00000000000000000005008000000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94",
+            "base64url": "AQAJAGjebT0CHAAAAAAAAAAAAAUAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "url": "https://daohieu91.github.io/v/#AQAJAGjebT0CHAAAAAAAAAAAAAUAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_tz",
             "tamper": "tz",
-            "bytesHex": "0100590068de6d3c021d002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHQAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHQAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021d002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHQAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHQAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_lat",
             "tamper": "lat",
-            "bytesHex": "0100590068de6d3c021c002df6f800d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vgA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vgA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f800d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vgA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vgA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_lng",
             "tamper": "lng",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b000060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOwAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOwAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b000060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOwAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOwAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_accuracy",
             "tamper": "accuracy",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100070000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAcAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAcAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100070000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAcAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAcAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_age",
             "tamper": "age",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060100025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYBAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYBAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060100025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYBAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYBAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_skew",
             "tamper": "skew",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000035a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAANaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAANaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000035a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAANaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAANaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_phash",
             "tamper": "phash",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567904cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeQTK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeQTK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567904cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeQTK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeQTK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_frame",
             "tamper": "frame",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567805cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeAXK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeAXK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567805cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeAXK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeAXK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_key_tag",
             "tamper": "key_tag",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21abaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IauqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IauqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21a34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IaNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IaNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_aspect",
+            "tamper": "aspect",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34148427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBSEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBSEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "expectKeyId": null
+        },
+        {
+            "name": "v1_tampered_location_withheld_cleared",
+            "tamper": "flag_location_withheld",
+            "bytesHex": "0100180068de6d44021c000000000000000000000000025a5a00ff1234567804cafcfff18fa21b1d4cc448b52e099b3fdfeb6a099b66dc7e0cf9fca8ec03001dfc39f07a8105d37c080ae9ed2f5253d42d9883351d31fa96b0a8334caf7fe606a4b85221abe075d665",
+            "base64url": "AQAYAGjebUQCHAAAAAAAAAAAAAAAAAJaWgD_EjRWeATK_P_xj6IbHUzESLUuCZs_3-tqCZtm3H4M-fyo7AMAHfw58HqBBdN8CArp7S9SU9QtmIM1HTH6lrCoM0yvf-YGpLhSIavgddZl",
+            "url": "https://daohieu91.github.io/v/#AQAYAGjebUQCHAAAAAAAAAAAAAAAAAJaWgD_EjRWeATK_P_xj6IbHUzESLUuCZs_3-tqCZtm3H4M-fyo7AMAHfw58HqBBdN8CArp7S9SU9QtmIM1HTH6lrCoM0yvf-YGpLhSIavgddZl",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_r",
             "tamper": "r",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdc2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHNwuTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHNwuTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640133d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEz1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEz1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
             "expectKeyId": null
         },
         {
             "name": "v1_tampered_s",
             "tamper": "s",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023c",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPA",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPA",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77c",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd8",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd8",
             "expectKeyId": null
         },
         {
             "name": "v1_high_s_bit_not_flipped",
             "tamper": "high_s_bit_not_flipped",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cddd1b2b9a43f9650f9658f33acc7a769c39dcc0b77ebde91b14b0b3e06ff122314",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3RsrmkP5ZQ-WWPM6zHp2nDncwLd-vekbFLCz4G_xIjFA",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3RsrmkP5ZQ-WWPM6zHp2nDncwLd-vekbFLCz4G_xIjFA",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a164012c2b5aef451571a6dd31f36685628e1e5df01087b38aea41f72565dfae3012dd4",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEsK1rvRRVxpt0x82aFYo4eXfAQh7OK6kH3JWXfrjAS3U",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEsK1rvRRVxpt0x82aFYo4eXfAQh7OK6kH3JWXfrjAS3U",
             "expectKeyId": null
         },
         {
             "name": "v1_wrong_key_tag",
             "tamper": "wrong_key_tag",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21a3bf317ae0705867364a0e1300bb837042ba2deb351112fe8c8e4b4263d8b2aa52d704ae89723b1e13a0a83398f3a4ee104c01d7e2f9bc13e9214d64a76b25cda",
-            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IaO_MXrgcFhnNkoOEwC7g3BCui3rNRES_oyOS0Jj2LKqUtcErolyOx4ToKgzmPOk7hBMAdfi-bwT6SFNZKdrJc2g",
-            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IaO_MXrgcFhnNkoOEwC7g3BCui3rNRES_oyOS0Jj2LKqUtcErolyOx4ToKgzmPOk7hBMAdfi-bwT6SFNZKdrJc2g",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21a341507e21e0a3ea358430e1cea8e3ef29f127ffdd654e260484d3d55d4ba8d08f1243c78a2c041097d0f1b2bdb04c53088b15c0213459455aa3f4125af7b3290fbe8",
+            "base64url": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IaNBUH4h4KPqNYQw4c6o4-8p8Sf_3WVOJgSE09VdS6jQjxJDx4osBBCX0PGyvbBMUwiLFcAhNFlFWqP0Elr3sykPvo",
+            "url": "https://daohieu91.github.io/v/#AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IaNBUH4h4KPqNYQw4c6o4-8p8Sf_3WVOJgSE09VdS6jQjxJDx4osBBCX0PGyvbBMUwiLFcAhNFlFWqP0Elr3sykPvo",
             "expectKeyId": null
         }
     ],
@@ -1191,140 +1252,207 @@
         {
             "name": "nc_reserved_flag_bit9",
             "rule": "noncanonical",
-            "fragment": "AQJZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "bytesHex": "0102590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "fragment": "AQJZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0102590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
             "derivedFrom": "v1_case0"
         },
         {
-            "name": "nc_reserved_flag_bit8",
+            "name": "nc_reserved_flag_bit10",
             "rule": "noncanonical",
-            "fragment": "AQFZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "bytesHex": "0101590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "fragment": "AQRZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0104590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
             "derivedFrom": "v1_case0"
         },
         {
             "name": "nc_reserved_flag_bit15",
             "rule": "noncanonical",
-            "fragment": "AYBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "bytesHex": "0180590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d",
+            "fragment": "AYBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0180590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d",
             "derivedFrom": "v1_case0"
         },
         {
             "name": "nc_approximate_without_location",
             "rule": "noncanonical",
-            "fragment": "AQBKAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "bytesHex": "01004a0068de6d3d021c0000000000000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "fragment": "AQAKAGjebT0CHAAAAAAAAAAAAAAAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "bytesHex": "01000a0068de6d3d021c00000000000000000000008000000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94",
             "derivedFrom": "v1_case1"
         },
         {
             "name": "nc_stale_without_location",
             "rule": "noncanonical",
-            "fragment": "AQBMAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "bytesHex": "01004c0068de6d3d021c0000000000000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "fragment": "AQAMAGjebT0CHAAAAAAAAAAAAAAAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "bytesHex": "01000c0068de6d3d021c00000000000000000000008000000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94",
             "derivedFrom": "v1_case1"
         },
         {
             "name": "nc_lat_without_location",
             "rule": "noncanonical",
-            "fragment": "AQBIAGjebT0CHAAAAAEAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "bytesHex": "0100480068de6d3d021c0000000100000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "fragment": "AQAIAGjebT0CHAAAAAEAAAAAAAAAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "bytesHex": "0100080068de6d3d021c00000001000000000000008000000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94",
             "derivedFrom": "v1_case1"
         },
         {
             "name": "nc_lng_without_location",
             "rule": "noncanonical",
-            "fragment": "AQBIAGjebT0CHAAAAACAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "bytesHex": "0100480068de6d3d021c0000000080000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "fragment": "AQAIAGjebT0CHAAAAACAAAAAAAAAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "bytesHex": "0100080068de6d3d021c00000000800000000000008000000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94",
             "derivedFrom": "v1_case1"
         },
         {
             "name": "nc_accuracy_without_location",
             "rule": "noncanonical",
-            "fragment": "AQBIAGjebT0CHAAAAAAAAAAAAAYAgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "bytesHex": "0100480068de6d3d021c00000000000000000006008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "fragment": "AQAIAGjebT0CHAAAAAAAAAAAAAYAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "bytesHex": "0100080068de6d3d021c00000000000000000006008000000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94",
             "derivedFrom": "v1_case1"
         },
         {
             "name": "nc_age_without_location",
             "rule": "noncanonical",
-            "fragment": "AQBIAGjebT0CHAAAAAAAAAAA__8BgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "bytesHex": "0100480068de6d3d021c0000000000000000ffff018000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "fragment": "AQAIAGjebT0CHAAAAAAAAAAAAAABgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "bytesHex": "0100080068de6d3d021c00000000000000000000018000000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94",
             "derivedFrom": "v1_case1"
         },
         {
             "name": "nc_skew_without_gps_flag",
             "rule": "noncanonical",
-            "fragment": "AQBIAGjebT0CHAAAAAAAAAAA__8AAAUAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "bytesHex": "0100480068de6d3d021c0000000000000000ffff000005000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5",
+            "fragment": "AQAIAGjebT0CHAAAAAAAAAAAAAAAAAUAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "bytesHex": "0100080068de6d3d021c00000000000000000000000005000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94",
             "derivedFrom": "v1_case1"
         },
         {
             "name": "nc_no_fingerprint_flag_with_phash",
             "rule": "noncanonical",
-            "fragment": "AQDZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "bytesHex": "0100d90068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+            "fragment": "AQDZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0100d90068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d"
         },
         {
             "name": "nc_no_fingerprint_with_phash_validly_signed",
             "rule": "noncanonical",
-            "fragment": "AQCZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6Ib5uoshhPAU6OXv-DgEkiZvId1gm-c8phsG2ZlHElYX4F53Hn5qpHLAXa9nsttK0rMopQcEyseFxxyAsyoVoJ3Og",
-            "bytesHex": "0100990068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21be6ea2c8613c053a397bfe0e0124899bc8775826f9cf2986c1b66651c49585f8179dc79f9aa91cb0176bd9ecb6d2b4acca2941c132b1e171c7202cca85682773a",
+            "fragment": "AQDZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBXCRCVBlPq7eSs5cBzw-2jfNEeOtOBVywBUS7q6vrD1V2EsmJNfmfB7Js8OVqeWuwFT7jIJRhgzyOqoeimslCc-",
+            "bytesHex": "0100d90068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b3415c244254194fabb792b39701cf0fb68df34478eb4e055cb00544bbababeb0f557612c98935f99f07b26cf0e56a796bb0153ee3209461833c8eaa87a29ac94273e",
+            "signedDespiteRule": true
+        },
+        {
+            "name": "nc_withheld_with_location",
+            "rule": "noncanonical",
+            "fragment": "AQFZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0101590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d"
+        },
+        {
+            "name": "nc_withheld_with_location_validly_signed",
+            "rule": "noncanonical",
+            "fragment": "AQEZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBXCNNY1TH-0Bol9wB6YO54NRaFhS-1bbLXrr41kAPC5VAGLOerk3POgA0db1h9uUIoegNbUDMyIo0IaQSaI6MDK",
+            "bytesHex": "0101190068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b3415c234d6354c7fb406897dc01e983b9e0d45a1614bed5b6cb5ebaf8d6400f0b954018b39eae4dcf3a003475bd61f6e508a1e80d6d40ccc88a3421a412688e8c0ca",
+            "signedDespiteRule": true
+        },
+        {
+            "name": "nc_lat_with_withheld",
+            "rule": "noncanonical",
+            "fragment": "AQEYAGjebUQCHAAAAAEAAAAAAAAAAAJaWgD_EjRWeATK_P_xj6IbHUzESLUuCZs_3-tqCZtm3H4M-fyo7AMAHfw58HqBBdN8CArp7S9SU9QtmIM1HTH6lrCoM0yvf-YGpLhSIavgddZl",
+            "bytesHex": "0101180068de6d44021c000000010000000000000000025a5a00ff1234567804cafcfff18fa21b1d4cc448b52e099b3fdfeb6a099b66dc7e0cf9fca8ec03001dfc39f07a8105d37c080ae9ed2f5253d42d9883351d31fa96b0a8334caf7fe606a4b85221abe075d665",
+            "derivedFrom": "v1_case8"
+        },
+        {
+            "name": "nc_lng_with_withheld",
+            "rule": "noncanonical",
+            "fragment": "AQEYAGjebUQCHAAAAAAAAIAAAAAAAAJaWgD_EjRWeATK_P_xj6IbHUzESLUuCZs_3-tqCZtm3H4M-fyo7AMAHfw58HqBBdN8CArp7S9SU9QtmIM1HTH6lrCoM0yvf-YGpLhSIavgddZl",
+            "bytesHex": "0101180068de6d44021c000000000000800000000000025a5a00ff1234567804cafcfff18fa21b1d4cc448b52e099b3fdfeb6a099b66dc7e0cf9fca8ec03001dfc39f07a8105d37c080ae9ed2f5253d42d9883351d31fa96b0a8334caf7fe606a4b85221abe075d665",
+            "derivedFrom": "v1_case8"
+        },
+        {
+            "name": "nc_accuracy_with_withheld",
+            "rule": "noncanonical",
+            "fragment": "AQEYAGjebUQCHAAAAAAAAAAAAAYAAAJaWgD_EjRWeATK_P_xj6IbHUzESLUuCZs_3-tqCZtm3H4M-fyo7AMAHfw58HqBBdN8CArp7S9SU9QtmIM1HTH6lrCoM0yvf-YGpLhSIavgddZl",
+            "bytesHex": "0101180068de6d44021c000000000000000000060000025a5a00ff1234567804cafcfff18fa21b1d4cc448b52e099b3fdfeb6a099b66dc7e0cf9fca8ec03001dfc39f07a8105d37c080ae9ed2f5253d42d9883351d31fa96b0a8334caf7fe606a4b85221abe075d665",
+            "derivedFrom": "v1_case8"
+        },
+        {
+            "name": "nc_age_with_withheld",
+            "rule": "noncanonical",
+            "fragment": "AQEYAGjebUQCHAAAAAAAAAAAAAABAAJaWgD_EjRWeATK_P_xj6IbHUzESLUuCZs_3-tqCZtm3H4M-fyo7AMAHfw58HqBBdN8CArp7S9SU9QtmIM1HTH6lrCoM0yvf-YGpLhSIavgddZl",
+            "bytesHex": "0101180068de6d44021c000000000000000000000100025a5a00ff1234567804cafcfff18fa21b1d4cc448b52e099b3fdfeb6a099b66dc7e0cf9fca8ec03001dfc39f07a8105d37c080ae9ed2f5253d42d9883351d31fa96b0a8334caf7fe606a4b85221abe075d665",
+            "derivedFrom": "v1_case8"
+        },
+        {
+            "name": "nc_lat_with_withheld_validly_signed",
+            "rule": "noncanonical",
+            "fragment": "AQFYAGjebUQCHAAAADkAAAAAAAAAAAJaWgD_EjRWeATK_P_xj6IbHUwvY6CFhOueVsWqfb94F1QG9af7q5VyIbHrhcspTVaUsEkEO3t1wZVyCX8MVvKE_DwSJ9XEUG5FduDuSiuI8nuM",
+            "bytesHex": "0101580068de6d44021c000000390000000000000000025a5a00ff1234567804cafcfff18fa21b1d4c2f63a08584eb9e56c5aa7dbf78175406f5a7fbab957221b1eb85cb294d5694b049043b7b75c19572097f0c56f284fc3c1227d5c4506e4576e0ee4a2b88f27b8c",
+            "signedDespiteRule": true
+        },
+        {
+            "name": "nc_aspect_zero",
+            "rule": "noncanonical",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbAACEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b00008427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d"
+        },
+        {
+            "name": "nc_aspect_zero_validly_signed",
+            "rule": "noncanonical",
+            "fragment": "AQAZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbAAA8bhruvEw2ki0Hzx0FoLLKmm0oC9hBXWXdcRzvLWzX7HOk50Ix_V85S_bZNEjShPY5EY7wLElUPNrwVhhHb_m-",
+            "bytesHex": "0100190068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b00003c6e1aeebc4c36922d07cf1d05a0b2ca9a6d280bd8415d65dd711cef2d6cd7ec73a4e74231fd5f394bf6d93448d284f639118ef02c49543cdaf05618476ff9be",
             "signedDespiteRule": true
         },
         {
             "name": "gps_time_with_skew_none",
             "rule": "gps_time_without_skew",
-            "fragment": "AQBYAGjebT0CHAAAAAAAAAAA__8AgAAAAAAAAAAAAQTK_P_xj6Ibf-ZcrK-6luVDxvqqCGzk-kdgrQuTP8kfmbhwYneOtukeqgt9RSnB6lnY1ifK7lcu7OmF-t7HjJWlsdjy-isZpQ",
-            "bytesHex": "0100580068de6d3d021c0000000000000000ffff008000000000000000000104cafcfff18fa21b7fe65cacafba96e543c6faaa086ce4fa4760ad0b933fc91f99b87062778eb6e91eaa0b7d4529c1ea59d8d627caee572eece985fadec78c95a5b1d8f2fa2b19a5"
+            "fragment": "AQAYAGjebT0CHAAAAAAAAAAAAAAAgAAAAAAAAAAAAQTK_P_xj6IbHUyHp60ZucEV_oJhdMqWdIWvHVEqOagdOc_3pu8WbHw67FkTI7eYta02MCAOqpQB0xlTugi3Vc_U_PqXUzXooT2U",
+            "bytesHex": "0100180068de6d3d021c00000000000000000000008000000000000000000104cafcfff18fa21b1d4c87a7ad19b9c115fe826174ca967485af1d512a39a81d39cff7a6ef166c7c3aec591323b798b5ad3630200eaa9401d31953ba08b755cfd4fcfa975335e8a13d94"
         },
         {
             "name": "v1_tampered_r_zero",
             "rule": "signature_range",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b00000000000000000000000000000000000000000000000000000000000000002e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b341500000000000000000000000000000000000000000000000000000000000000003d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d"
         },
         {
             "name": "v1_tampered_s_eq_n",
             "rule": "signature_range",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN3_____AAAAAP__________vOb6racXnoTzucrC_GMlUQ",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cddffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551"
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEv____8AAAAA__________-85vqtpxeehPO5ysL8YyVR",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a164012ffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551"
         },
         {
             "name": "v1_inverted_frame",
             "rule": "inverted_frame",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeP3K_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff12345678fdcafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeP3K_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff12345678fdcafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d"
         },
         {
             "name": "v1_inverted_frame_y",
             "rule": "inverted_frame",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeAT__P7xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804fffcfef18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeAT__P7xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804fffcfef18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d"
         },
         {
             "name": "version_0",
             "rule": "version",
-            "fragment": "AABZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "bytesHex": "0000590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
+            "fragment": "AABZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0000590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d"
         },
         {
             "name": "version_2",
             "rule": "version",
-            "fragment": "AgBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ",
-            "bytesHex": "0200590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d"
-        },
-        {
-            "name": "length_102",
-            "rule": "length",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VEC",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd5102"
+            "fragment": "AgBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9",
+            "bytesHex": "0200590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d"
         },
         {
             "name": "length_104",
             "rule": "length",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfc",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f7"
+        },
+        {
+            "name": "length_103_v1_before_p41b",
+            "rule": "length",
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYQ",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961"
+        },
+        {
+            "name": "length_106",
+            "rule": "length",
             "fragmentRule": "fragment_too_long",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQA",
-            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21bbaa2f130c5d7e6faafa6e6d64d1e8b2a6faff5845b74383f6f968ea747a71cdd2e4d465ac069af079a70cc533858963c1f1aef35bb390cd3a8ae8cbbfd51023d00"
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9AA",
+            "bytesHex": "0100590068de6d3c021c002df6f900d673b100060000025a5a00ff1234567804cafcfff18fa21b34158427382d753fdd7e6b8a46d9b46707ab7fe2ab9cf3da07c2ef39416c5a1640123d4a510aaea8e5932ce0c997a9d71e19dde5f2326e68fa6581636cc81961f77d00"
         },
         {
             "name": "empty",
@@ -1335,28 +1463,27 @@
         {
             "name": "b64_nonzero_pad_bits",
             "rule": "base64url_pad_bits",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPR",
-            "derivedFrom": "v1_case0"
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd"
         },
         {
             "name": "b64_length_137",
             "rule": "base64url_length",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECP"
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZY"
         },
         {
             "name": "b64_standard_alphabet_plus",
             "rule": "base64url_char",
-            "fragment": "+QBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ"
+            "fragment": "+QBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9"
         },
         {
             "name": "b64_padding_char",
             "rule": "base64url_char",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECP="
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd="
         },
         {
-            "name": "fragment_139",
+            "name": "fragment_141",
             "rule": "fragment_too_long",
-            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQA"
+            "fragment": "AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9A"
         },
         {
             "name": "fragment_4096",

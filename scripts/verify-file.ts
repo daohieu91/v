@@ -10,6 +10,6 @@ const im = await decodeLikeThePage(new Uint8Array(bytes.buffer, bytes.byteOffset
 const r = analyze(im);
 if (!r.url) { console.log('NO_CODE'); process.exit(2); }
 const p = payloadFromUrl(r.url); const seal = p ? checkSeal(p) : null;
-const v = verdict({ payload: p, seal, hamming: p ? r.hamming : null, texture: p ? r.texture : null, level2: null });
-console.log(JSON.stringify({ verdict: v.color, headline: v.headline, distance: r.hamming, texture: r.texture, noFingerprint: p?.fields.noFingerprint ?? null,
+const v = verdict({ payload: p, seal, hamming: p ? r.hamming : null, texture: p ? r.texture : null, level2: null, picture: { qr: r.qrInPicture, geometry: r.geometry } });
+console.log(JSON.stringify({ verdict: v.color, headline: v.headline, distance: r.hamming, texture: r.texture, noFingerprint: p?.fields.noFingerprint ?? null, geometry: r.geometry,
   time: p?.fields.epochSeconds ?? null, keyId: seal?.keyIdHex ?? null, size: [im.w, im.h], via: im.via }));

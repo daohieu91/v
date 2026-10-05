@@ -1,7 +1,8 @@
 {
   "brand": "CameraStamp",
   "title": "Check a photo",
-  "verdict_green": "Unchanged since it was sealed",
+  "verdict_green": "Matches what was sealed",
+  "verdict_green_exact": "Unchanged since it was sealed",
   "verdict_info_not_compared": "Seal is valid — photo not compared yet",
   "verdict_maybe_edited": "May have been lightly edited",
   "verdict_red": "Photo or information was changed",
@@ -21,7 +22,7 @@
   "check_content_c2pa": "The original file's content is unchanged",
   "device_unknown": "Real device not confirmed yet — needs the original file",
   "proves_title": "What this proves",
-  "proves_l1": "This photo and these details are unchanged since they were sealed by key {id}",
+  "proves_l1": "The details shown here are exactly as key {id} sealed them, and the picture matches what was sealed",
   "proves_not_device": "It does not show which app or phone made the seal: confirming a real device needs the original file",
   "proves_screen": "A photo taken of a screen showing a fake picture cannot be detected",
   "label_time": "Sealed at",
@@ -83,5 +84,13 @@
   "l2_error": "Couldn't read this file here — try another browser or a computer",
   "verdict_l2_bad": "The original file's seal can't be trusted",
   "error_too_big_video": "This video is larger than 100 MB and can't be checked here",
-  "verdict_uncertified": "Key not certified — lower trust"
+  "verdict_uncertified": "Key not certified — lower trust",
+  "verdict_green_sub": "Sealed by key {id} — which app and phone made it is not confirmed",
+  "proves_small_edits": "Noticeable changes to the picture are detected; tiny edits may not be (the original file proves every byte)",
+  "info_location_withheld": "Location not included in this seal",
+  "verdict_code_not_in_photo": "No readable code in this photo — compared using the seal from the link only",
+  "check_code_not_in_photo": "This photo's own code was not read, so nothing in the photo ties it to this seal",
+  "verdict_maybe_cropped": "This photo may have been cropped",
+  "check_geometry_mismatch": "The photo's shape or the code's position doesn't match the sealed photo: it may have been cropped or framed (for example, a screenshot)",
+  "verdict_l2_resaved": "Re-saved or edited after sealing — the picture still matches its seal"
 }

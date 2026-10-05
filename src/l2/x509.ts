@@ -10,6 +10,16 @@ export interface Cert {
   spki: Uint8Array; keyAlg: string; curve: string | null;
   issuer: Uint8Array; subject: Uint8Array;
   ext: Map<string, { critical: boolean; value: Uint8Array }>;
+  /** Validity (RFC 5280 §4.1.2.5) as epoch ms; NaN when unreadable (then no time is ever inside it). */
+  notBefore: number; notAfter: number;
+}
+/** UTCTime (YY < 50 → 20YY) or GeneralizedTime, "Z" only (RFC 5280 §4.1.2.5.1/.2). NaN otherwise. */
+export function derTime(n: { tag: number; content: Uint8Array }): number {
+  const s = new TextDecoder().decode(n.content);
+  const m = n.tag === 23 ? /^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})Z$/.exec(s) : n.tag === 24 ? /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(?:\.\d+)?Z$/.exec(s) : null;
+  if (!m) return NaN;
+  const y = n.tag === 23 ? (Number(m[1]) < 50 ? 2000 : 1900) + Number(m[1]) : Number(m[1]);
+  return Date.UTC(y, Number(m[2]) - 1, Number(m[3]), Number(m[4]), Number(m[5]), Number(m[6]));
 }
 const ECDSA: Record<string, string> = { '1.2.840.10045.4.3.2': 'SHA-256', '1.2.840.10045.4.3.3': 'SHA-384', '1.2.840.10045.4.3.4': 'SHA-512' };
 const RSA: Record<string, string> = { '1.2.840.113549.1.1.11': 'SHA-256', '1.2.840.113549.1.1.12': 'SHA-384', '1.2.840.113549.1.1.13': 'SHA-512' };
@@ -21,7 +31,7 @@ export function parseCert(der: Uint8Array): Cert {
   const [tbsN, algN, sigN] = kids(top); if (!tbsN || !algN || !sigN || sigN.tag !== 3) throw new Error('cert');
   const t = kids(tbsN); let k = 0;
   if (t[0].cls === 2 && t[0].tag === 0) k = 1;                                          // [0] EXPLICIT version
-  const serialN = t[k], issuerN = t[k + 2], subjectN = t[k + 4], spkiN = t[k + 5];
+  const serialN = t[k], issuerN = t[k + 2], validityN = t[k + 3], subjectN = t[k + 4], spkiN = t[k + 5];
   if (!serialN || serialN.tag !== 2 || !spkiN || spkiN.tag !== 16) throw new Error('cert');
   const [spkiAlg] = kids(spkiN); const algParts = kids(spkiAlg);
   const keyAlg = oid(algParts[0].content); const curve = keyAlg === OID_EC && algParts[1]?.tag === 6 ? oid(algParts[1].content) : null;
@@ -30,8 +40,9 @@ export function parseCert(der: Uint8Array): Cert {
   if (extN) for (const e of kids(kids(extN)[0])) { const p = kids(e); const critical = p.length === 3 && p[1].tag === 1 && p[1].content[0] !== 0;
     const id = oid(p[0].content); if (ext.has(id)) throw new Error('duplicate extension'); ext.set(id, { critical, value: p[p.length - 1].content }); }
   const serial = hex(serialN.content).replace(/^0+/, '') || '0';
+  let notBefore = NaN, notAfter = NaN; try { const v = kids(validityN); notBefore = derTime(v[0]); notAfter = derTime(v[1]); } catch { /* NaN */ }
   return { der, tbs: slice(tbsN, tbsN.content), sigAlg: oid(kids(algN)[0].content), signature: sigN.content.subarray(1), serial,
-    spki: slice(spkiN, spkiN.content), keyAlg, curve, issuer: slice(issuerN, issuerN.content), subject: slice(subjectN, subjectN.content), ext };
+    spki: slice(spkiN, spkiN.content), keyAlg, curve, issuer: slice(issuerN, issuerN.content), subject: slice(subjectN, subjectN.content), ext, notBefore, notAfter };
 }
 /** The whole TLV (header included) of node `n`, given its content view. */
 function slice(n: Der, content: Uint8Array): Uint8Array {

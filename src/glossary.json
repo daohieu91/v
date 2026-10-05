@@ -3,18 +3,20 @@
     "seal":          { "en": "seal", "hi": "सील", "id": "segel", "es": "sell", "pt-BR": "sel", "it": "sigill", "pl": "piecz", "vi": "niêm phong", "th": "ผนึก", "ms": "meterai" },
     "verifiable":    { "en": "verifiable", "hi": "सत्यापन योग्य", "id": "dapat diverifikasi", "es": "verificable", "pt-BR": "verificável", "it": "verificabile", "pl": "weryfikowaln", "vi": "xác minh được", "th": "ตรวจสอบได้", "ms": "boleh disahkan" },
     "original_file": { "en": "original file", "hi": "मूल फ़ाइल", "id": "file asli", "es": "archivo original", "pt-BR": "arquivo original", "it": "file originale", "pl": "oryginaln", "vi": "file gốc", "th": "ไฟล์ต้นฉบับ", "ms": "fail asal" },
-    "real_device":   { "en": "real device", "hi": "असली डिवाइस", "id": "perangkat asli", "es": "dispositivo real", "pt-BR": "aparelho real", "it": "dispositivo reale", "pl": "prawdziw", "vi": "máy thật", "th": "เครื่องจริง", "ms": "peranti sebenar" }
+    "real_device":   { "en": "real device", "hi": "असली डिवाइस", "id": "perangkat asli", "es": "dispositivo real", "pt-BR": "aparelho real", "it": "dispositivo reale", "pl": "prawdziw", "vi": "máy thật", "th": "เครื่องจริง", "ms": "peranti sebenar" },
+    "matches_sealed": { "en": "matches what was sealed", "hi": "सील के समय से मेल खाती है", "id": "cocok dengan saat disegel", "es": "coincide con lo sellado", "pt-BR": "corresponde ao que recebeu o selo", "it": "corrisponde a quanto sigillato", "pl": "z tym, co opieczętowano", "vi": "khớp với lúc niêm phong", "th": "ตรงกับตอนที่ผนึก", "ms": "sepadan dengan yang dimeterai" }
   },
   "uses": {
     "check_seal_ok": ["seal"], "check_seal_bad": ["seal"], "device_unknown": ["real_device", "original_file"],
     "l2_title": ["original_file"], "l2_real_device": ["real_device"], "l2_qr_link": ["real_device"],
     "proves_l1": ["seal"], "proves_not_device": ["real_device", "original_file"],
     "check_too_flat": ["seal"], "verdict_flat_mismatch": ["seal"], "check_flat_mismatch": ["seal"],
-    "l2_no_seal": ["seal"], "verdict_l2_bad": ["seal", "original_file"]
+    "l2_no_seal": ["seal"], "verdict_l2_bad": ["seal", "original_file"], "verdict_green": ["matches_sealed"]
   },
   "androidUses": {
     "stamp_verifiable_badge": ["verifiable"], "review_badge": ["verifiable"], "cd_badge_sealed": ["verifiable"],
     "seal_how_step2": ["seal"], "seal_stronger": ["original_file"], "review_send_original": ["original_file"],
-    "seal_proves_not_device": ["real_device", "original_file"]
+    "seal_proves_not_device": ["real_device", "original_file"], "seal_proves_yes_content": ["matches_sealed"],
+    "seal_proves_small_edits": ["original_file"], "review_original_unavailable": ["original_file"]
   }
 }

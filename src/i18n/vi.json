@@ -1,7 +1,8 @@
 {
   "brand": "CameraStamp",
   "title": "Kiểm tra ảnh",
-  "verdict_green": "Chưa bị sửa kể từ lúc niêm phong",
+  "verdict_green": "Khớp với lúc niêm phong",
+  "verdict_green_exact": "Chưa bị sửa kể từ lúc niêm phong",
   "verdict_info_not_compared": "Niêm phong hợp lệ — chưa so ảnh",
   "verdict_maybe_edited": "Có thể đã chỉnh nhẹ",
   "verdict_red": "Ảnh hoặc thông tin đã bị thay đổi",
@@ -21,7 +22,7 @@
   "check_content_c2pa": "Nội dung của file gốc không bị thay đổi",
   "device_unknown": "Chưa xác nhận được máy thật — cần file gốc",
   "proves_title": "Chứng minh được gì",
-  "proves_l1": "Ảnh này và các thông tin này không đổi kể từ khi được niêm phong bằng khoá {id}",
+  "proves_l1": "Các thông tin ở đây giữ nguyên như lúc khoá {id} niêm phong, và hình ảnh khớp với lúc niêm phong",
   "proves_not_device": "Điều này không cho biết app hay điện thoại nào đã niêm phong: muốn xác nhận máy thật cần file gốc",
   "proves_screen": "Không phát hiện được trò chụp lại màn hình đang hiện một ảnh giả",
   "label_time": "Thời điểm niêm phong",
@@ -83,5 +84,13 @@
   "l2_error": "Không đọc được file này ở đây — hãy thử trình duyệt khác hoặc máy tính",
   "verdict_l2_bad": "Không thể tin niêm phong của file gốc",
   "error_too_big_video": "Video này lớn hơn 100 MB nên không kiểm tra được ở đây",
-  "verdict_uncertified": "Khoá chưa được chứng nhận — độ tin cậy thấp hơn"
+  "verdict_uncertified": "Khoá chưa được chứng nhận — độ tin cậy thấp hơn",
+  "verdict_green_sub": "Niêm phong bằng khoá {id} — chưa xác nhận app và điện thoại nào đã tạo",
+  "proves_small_edits": "Thay đổi đáng kể trên ảnh sẽ bị phát hiện; chỉnh sửa rất nhỏ có thể không (file gốc chứng minh từng byte)",
+  "info_location_withheld": "Vị trí không nằm trong niêm phong này",
+  "verdict_code_not_in_photo": "Không đọc được mã trong ảnh này — chỉ so với niêm phong từ đường link",
+  "check_code_not_in_photo": "Không đọc được mã của chính ảnh này, nên không có gì trong ảnh gắn nó với niêm phong này",
+  "verdict_maybe_cropped": "Ảnh này có thể đã bị cắt",
+  "check_geometry_mismatch": "Tỉ lệ ảnh hoặc vị trí mã không khớp với ảnh đã niêm phong: ảnh có thể đã bị cắt hoặc bị đóng khung (ví dụ ảnh chụp màn hình)",
+  "verdict_l2_resaved": "Đã được lưu lại hoặc chỉnh sửa sau khi niêm phong — hình ảnh vẫn khớp với niêm phong"
 }

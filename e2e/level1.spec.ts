@@ -66,7 +66,9 @@ test('sealed photo after chat-app compression is green', async ({ page }) => { a
   await expect(band(page)).toHaveAttribute('data-verdict', 'green');
   await expect(page.locator('li[data-key=check_seal_ok]')).toContainText(OK.expectKeyId);
   await expect(page.locator('li[data-key=check_image_match]')).toBeVisible();
-  await expect(band(page)).toHaveText('Unchanged since it was sealed');
+  await expect(band(page)).toHaveText('Matches what was sealed');                    // P44: level 1 never says "unchanged"
+  await expect(page.locator('[data-sub=verdict_green_sub]')).toContainText(OK.expectKeyId);   // M9
+  await expect(page.locator('.explain li[data-key=proves_small_edits]')).toHaveText(/tiny edits may not be/);
   await expect(page.locator('.explain li[data-key=proves_l1]')).toContainText(OK.expectKeyId); });
 test('original-size sealed photo is green', async ({ page }) => { await page.goto('./'); await pick(page, 'sealed.jpg');
   await expect(band(page)).toHaveAttribute('data-verdict', 'green'); });
@@ -121,6 +123,39 @@ test('the same seal as the opened link: no notice', async ({ page }) => {
 });
 for (const f of ['edited.jpg', 'cropped.jpg']) test(`${f} is not green`, async ({ page }) => { await page.goto('./'); await pick(page, f);
   await expect(band(page)).toHaveAttribute('data-verdict', /yellow|red/); });
+// P41 / P41b (final fix wave B): flat_*.jpg from scripts/make-crop-fixtures.ts, a low-texture photo whose crops keep a matching fingerprint.
+const FLAT_FRAG = (() => { const j = jpeg.decode(readFileSync('e2e/fixtures/flat_sealed.jpg'), { useTArray: true, formatAsRGBA: true });
+  return findSealUrl({ data: Uint8ClampedArray.from(j.data), w: j.width, h: j.height })!.split('#')[1]; })();
+test('the low-texture sealed photo itself is green (its QR sits where the app puts it)', async ({ page }) => {
+  await page.goto('./'); await pick(page, 'flat_sealed.jpg'); await expect(band(page)).toHaveAttribute('data-verdict', 'green');
+  await expect(page.locator('li[data-key=check_geometry_mismatch]')).toHaveCount(0);
+});
+test('❌1d: 10 % cropped off the top of a low-texture photo is yellow "may have been cropped", never green', async ({ page }) => {
+  await page.goto('./'); await pick(page, 'flat_crop_top10.jpg');
+  await expect(band(page)).toHaveAttribute('data-verdict', 'yellow'); await expect(band(page)).toHaveText('This photo may have been cropped');
+  await expect(page.locator('li[data-key=check_geometry_mismatch]')).toBeVisible();
+  await expect(page.locator('li[data-key=check_image_match]')).toBeVisible();          // the fingerprint alone would have said green
+  await expect(page.locator('li[data-key=proves_l1], [data-sub]')).toHaveCount(0);
+  await page.selectOption('select[data-lang]', 'vi'); await expect(band(page)).toHaveText('Ảnh này có thể đã bị cắt');
+});
+test('I4: opened from the link, a photo whose QR was cropped away is compared with the link only: yellow, never green', async ({ page }) => {
+  await page.goto('./#' + FIXTURE_URL.split('#')[1]); await pick(page, 'cropped_no_qr.jpg');
+  await expect(band(page)).toHaveAttribute('data-verdict', 'yellow');
+  await expect(band(page)).toHaveText('No readable code in this photo — compared using the seal from the link only');
+  await expect(page.locator('li[data-key=check_code_not_in_photo]')).toBeVisible(); await expect(page.locator('li[data-key=proves_l1]')).toHaveCount(0);
+  await page.goto('./#' + FLAT_FRAG); await pick(page, 'flat_crop_right10.jpg');
+  await expect(band(page)).toHaveAttribute('data-verdict', /yellow|red/);
+});
+test('P42: a seal made with the location hidden says "Location not included in this seal": no place, no map link', async ({ page }) => {
+  const C8 = V.payloads.find((p: any) => p.name === 'v1_case8'); expect(C8.fields.locationWithheld).toBe(true);
+  await page.goto('./#' + C8.base64url);
+  await expect(band(page)).toHaveAttribute('data-verdict', 'yellow');
+  await expect(page.locator('li[data-key=info_location_withheld]')).toHaveText('Location not included in this seal');
+  await expect(page.locator('li[data-key=info_no_location], [data-map], [data-field=place]')).toHaveCount(0);
+  await expect(page.locator('#app')).not.toContainText(/no location/i);
+  await page.selectOption('select[data-lang]', 'vi');
+  await expect(page.locator('li[data-key=info_location_withheld]')).toHaveText('Vị trí không nằm trong niêm phong này');
+});
 test('QR cropped away: no code found', async ({ page }) => { await page.goto('./'); await pick(page, 'cropped_no_qr.jpg');
   await expect(band(page)).toHaveAttribute('data-verdict', 'none'); await expect(page.locator('p.message')).toHaveText('No CameraStamp code found in this photo'); });
 test('language switch and footer', async ({ page }) => {

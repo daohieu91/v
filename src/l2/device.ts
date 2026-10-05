@@ -27,8 +27,12 @@ export function deviceLines(i: DeviceInput): { lines: Check[]; realDevice: boole
     const ours = leaf.packages.includes(i.packageName);
     digest = ours ? i.digests.find(d => leaf.signatureDigests.includes(d.hex.toLowerCase())) : undefined;
     // No attestationApplicationId at all (API 24's software attestation, measured in the spike) names no app: unknown, not "another app".
+    // M8: once a release digest is registered (Part 4: the Play App Signing certificate), OUR package signed by any unknown certificate
+    // is a re-packaged app (same package name, another key): "not made by the app" (red with a certified chain), never "not yet registered".
+    const released = i.digests.some(d => !d.dev);
     lines.push(!leaf.packages.length ? { key: 'l2_app_unknown', status: 'warn' } : !ours ? { key: 'l2_app_bad', status: 'fail' }
-      : !digest ? { key: 'l2_app_unregistered', status: 'warn' } : digest.dev ? { key: 'l2_app_dev', status: 'warn' } : { key: 'l2_app_ok', status: 'pass' });
+      : !digest ? (released ? { key: 'l2_app_bad', status: 'fail' } : { key: 'l2_app_unregistered', status: 'warn' })
+      : digest.dev ? { key: 'l2_app_dev', status: 'warn' } : { key: 'l2_app_ok', status: 'pass' });
     hw = leaf.securityLevel >= 1 && leaf.keySecurityLevel >= 1;
     lines.push(hw ? { key: 'l2_level_hw', status: 'pass' } : { key: 'l2_level_sw', status: 'warn' });
     if (leaf.verifiedBootState === null && leaf.deviceLocked === null) lines.push({ key: 'l2_boot_unknown', status: 'info' });   // no root of trust attested

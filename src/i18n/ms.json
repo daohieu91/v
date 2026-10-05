@@ -1,7 +1,8 @@
 {
   "brand": "CameraStamp",
   "title": "Semak foto",
-  "verdict_green": "Tidak berubah sejak dimeterai",
+  "verdict_green": "Sepadan dengan yang dimeterai",
+  "verdict_green_exact": "Tidak berubah sejak dimeterai",
   "verdict_info_not_compared": "Meterai sah — foto belum dibandingkan",
   "verdict_maybe_edited": "Mungkin telah disunting sedikit",
   "verdict_red": "Foto atau maklumat telah diubah",
@@ -21,7 +22,7 @@
   "check_content_c2pa": "Kandungan fail asal tidak berubah",
   "device_unknown": "Peranti sebenar belum disahkan — perlu fail asal",
   "proves_title": "Apa yang dibuktikan",
-  "proves_l1": "Foto ini dan butiran ini tidak berubah sejak dimeterai dengan kunci {id}",
+  "proves_l1": "Butiran yang ditunjukkan di sini tepat seperti yang dimeterai oleh kunci {id}, dan gambar sepadan dengan yang dimeterai",
   "proves_not_device": "Ini tidak menunjukkan aplikasi atau telefon mana yang membuat meterai: pengesahan peranti sebenar perlukan fail asal",
   "proves_screen": "Foto yang diambil daripada skrin yang memaparkan gambar palsu tidak dapat dikesan",
   "label_time": "Dimeterai pada",
@@ -83,5 +84,13 @@
   "l2_error": "Fail ini tidak dapat dibaca di sini — cuba pelayar lain atau komputer",
   "verdict_l2_bad": "Meterai fail asal tidak boleh dipercayai",
   "error_too_big_video": "Video ini melebihi 100 MB dan tidak boleh disemak di sini",
-  "verdict_uncertified": "Kunci tidak diperakui — kepercayaan lebih rendah"
+  "verdict_uncertified": "Kunci tidak diperakui — kepercayaan lebih rendah",
+  "verdict_green_sub": "Dimeterai dengan kunci {id} — aplikasi dan telefon yang membuatnya belum disahkan",
+  "proves_small_edits": "Perubahan ketara pada gambar dikesan; suntingan yang sangat kecil mungkin tidak (fail asal membuktikan setiap bait)",
+  "info_location_withheld": "Lokasi tidak disertakan dalam meterai ini",
+  "verdict_code_not_in_photo": "Tiada kod yang boleh dibaca dalam foto ini — hanya dibandingkan dengan meterai daripada pautan",
+  "check_code_not_in_photo": "Kod foto ini sendiri tidak dibaca, jadi tiada apa-apa dalam foto yang mengaitkannya dengan meterai ini",
+  "verdict_maybe_cropped": "Foto ini mungkin telah dipangkas",
+  "check_geometry_mismatch": "Bentuk foto atau kedudukan kod tidak sepadan dengan foto yang dimeterai: foto mungkin telah dipangkas atau dibingkaikan (contohnya tangkapan skrin)",
+  "verdict_l2_resaved": "Disimpan semula atau disunting selepas dimeterai — gambar masih sepadan dengan meterainya"
 }

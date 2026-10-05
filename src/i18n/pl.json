@@ -1,7 +1,8 @@
 {
   "brand": "CameraStamp",
   "title": "Sprawdź zdjęcie",
-  "verdict_green": "Bez zmian od opieczętowania",
+  "verdict_green": "Zgodne z tym, co opieczętowano",
+  "verdict_green_exact": "Bez zmian od opieczętowania",
   "verdict_info_not_compared": "Pieczęć jest ważna — zdjęcia jeszcze nie porównano",
   "verdict_maybe_edited": "Mogło zostać lekko edytowane",
   "verdict_red": "Zdjęcie lub informacje zostały zmienione",
@@ -21,7 +22,7 @@
   "check_content_c2pa": "Treść oryginalnego pliku nie została zmieniona",
   "device_unknown": "Prawdziwe urządzenie jeszcze niepotwierdzone — potrzebny oryginalny plik",
   "proves_title": "Co to potwierdza",
-  "proves_l1": "To zdjęcie i te dane nie zmieniły się od opieczętowania kluczem {id}",
+  "proves_l1": "Pokazane tu dane są dokładnie takie, jakie opieczętował klucz {id}, a obraz jest zgodny z tym, co opieczętowano",
   "proves_not_device": "Nie wskazuje, która aplikacja ani telefon nałożyły pieczęć: potwierdzenie prawdziwego urządzenia wymaga oryginalnego pliku",
   "proves_screen": "Nie da się wykryć zdjęcia ekranu, na którym widać fałszywy obraz",
   "label_time": "Opieczętowano",
@@ -83,5 +84,13 @@
   "l2_error": "Nie udało się tu odczytać tego pliku — spróbuj innej przeglądarki lub komputera",
   "verdict_l2_bad": "Pieczęci oryginalnego pliku nie można ufać",
   "error_too_big_video": "Ten film ma ponad 100 MB i nie można go tu sprawdzić",
-  "verdict_uncertified": "Klucz niepoświadczony — mniejsze zaufanie"
+  "verdict_uncertified": "Klucz niepoświadczony — mniejsze zaufanie",
+  "verdict_green_sub": "Opieczętowano kluczem {id} — nie potwierdzono, która aplikacja i telefon to zrobiły",
+  "proves_small_edits": "Wyraźne zmiany obrazu są wykrywane; bardzo drobne poprawki mogą nie być (oryginalny plik potwierdza każdy bajt)",
+  "info_location_withheld": "Lokalizacji nie dołączono do tej pieczęci",
+  "verdict_code_not_in_photo": "Na tym zdjęciu nie da się odczytać kodu — porównano je tylko z pieczęcią z linku",
+  "check_code_not_in_photo": "Nie odczytano kodu z samego zdjęcia, więc nic na zdjęciu nie wiąże go z tą pieczęcią",
+  "verdict_maybe_cropped": "To zdjęcie mogło zostać przycięte",
+  "check_geometry_mismatch": "Kształt zdjęcia lub położenie kodu nie zgadza się z opieczętowanym zdjęciem: mogło zostać przycięte lub obramowane (np. zrzut ekranu)",
+  "verdict_l2_resaved": "Zapisano ponownie lub edytowano po opieczętowaniu — obraz nadal zgadza się z pieczęcią"
 }

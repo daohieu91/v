@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { FLAT_MISMATCH_TEXTURE, TEXTURE_FLOOR } from '../src/config';
 import { verdict } from '../src/verdict';
 import type { SealPayload } from '../src/payload';
-const base = (o: Partial<SealPayload['fields']> = {}): SealPayload => ({ recoveryBit: 0, signature: new Uint8Array(64), signed: new Uint8Array(39),
+const base = (o: Partial<SealPayload['fields']> = {}): SealPayload => ({ recoveryBit: 0, signature: new Uint8Array(64), signed: new Uint8Array(41),
   fields: { version: 1, epochSeconds: 1759407420, tzOffsetMinutes: 540, location: { latE5: 3012345, lngE5: 14054321, accuracyM: 6, ageTens: 0, approximate: false, stale: false },
-    autoTime: true, clockSkewSeconds: 2, softwareKey: false, phash: 0n, frame: [4, 202, 252, 255], keyTag: 1, noFingerprint: false, ...o } });
+    autoTime: true, clockSkewSeconds: 2, softwareKey: false, phash: 0n, frame: [4, 202, 252, 255], keyTag: 1, noFingerprint: false, aspect: 13333, locationWithheld: false, ...o } });
 const ok = { ok: true, keyIdHex: '0011223344556677' };
 const v = (p: SealPayload | null, h: number | null, seal: { ok: boolean; keyIdHex: string | null } = ok) => verdict({ payload: p, seal, hamming: h, texture: null, level2: null });
 describe('verdict', () => {
@@ -88,7 +88,7 @@ describe('verdict', () => {
     it('P30: a flagged seal whose original file passes level 2 is green, with the level-2 wording', () => {
       for (const texture of [null, 0, TEXTURE_FLOOR - 1]) {
         const r = verdict({ payload: nf(), seal: ok, hamming: null, texture, level2: L2OK });
-        expect([r.color, r.headline], String(texture)).toEqual(['green', 'verdict_green']);
+        expect([r.color, r.headline], String(texture)).toEqual(['green', 'verdict_green_exact']);   // P44: the exact bytes
         expect(r.checks.find(c => c.key === 'check_content_c2pa')?.status, String(texture)).toBe('pass');
         expect(keys(r).filter(k => k === 'check_too_flat' || k === 'check_not_compared' || k.startsWith('check_image'))).toEqual([]);
       }
@@ -154,5 +154,55 @@ describe('verdict with level 2', () => {
   it('a broken original file without a readable seal (a tampered video) is red and says why', () => {
     const v1 = verdict({ payload: null, seal: null, hamming: null, texture: null, level2: L(['l2_invalid'], { kind: 'invalid', bound: false }) });
     expect(v1.color).toBe('red'); expect(v1.checks.map(c => c.key)).toEqual(['l2_invalid']);
+  });
+});
+
+// Final fix wave B: P42, P44, I4, P41/P41b, M9, M13.
+describe('verdict, final fix wave', () => {
+  const pic = (qr: boolean, geometry: 'ok' | 'mismatch' | 'unknown' | null = 'ok') => ({ qr, geometry });
+  const V = (o: Partial<Parameters<typeof verdict>[0]>) => verdict({ payload: base(), seal: ok, hamming: 2, texture: null, level2: null, picture: pic(true), ...o });
+  const keys = (r: ReturnType<typeof verdict>) => r.checks.map(c => c.key);
+  const BOUND = { kind: 'ok' as const, lines: [{ key: 'l2_signature_ok', status: 'pass' as const }], realDevice: false, bound: true };
+  it('P42: a withheld location says "not included in this seal", never "no location"', () => {
+    const w = V({ payload: base({ location: null, locationWithheld: true }) });
+    expect(keys(w)).toContain('info_location_withheld'); expect(keys(w)).not.toContain('info_no_location'); expect(w.color).toBe('green');
+    expect(keys(V({ payload: base({ location: null }) }))).toContain('info_no_location');
+  });
+  it('P44: a level-1 green "matches what was sealed", says tiny edits may not show, and names the key under the band (M9)', () => {
+    const g = V({});
+    expect([g.color, g.headline]).toEqual(['green', 'verdict_green']);
+    expect(keys(g)).toEqual(expect.arrayContaining(['proves_l1', 'proves_small_edits']));
+    expect(g.sub).toEqual({ key: 'verdict_green_sub', status: 'info', params: { id: ok.keyIdHex } });
+    for (const y of [V({ hamming: 12 }), V({ hamming: 30 })]) { expect(y.sub).toBeUndefined(); expect(keys(y)).not.toContain('proves_small_edits'); }
+  });
+  it('P44: only a bound original (the exact bytes) is "unchanged"; then no small-edits caveat and no level-1-only subtitle', () => {
+    const e = V({ level2: BOUND });
+    expect([e.color, e.headline]).toEqual(['green', 'verdict_green_exact']); expect(keys(e)).not.toContain('proves_small_edits'); expect(e.sub).toBeUndefined();
+    expect(V({ level2: { ...BOUND, bound: false } }).headline).toBe('verdict_green');
+  });
+  it('I4 / P41b: a photo whose own QR was not read is never green, at most yellow; a mismatch stays red', () => {
+    for (const h of [0, 8]) { const r = V({ hamming: h, picture: pic(false, 'unknown') });
+      expect([r.color, r.headline], String(h)).toEqual(['yellow', 'verdict_code_not_in_photo']); expect(keys(r)).toContain('check_code_not_in_photo');
+      expect(keys(r)).not.toContain('proves_l1'); }
+    expect(V({ hamming: 20, picture: pic(false) }).color).toBe('red');
+    // Even with a bound original whose content level 2 proves (P30), a picked photo without its QR is not green.
+    expect(V({ hamming: null, level2: BOUND, picture: pic(false, null) }).color).toBe('yellow');
+    // A link alone (no picture) and a video (no QR at all) are unaffected.
+    expect(V({ hamming: null, picture: null }).headline).toBe('verdict_info_not_compared');
+  });
+  it('P41: a geometry mismatch is yellow "may have been cropped", never green and never red by itself; the exact bytes skip it', () => {
+    const c = V({ picture: pic(true, 'mismatch') });
+    expect([c.color, c.headline]).toEqual(['yellow', 'verdict_maybe_cropped']); expect(keys(c)).toContain('check_geometry_mismatch'); expect(keys(c)).not.toContain('proves_l1');
+    expect(V({ hamming: 20, picture: pic(true, 'mismatch') }).color).toBe('red');
+    for (const g of ['ok', 'unknown'] as const) expect(V({ picture: pic(true, g) }).color, g).toBe('green');
+    expect(V({ level2: BOUND, picture: pic(true, 'mismatch') }).headline).toBe('verdict_green_exact');
+  });
+  it('M13: an original re-saved with its C2PA data kept, whose own QR picture still matches: yellow, not red; anything less stays red', () => {
+    const INV = { kind: 'invalid' as const, lines: [{ key: 'l2_invalid', status: 'fail' as const }], realDevice: false, bound: false };
+    const r = V({ level2: INV }); expect([r.color, r.headline]).toEqual(['yellow', 'verdict_l2_resaved']); expect(keys(r)).toContain('l2_invalid');
+    expect(V({ level2: INV, hamming: 9 }).color).toBe('red');
+    expect(V({ level2: INV, picture: pic(false) }).color).toBe('red');
+    expect(V({ level2: INV, picture: pic(true, 'mismatch') }).color).toBe('red');
+    expect(V({ level2: INV, picture: null }).color).toBe('red');
   });
 });

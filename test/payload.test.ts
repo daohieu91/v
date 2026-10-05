@@ -3,13 +3,13 @@ import { URL_PREFIX } from '../src/config';
 import { PayloadError, decodeFragment, decodePayload, encodeHeader, parseV1, payloadFromUrl } from '../src/payload';
 
 // v1_case0 of the vectors (canonical, verifies with the test key).
-const CASE0 = 'AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ';
+const CASE0 = 'AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbNBWEJzgtdT_dfmuKRtm0Zwerf-KrnPPaB8LvOUFsWhZAEj1KUQquqOWTLODJl6nXHhnd5fIybmj6ZYFjbMgZYfd9';
 const ruleOf = (f: () => unknown) => { try { f(); return 'ACCEPTED'; } catch (e) { return e instanceof PayloadError ? e.rule : 'THREW ' + String(e); } };
 
 describe('payload', () => {
   it('rejects unknown versions and wrong lengths', () => {
-    expect(() => decodePayload(new Uint8Array([2, ...new Uint8Array(102)]))).toThrow(PayloadError);
-    expect(() => decodePayload(new Uint8Array([1, ...new Uint8Array(101)]))).toThrow(PayloadError);
+    expect(() => decodePayload(new Uint8Array([2, ...new Uint8Array(104)]))).toThrow(PayloadError);
+    expect(() => decodePayload(new Uint8Array([1, ...new Uint8Array(103)]))).toThrow(PayloadError);
     expect(() => decodePayload(new Uint8Array())).toThrow(PayloadError);
   });
   it('accepts only the verify URL', () => {
@@ -40,7 +40,7 @@ describe('payload', () => {
   it('decodePayload throws only PayloadError on arbitrary input', () => {
     let s = 12345;
     for (let i = 0; i < 2000; i++) {
-      const b = new Uint8Array(i % 7 === 0 ? 103 : i % 120);
+      const b = new Uint8Array(i % 7 === 0 ? 105 : i % 120);
       for (let j = 0; j < b.length; j++) { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; b[j] = s >>> 24; }
       if (b.length) b[0] = i % 3 === 0 ? 1 : b[0];
       expect(ruleOf(() => decodePayload(b))).not.toMatch(/^THREW/);
@@ -49,7 +49,7 @@ describe('payload', () => {
   it('encodeHeader round-trips the decoded fields byte for byte', () => {
     const b = Uint8Array.from(Buffer.from(CASE0, 'base64url'));
     const d = decodePayload(b);
-    expect(encodeHeader(d.fields, d.recoveryBit)).toEqual(b.slice(0, 39));
+    expect(encodeHeader(d.fields, d.recoveryBit)).toEqual(b.slice(0, 41));
     expect(d.signed).toEqual(encodeHeader(d.fields, 0));
   });
   // P26: NO_FINGERPRINT is flag bit 7 (0x80 of byte 2); with it set the 8 phash bytes must be zero. Same order as SealCodec.decode:
@@ -64,7 +64,7 @@ describe('payload', () => {
     expect(ruleOf(() => decodePayload(tz))).toBe('noncanonical');
     const zero = flagged.slice(); zero.fill(0, 23, 31);                                  // phash 0: canonical, decodes with the flag
     const d = decodePayload(zero); expect(d.fields.noFingerprint).toBe(true); expect(d.fields.phash).toBe(0n);
-    expect(encodeHeader(d.fields, d.recoveryBit)).toEqual(zero.slice(0, 39));
+    expect(encodeHeader(d.fields, d.recoveryBit)).toEqual(zero.slice(0, 41));
     expect(decodePayload(b).fields.noFingerprint).toBe(false);
   });
   it('encodeHeader sets 0x80 for NO_FINGERPRINT and refuses it with a fingerprint', () => {
@@ -82,5 +82,25 @@ describe('payload', () => {
     expect(parseV1(zero).fields).toMatchObject({ noFingerprint: true, phash: 0n });
     expect(parseV1(b).fields.noFingerprint).toBe(false);
     const gps = flagged.slice(); new DataView(gps.buffer).setInt16(21, -32768); expect(ruleOf(() => parseV1(gps))).toBe('gps_time_without_skew');
+  });
+  // P42 / P41b, same place in the order as SealCodec.decode (after the P26 rule, before the re-encode compare).
+  it('LOCATION_WITHHELD with a location, and aspect 0, are rejected before the re-encode compare', () => {
+    const b = Uint8Array.from(Buffer.from(CASE0, 'base64url')); expect(b[2] & 0x01).toBe(0x01);
+    const both = b.slice(); both[1] |= 0x01;
+    expect(ruleOf(() => parseV1(both))).toBe('noncanonical'); expect(ruleOf(() => decodePayload(both))).toBe('noncanonical');
+    const zero = b.slice(); zero[39] = 0; zero[40] = 0;
+    expect(ruleOf(() => parseV1(zero))).toBe('noncanonical'); expect(ruleOf(() => decodePayload(zero))).toBe('noncanonical');
+    const gps = zero.slice(); new DataView(gps.buffer).setInt16(21, -32768); expect(ruleOf(() => parseV1(gps))).toBe('gps_time_without_skew');
+    expect(parseV1(b).fields).toMatchObject({ aspect: 13333, locationWithheld: false });
+  });
+  it('encodeHeader: bit 8 for LOCATION_WITHHELD, zeroed location bytes, aspect at 39–40', () => {
+    const d = decodePayload(Uint8Array.from(Buffer.from(CASE0, 'base64url')));
+    const w = encodeHeader({ ...d.fields, location: null, locationWithheld: true }, 0);
+    expect(w[1]).toBe(0x01); expect(w[2] & 0x01).toBe(0); expect([...w.slice(10, 21)].every(x => x === 0)).toBe(true);
+    expect(encodeHeader({ ...d.fields, location: null }, 0).slice(18, 20)).toEqual(new Uint8Array(2));   // accuracy 0, not 65535
+    expect(ruleOf(() => encodeHeader({ ...d.fields, locationWithheld: true }, 0))).toBe('noncanonical');
+    expect(ruleOf(() => encodeHeader({ ...d.fields, aspect: 0 }, 0))).toBe('noncanonical');
+    expect(ruleOf(() => encodeHeader({ ...d.fields, aspect: 65536 }, 0))).toBe('out_of_range');
+    const a = encodeHeader({ ...d.fields, aspect: 0xabcd }, 0); expect([a[39], a[40]]).toEqual([0xab, 0xcd]);
   });
 });

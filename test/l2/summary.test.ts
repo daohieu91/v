@@ -55,6 +55,17 @@ describe('level-2 summary', () => {
     expect(keys(r)).toContain('l2_no_tsa'); expect(keys(r)).not.toContain('l2_tsa');
     expect(keys(await run({ store: store(seal(), ['signingCredential.untrusted'], ['timeStamp.trusted']) }))).toContain('l2_tsa');
   });
+  // I2: c2pa-web 0.15.3 reports a self-made "DigiCert" time-stamp as timeStamp.validated (measured: original_tsa_forged.crjson.json).
+  it('a time-stamp the reader "validated" from a self-made TSA named DigiCert gets no "confirmed by" line', async () => {
+    const CRF = readFileSync('test/fixtures/c2pa/original_tsa_forged.crjson.json', 'utf8'); const crf = JSON.parse(CRF);
+    const codes = crf.manifests[0].validationResults ?? crf.validationResults; expect(JSON.stringify(codes)).toContain('timeStamp.validated');
+    const st: any = store(seal()); st.active_manifest = crf.manifests[0].label; st.manifests = { [crf.manifests[0].label]: st.manifests[LABEL] };
+    const f = 'e2e/fixtures/original_tsa_forged.jpg';
+    const r = await run({ store: st, cose: await cose(f), claim: await claimOf(f), cr: CRF });
+    expect(r.summary.kind).toBe('ok'); expect(keys(r)).toContain('l2_no_tsa'); expect(keys(r)).not.toContain('l2_tsa');
+    expect(JSON.stringify(r.summary.lines)).not.toMatch(/DigiCert/);
+    expect(keys(await run({}))).toContain('l2_tsa');                                         // the real DigiCert original still says it
+  });
   it('our x5chain[0] must be the certificate the reader validated (signature_info): any mismatch → l2_error, unbound, never real', async () => {
     for (const bad of [{ ...SIG_INFO, cert_serial_number: '17406309323454950513' }, { ...SIG_INFO, common_name: 'CameraStamp seal 0000000000000000' },
       { ...SIG_INFO, issuer: 'Someone' }, null, {}]) {

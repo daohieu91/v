@@ -5,11 +5,14 @@ import { URL_PREFIX } from './config';
  * Decode is CANONICAL ONLY (ruling P17): the header is re-encoded from the parsed fields and must equal the bytes received, so no byte
  * that decoding drops (reserved flag bits, location fields without the location flag, skew without the GPS-time flag, …) is free to edit.
  * Decode order, identical to the app and to vectors_check.py: empty, version, length, inverted frame, signature range, GPS sentinel,
- * NO_FINGERPRINT with a fingerprint (P26), field ranges, canonical. `rule` names the check, as in the vectors' `rule` keys.
+ * NO_FINGERPRINT with a fingerprint (P26), LOCATION_WITHHELD with a location or aspect 0 (P42/P41b), canonical. `rule` names the check,
+ * as in the vectors' `rule` keys.
  *
  * Flags (u16, bit 0 = 0x0001; payload byte 2 holds bits 0–7): 0 location · 1 approximate · 2 stale · 3 automatic time · 4 GPS time ·
  * 5 software key · 6 recovery bit (not signed) · 7 NO_FINGERPRINT (P26: the photo was too dark/flat to fingerprint; phash MUST be 0) ·
- * 8–15 reserved (must be 0).
+ * 8 LOCATION_WITHHELD (0x0100, P42: a fix existed but the stamp did not show coordinates; only with bit 0 clear) · 9–15 reserved (0).
+ * Without a location (either reason) lat, lng, accuracy and age are all 0 (canonical-zero, P42).
+ * Header bytes 39–40: aspect (u16 BE, P41b) = round(w / h × 10000) of the composed image, 1..65535 (0 is non-canonical). r‖s at 41–104.
  */
 export type PayloadRule = 'empty' | 'version' | 'length' | 'inverted_frame' | 'signature_range' | 'gps_time_without_skew' | 'out_of_range'
   | 'noncanonical' | 'base64url_length' | 'base64url_char' | 'base64url_pad_bits' | 'fragment_too_long';
@@ -20,14 +23,19 @@ export interface SealLocation { latE5: number; lngE5: number; accuracyM: number;
 export interface SealFields { version: number; epochSeconds: number; tzOffsetMinutes: number; location: SealLocation | null; autoTime: boolean;
   clockSkewSeconds: number | null; softwareKey: boolean; phash: bigint; frame: [number, number, number, number]; keyTag: number;
   /** P26: sealed without a fingerprint (phash is 0). A verifier never compares a hash for it (P28: it measures the texture instead). */
-  noFingerprint: boolean }
-/** `signed` = header(fields, recoveryBit 0): the 39 bytes the key signed (the recovery bit is not signed). */
+  noFingerprint: boolean;
+  /** P41b: round(w / h × 10000) of the sealed (composed) image, 1..65535. */
+  aspect: number;
+  /** P42: a fix existed but the stamp did not show coordinates, so none were sealed (location is null). */
+  locationWithheld: boolean }
+/** `signed` = header(fields, recoveryBit 0): the 41 bytes the key signed (the recovery bit is not signed). */
 export interface SealPayload { fields: SealFields; recoveryBit: 0 | 1; signature: Uint8Array; signed: Uint8Array }
 
-export const SIZE_V1 = 103;
-export const HEADER_V1 = 39;
-/** base64url length of the longest supported payload (v1: 103 B → 138 chars), checked before any decoding (P18 c). */
-export const MAX_FRAGMENT_LEN = 138;
+export const SIZE_V1 = 105;
+export const HEADER_V1 = 41;
+/** base64url length of the longest supported payload (v1: 105 B → 140 chars; the URL is 171), checked before any decoding (P18 c). */
+export const MAX_FRAGMENT_LEN = 140;
+export const FLAG_LOCATION_WITHHELD = 0x0100;
 const SKEW_NONE = -32768;
 const MAX_TZ_MIN = 18 * 60;
 const N = 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551n;
@@ -55,12 +63,15 @@ export function b64urlDecode(s: string): Uint8Array {
   return out.subarray(0, o);
 }
 
-/** SealCodec.header: the 39-byte header of `f`. Fields outside their slots are rejected (the buffer would silently truncate them). */
+/** SealCodec.header: the 41-byte header of `f`. Fields outside their slots are rejected (the buffer would silently truncate them). */
 export function encodeHeader(f: SealFields, recoveryBit: 0 | 1): Uint8Array {
   const loc = f.location; const skew = f.clockSkewSeconds;
   const int = (x: number, lo: number, hi: number) => Number.isInteger(x) && x >= lo && x <= hi;
   if (f.version !== 1 || (recoveryBit !== 0 && recoveryBit !== 1)) throw new PayloadError('version');
   if (f.noFingerprint && f.phash !== 0n) throw new PayloadError('noncanonical');   // P26, as SealCodec.header's require
+  if (f.locationWithheld && loc) throw new PayloadError('noncanonical');          // P42
+  if (!int(f.aspect, 0, 65535)) throw new PayloadError('out_of_range');
+  if (f.aspect === 0) throw new PayloadError('noncanonical');                         // P41b: 0 is never written
   if (!int(f.epochSeconds, 0, 2 ** 40 - 1) || !int(f.tzOffsetMinutes, -MAX_TZ_MIN, MAX_TZ_MIN) || (skew !== null && !int(skew, -32767, 32767))
     || !int(f.keyTag, -(2 ** 31), 2 ** 31 - 1) || f.phash < 0n || f.phash >= 1n << 64n || !f.frame.every(x => int(x, 0, 255)))
     throw new PayloadError('out_of_range');
@@ -75,17 +86,19 @@ export function encodeHeader(f: SealFields, recoveryBit: 0 | 1): Uint8Array {
   if (f.softwareKey) flags |= 0x20;
   if (recoveryBit === 1) flags |= 0x40;
   if (f.noFingerprint) flags |= 0x80;
+  if (f.locationWithheld) flags |= FLAG_LOCATION_WITHHELD;
   const b = new Uint8Array(HEADER_V1); const v = new DataView(b.buffer);
   b[0] = 1;
   v.setUint16(1, flags);
   b[3] = Math.floor(f.epochSeconds / 2 ** 32); v.setUint32(4, f.epochSeconds % 2 ** 32);   // 5-byte epoch: never a 32-bit operator
   v.setInt16(8, f.tzOffsetMinutes);
   v.setInt32(10, loc?.latE5 ?? 0); v.setInt32(14, loc?.lngE5 ?? 0);
-  v.setUint16(18, loc?.accuracyM ?? 65535); b[20] = loc?.ageTens ?? 0;
+  v.setUint16(18, loc?.accuracyM ?? 0); b[20] = loc?.ageTens ?? 0;      // P42: canonical-zero without a location
   v.setInt16(21, skew ?? SKEW_NONE);
   v.setBigUint64(23, f.phash);
   b.set(f.frame, 31);
   v.setInt32(35, f.keyTag);
+  v.setUint16(39, f.aspect);
   return b;
 }
 
@@ -117,6 +130,9 @@ export function parseV1(b: Uint8Array): { fields: SealFields; recoveryBit: 0 | 1
   // P26, part of the canonical rule, explicit because the re-encode below reproduces the flag: after the GPS sentinel, before the
   // re-encode compare (same order as SealCodec.decode). A zero phash alone never implies the flag.
   if (noFingerprint && v.getBigUint64(23) !== 0n) throw new PayloadError('noncanonical');
+  // P42 / P41b, same place in the order: LOCATION_WITHHELD only without a location; an aspect of 0 is never written.
+  const withheld = (flags & FLAG_LOCATION_WITHHELD) !== 0; const aspect = v.getUint16(39);
+  if ((withheld && (flags & 0x01) !== 0) || aspect === 0) throw new PayloadError('noncanonical');
   const fields: SealFields = {
     version: 1,
     epochSeconds: b[3] * 2 ** 32 + v.getUint32(4),
@@ -130,6 +146,8 @@ export function parseV1(b: Uint8Array): { fields: SealFields; recoveryBit: 0 | 1
     frame,
     keyTag: v.getInt32(35),
     noFingerprint,
+    aspect,
+    locationWithheld: withheld,
   };
   return { fields, recoveryBit: ((flags >> 6) & 1) as 0 | 1, signature };
 }

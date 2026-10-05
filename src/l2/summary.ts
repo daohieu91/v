@@ -5,7 +5,8 @@ import type { Check, L2Summary } from '../verdict';
 import { checkChain } from './attestation';
 import { deviceLines, type Digest } from './device';
 import { decodeCbor, type Cbor } from './cbor';
-import { coseSigner, tstInfo, verifyClaimSignature } from './jumbf';
+import { coseSigner, verifyClaimSignature } from './jumbf';
+import { verifyTsaToken } from './tsa';
 import { commonName, ecPoint, parseCert, type Cert } from './x509';
 const norm = (refs: unknown, enc: (h: unknown) => string | null): string[] | null => {
   if (!Array.isArray(refs)) return null; const out: string[] = [];
@@ -52,7 +53,9 @@ export interface L2Reply { summary: L2Summary; payload: SealPayload | null }
 export interface L2Input { store: any; cose: Uint8Array | null;
   /** The active manifest's claim bytes as WE read them, and c2pa-web's crJSON (its own read of the same store), for the signer tie. */
   claim?: Uint8Array | null; cr?: unknown; roots: string[]; status: { entries: Record<string, unknown> };
-  qrKeyIdHex: string | null; digests?: readonly Digest[] }
+  qrKeyIdHex: string | null; digests?: readonly Digest[];
+  /** Tests only: other pinned TSA roots (default: the app's, tsa-roots.ts). */
+  tsaRoots?: readonly Cert[] }
 const b64 = (s: string) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 /**
  * Spec §5.2 checks 1–8, each its own line. c2pa-web's validation is the authority on the file (check 1): any failure except
@@ -90,10 +93,12 @@ export async function summarize(i: L2Input): Promise<L2Reply> {
   const payloadKey = payload && checkSeal(payload).ok ? recoverPublicKey(payload) : null;
   const d = deviceLines({ chain, signerKey, payloadKey, qrKeyIdHex: i.qrKeyIdHex, packageName: PACKAGE_NAME, digests: i.digests ?? SIGNING_DIGESTS });
   lines.push(...d.lines);
-  // "Confirmed by X" only when c2pa-web validated the time-stamp (0.15.3 emits timeStamp.validated; newer ones may say trusted), and X is
-  // the token's signer certificate (tstInfo). Anything else: no independent time-stamp is claimed.
+  // "Confirmed by X" only when c2pa-web validated the time-stamp (0.15.3 emits timeStamp.validated; newer ones may say trusted) AND our
+  // own check (I2, tsa.ts) chains the token's signer to a PINNED TSA root (the app's TsaTrust): c2pa-web's "validated" does not mean
+  // trusted, and a self-made "DigiCert" certificate passes it (measured). X is that verified signer's CN. Anything else: no independent
+  // time-stamp is claimed (l2_no_tsa), never a name.
   const tsOk = !tsBroken && successes.some(c => c === 'timeStamp.validated' || c === 'timeStamp.trusted');
-  const tst = tsOk && signer?.tstTokens[0] ? tstInfo(signer.tstTokens[0]) : null;
+  const tst = tsOk && signer?.tstTokens[0] ? await verifyTsaToken(signer.tstTokens[0], i.tsaRoots) : null;
   lines.push(tst?.tsaName ? { key: 'l2_tsa', status: 'pass', params: { time: tst.genTime, tsa: tst.tsaName.slice(0, 100) } } : { key: 'l2_no_tsa', status: 'info' });
   return done('ok', d.realDevice, d.contentBound, payload);
 }

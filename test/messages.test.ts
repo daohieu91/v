@@ -9,18 +9,24 @@ describe('postMessage validation', () => {
     expect(validJob({ data: new ArrayBuffer(16), w: 2, h: 2, fallback: null })).not.toBeNull();
     expect(validJob({ data: new ArrayBuffer(15), w: 2, h: 2, fallback: null })).toBeNull();
     expect(validJob({ data: new ArrayBuffer(16), w: 2.5, h: 2, fallback: null })).toBeNull();
-    expect(validJob({ data: new ArrayBuffer(16), w: 2, h: 2, fallback: 'x'.repeat(139) })).toBeNull();
+    expect(validJob({ data: new ArrayBuffer(16), w: 2, h: 2, fallback: 'x'.repeat(141) })).toBeNull();
+    expect(validJob({ data: new ArrayBuffer(16), w: 2, h: 2, fallback: 'x'.repeat(140) })).not.toBeNull();   // a full v1 fragment (105 B)
     expect(validJob({ file: new Blob(['x']), fallback: 'abc' })).not.toBeNull();
     expect(validJob('nope')).toBeNull(); expect(validJob(null)).toBeNull();
   });
   it('worker reply: only our URL, hamming 0..64, known decode path', () => {
-    const ok = { ok: true, r: { url: V.payloads[0].url, hamming: 3, texture: null }, dec: { w: 10, h: 10, via: 'plain' } };
+    const ok = { ok: true, r: { url: V.payloads[0].url, hamming: 3, texture: null, qrInPicture: true, geometry: 'ok' }, dec: { w: 10, h: 10, via: 'plain' } };
     expect(validReply(ok)).toEqual(ok);
-    const flat = { ...ok, r: { url: V.payloads[0].url, hamming: null, texture: 2 ** 36 - 1 } };   // P26: Step 7 texture, an exact integer < 2³⁶
+    const flat = { ...ok, r: { ...ok.r, hamming: null, texture: 2 ** 36 - 1 } };   // P26: Step 7 texture, an exact integer < 2³⁶
     expect(validReply(flat)).toEqual(flat);
     for (const texture of [-1, 2 ** 36, 1.5, '7', undefined]) expect(validReply({ ...ok, r: { ...ok.r, texture } }), String(texture)).toBeNull();
-    expect(validReply({ ...ok, r: { url: 'https://evil.example/#x', hamming: 3, texture: null } })).toBeNull();
-    expect(validReply({ ...ok, r: { url: null, hamming: 65, texture: null } })).toBeNull();
+    expect(validReply({ ...ok, r: { ...ok.r, url: 'https://evil.example/#x' } })).toBeNull();
+    for (const bad of [{ qrInPicture: 'yes' }, { qrInPicture: undefined }, { geometry: 'cropped' }, { geometry: undefined }])
+      expect(validReply({ ...ok, r: { ...ok.r, ...bad } }), JSON.stringify(bad)).toBeNull();
+    expect(validReply({ ...ok, r: { ...ok.r, qrInPicture: false, geometry: null } })).not.toBeNull();
+    expect(V.payloads[0].url).toHaveLength(171);
+    expect(validReply({ ...ok, r: { ...ok.r, url: V.payloads[0].url + 'A' } }), 'longer than a v1 URL').toBeNull();
+    expect(validReply({ ...ok, r: { ...ok.r, url: null, hamming: 65 } })).toBeNull();
     expect(validReply({ ...ok, dec: { w: 10, h: 10, via: 'magic' } })).toBeNull();
     expect(validReply({ ok: false, need: 'pixels' })).toEqual({ ok: false, need: 'pixels' });
     expect(validReply({ ok: false, err: 'oversize' })).toEqual({ ok: false, err: 'oversize' });
