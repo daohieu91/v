@@ -47,7 +47,7 @@ export function render(root: HTMLElement, s: View) {
     const list = el('ul', { class: 'checks' }); const proves = el('ul', { class: 'checks proves' });
     for (const c of v.checks) (c.key.startsWith('proves_') ? proves : list).append(el('li', { 'data-status': c.status, 'data-key': c.key }, line(d, c.key, c.params)));
     root.append(list);
-    if (proves.childElementCount) { const sec = el('section', { class: 'explain' }); sec.append(el('h2', {}, t(d, 'proves_title')), proves); root.append(sec); }
+    if (proves.childElementCount) { const sec = el('section', { class: 'explain' }); sec.append(el('h2', {}, t(d, v.color === 'green' ? 'proves_title' : 'proves_title_neutral')), proves); root.append(sec); }
   }
   const input = el('input', { type: 'file', accept: 'image/*,video/mp4' });
   input.addEventListener('change', () => { const f = input.files?.[0]; if (f) s.onPick(f); });

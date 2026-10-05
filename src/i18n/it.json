@@ -69,5 +69,7 @@
   "error_too_large_image": "Questa foto ha troppi pixel per essere verificata nel browser. Scegli una copia più piccola (per esempio quella inviata da un'app di chat)",
   "notice_other_seal": "Questa foto porta un sigillo diverso dal link che hai aperto. Il risultato qui sotto è quello del sigillo della foto",
   "unknown_line": "Esito della verifica sconosciuto",
-  "privacy_history": "Il link che hai aperto, con le coordinate, resta nella cronologia di questo browser"
+  "privacy_history": "Il link che hai aperto, con le coordinate, resta nella cronologia di questo browser",
+  "proves_title_neutral": "Che cosa mostra questa verifica",
+  "error_unsupported": "Questo tipo di file non si può verificare qui. Scegli una foto JPEG, PNG, WebP o HEIC"
 }

@@ -9,7 +9,7 @@ const G = JSON.parse(readFileSync('src/glossary.json', 'utf8')) as { terms: Reco
 const g = (...x: string[]) => x.map(r => new RegExp(r, 'gu'));
 const BANNED: Record<string, { allow: RegExp[]; ban: RegExp[] }> = {
   en: { allow: g('real device'), ban: g('\\breal\\b', 'authentic', 'genuine', '\\btrue\\b', 'taken with') },
-  vi: { allow: g('máy thật', 'gần đúng'), ban: g('thật', 'xác thực', 'đúng', 'chụp bằng') },
+  vi: { allow: g('máy thật', 'gần đúng'), ban: g('thật', 'xác thực', 'đúng', 'chụp bằng', 'nơi chụp') },
   hi: { allow: g('असली डिवाइस'), ban: g('असली', 'प्रामाणिक', 'सही', 'सच', 'से लिया') },
   id: { allow: g('perangkat asli', 'file asli'), ban: g('asli', 'autentik', 'benar', 'diambil dengan') },
   es: { allow: g('dispositivo real'), ban: g('\\breal', 'auténtic', 'genuin', 'verdader', 'tomada con', 'hecho con') },
@@ -41,7 +41,8 @@ describe('i18n', () => {
     const vi = dict('vi'), en = dict('en');
     expect(en.verdict_green).toBe('Unchanged since it was sealed'); expect(vi.verdict_green).toBe('Chưa bị sửa kể từ lúc niêm phong');
     expect(en.verdict_info_not_compared).toBe('Seal is valid — photo not compared yet'); expect(vi.verdict_info_not_compared).toBe('Niêm phong hợp lệ — chưa so ảnh');
-    expect(en.label_time).toBe('Sealed at'); expect(vi.label_time).toBe('Thời điểm niêm phong');
+    expect(en.label_time).toBe('Sealed at'); expect(vi.label_time).toBe('Thời điểm niêm phong'); expect(vi.label_place).toBe('Vị trí niêm phong');
+    expect(en.proves_title_neutral).toBe('What this check shows'); expect(vi.proves_title_neutral).toBe('Kiểm tra này cho thấy gì');
     expect(en.footer_app).toBe('Checked with CameraStamp — get the app'); expect(vi.footer_app).toBe('Kiểm tra bằng CameraStamp — tải app');
     expect(vi.verdict_red).toBe('Ảnh hoặc thông tin đã bị thay đổi'); expect(vi.footer_local).toBe('Kiểm tra ngay trên máy bạn');
     expect(vi.footer_upload).toBe('Ảnh không được tải lên');

@@ -69,5 +69,7 @@
   "error_too_large_image": "Foto ini memiliki terlalu banyak piksel untuk diperiksa di browser. Pilih salinan yang lebih kecil (misalnya yang dikirim aplikasi chat)",
   "notice_other_seal": "Foto ini membawa segel yang berbeda dari tautan yang Anda buka. Hasil di bawah adalah untuk segel foto itu sendiri",
   "unknown_line": "Hasil pemeriksaan tidak dikenal",
-  "privacy_history": "Tautan yang Anda buka, beserta koordinatnya, tetap ada di riwayat browser ini"
+  "privacy_history": "Tautan yang Anda buka, beserta koordinatnya, tetap ada di riwayat browser ini",
+  "proves_title_neutral": "Apa yang ditunjukkan pemeriksaan ini",
+  "error_unsupported": "Jenis file ini tidak dapat diperiksa di sini. Pilih foto JPEG, PNG, WebP, atau HEIC"
 }

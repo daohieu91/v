@@ -15,9 +15,9 @@ export function fitPow2(w: number, h: number, max: number): { w: number; h: numb
 
 /** Above this many pixels a picture is never decoded at full size (a 4096 × 4096 bitmap is 64 MB). */
 export const MAX_FULL_DECODE_PX = MAX_SIDE * MAX_SIDE;
-/** A file whose size cannot be read from its header is decoded only when it is this small (then it cannot hide a huge bitmap cheaply). */
-export const UNKNOWN_DIMS_MAX_BYTES = 6 * 1024 * 1024;
 export class TooLargeImage extends Error { constructor() { super('too_large'); this.name = 'TooLargeImage'; } }
+/** A file whose pixel size cannot be read from its header: never decoded (a few KB can hide a gigapixel bitmap). */
+export class UnsupportedImage extends Error { constructor() { super('unsupported'); this.name = 'UnsupportedImage'; } }
 
 export type Dims = { w: number; h: number; orientation: number };
 const u16 = (b: Uint8Array, i: number, le = false) => (le ? b[i] | (b[i + 1] << 8) : (b[i] << 8) | b[i + 1]);
@@ -71,13 +71,14 @@ export function imageDims(b: Uint8Array): Dims | null {
   } catch { return null; }
 }
 
-export type Plan = { kind: 'plain' } | { kind: 'resize'; w: number; h: number } | { kind: 'refuse' };
+export type Plan = { kind: 'plain' } | { kind: 'resize'; w: number; h: number } | { kind: 'refuse' } | { kind: 'unsupported' };
 /**
  * How to decode, from the header alone (pure): small enough → as is; larger → ask the browser for the bounded size directly (the
- * target is computed on the DISPLAYED axes: EXIF orientations 5–8 swap width and height); size unknown → only a small file.
+ * target is computed on the DISPLAYED axes: EXIF orientations 5–8 swap width and height); size unknown → unsupported, never decoded.
+ * Every common phone format (JPEG, HEIC/HEIF, AVIF, PNG, WebP) has its size in the header.
  */
 export function decodePlan(dims: Dims | null, bytes: number): Plan {
-  if (!dims) return bytes <= UNKNOWN_DIMS_MAX_BYTES ? { kind: 'plain' } : { kind: 'refuse' };
+  void bytes; if (!dims) return { kind: 'unsupported' };
   const swap = dims.orientation >= 5; const ow = swap ? dims.h : dims.w, oh = swap ? dims.w : dims.h;
   const t = fitPow2(ow, oh, MAX_SIDE);
   if (t.w === ow && t.h === oh && ow * oh <= MAX_FULL_DECODE_PX) return { kind: 'plain' };
@@ -90,6 +91,7 @@ type Source = { src: CanvasImageSource; w: number; h: number; close: () => void;
  * EXIF orientation); the result is accepted only at exactly the target size, never distorted, and NEVER falls back to a full decode.
  */
 export async function bitmap(f: Blob, plan: Plan): Promise<Source | null> {
+  if (plan.kind === 'unsupported') throw new UnsupportedImage();
   if (plan.kind === 'refuse') throw new TooLargeImage();
   if (typeof createImageBitmap !== 'function') { if (plan.kind === 'resize') throw new TooLargeImage(); return null; }
   const wrap = (b: ImageBitmap, via: Source['via']): Source => ({ src: b, w: b.width, h: b.height, close: () => b.close(), via });

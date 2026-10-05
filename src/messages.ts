@@ -18,10 +18,10 @@ export function validJob(m: unknown): Job | null {
     return { data: m.data, w: m.w, h: m.h, fallback: m.fallback as string | null };
   return null;
 }
-export type Reply = { ok: true; r: Analysis; dec: { w: number; h: number; via: 'plain' | 'resize' | 'page' } } | { ok: false; need?: 'pixels'; err?: 'oversize' };
+export type Reply = { ok: true; r: Analysis; dec: { w: number; h: number; via: 'plain' | 'resize' | 'page' } } | { ok: false; need?: 'pixels'; err?: 'oversize' | 'format' };
 export function validReply(m: unknown): Reply | null {
   if (!isObj(m)) return null;
-  if (m.ok === false) return { ok: false, ...(m.need === 'pixels' ? { need: 'pixels' as const } : {}), ...(m.err === 'oversize' ? { err: 'oversize' as const } : {}) };
+  if (m.ok === false) return { ok: false, ...(m.need === 'pixels' ? { need: 'pixels' as const } : {}), ...(m.err === 'oversize' || m.err === 'format' ? { err: m.err as 'oversize' | 'format' } : {}) };
   if (m.ok !== true || !isObj(m.r) || !isObj(m.dec)) return null;
   const { url, hamming } = m.r; const d = m.dec;
   const urlOk = url === null || (typeof url === 'string' && url.startsWith(URL_PREFIX) && url.length <= URL_PREFIX.length + MAX_FRAGMENT_LEN);

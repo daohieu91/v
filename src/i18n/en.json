@@ -69,5 +69,7 @@
   "error_too_large_image": "This photo has too many pixels to check in the browser. Choose a smaller copy (for example, the one a chat app sent)",
   "notice_other_seal": "This photo carries a different seal than the link you opened. The result below is for the photo's own seal",
   "unknown_line": "Unrecognised check result",
-  "privacy_history": "The link you opened, with its coordinates, stays in this browser's history"
+  "privacy_history": "The link you opened, with its coordinates, stays in this browser's history",
+  "proves_title_neutral": "What this check shows",
+  "error_unsupported": "This file type can't be checked here. Choose a JPEG, PNG, WebP or HEIC photo"
 }

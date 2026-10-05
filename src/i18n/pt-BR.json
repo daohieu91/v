@@ -69,5 +69,7 @@
   "error_too_large_image": "Esta foto tem pixels demais para verificar no navegador. Escolha uma cópia menor (por exemplo, a enviada por um app de chat)",
   "notice_other_seal": "Esta foto traz um selo diferente do link que você abriu. O resultado abaixo é do selo da própria foto",
   "unknown_line": "Resultado de verificação desconhecido",
-  "privacy_history": "O link que você abriu, com as coordenadas, fica no histórico deste navegador"
+  "privacy_history": "O link que você abriu, com as coordenadas, fica no histórico deste navegador",
+  "proves_title_neutral": "O que esta verificação mostra",
+  "error_unsupported": "Este tipo de arquivo não pode ser verificado aqui. Escolha uma foto JPEG, PNG, WebP ou HEIC"
 }

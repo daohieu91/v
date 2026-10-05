@@ -23,7 +23,7 @@ This is a best-effort defence, not a guarantee.
 ## Level 1 (this page)
 
 - Open `https://daohieu91.github.io/v/#<seal>` (the phone camera opens it from the QR): the seal is checked at once and the band is
-  yellow, "information is genuine — photo not compared yet". Choose the received photo to compare its content: green, yellow or red.
+  yellow, "seal is valid — photo not compared yet". Choose the received photo to compare its content: green, yellow or red.
 - The verdict comes only from `checkSeal` (the key tag check). A level-1 green means "this photo and these details are unchanged since
   key <8-byte id> sealed them" (shown on green only). It does not prove which app or phone made the seal: that needs the original file (level 2, `l2.html`).
 - Decode, QR search (full image, ~1600 and ~1000 px wide, bottom-right corner, bottom band) and the fingerprint run in a Web Worker.

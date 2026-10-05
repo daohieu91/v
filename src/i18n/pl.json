@@ -69,5 +69,7 @@
   "error_too_large_image": "To zdjęcie ma zbyt wiele pikseli, aby sprawdzić je w przeglądarce. Wybierz mniejszą kopię (np. wysłaną przez komunikator)",
   "notice_other_seal": "To zdjęcie ma inną pieczęć niż otwarty link. Wynik poniżej dotyczy pieczęci samego zdjęcia",
   "unknown_line": "Nieznany wynik sprawdzenia",
-  "privacy_history": "Otwarty link wraz ze współrzędnymi zostaje w historii tej przeglądarki"
+  "privacy_history": "Otwarty link wraz ze współrzędnymi zostaje w historii tej przeglądarki",
+  "proves_title_neutral": "Co pokazuje to sprawdzenie",
+  "error_unsupported": "Tego typu pliku nie można tu sprawdzić. Wybierz zdjęcie JPEG, PNG, WebP lub HEIC"
 }

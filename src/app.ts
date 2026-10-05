@@ -1,6 +1,6 @@
 import { parseCheckedAt } from './attestation-date';
 import { checkSeal } from './crypto';
-import { fileToRgba, MAX_FILE_BYTES, sniffC2pa, TooLargeImage, type Rgba } from './image';
+import { fileToRgba, MAX_FILE_BYTES, sniffC2pa, TooLargeImage, UnsupportedImage, type Rgba } from './image';
 import { validReply, type Reply } from './messages';
 import { loadDict, pickLocale } from './i18n';
 import { runLevel2 } from './l2client';
@@ -44,11 +44,11 @@ function job(msg: object, transfer: Transferable[]): Promise<Reply> {
 async function analyzeOffThread(f: File, fallback: string | null): Promise<Analysis> {
   let r = await job({ file: f, fallback }, []);
   if (!r.ok && r.need === 'pixels') {
-    let im: Rgba; try { im = await fileToRgba(f); } catch (e) { throw e instanceof TooLargeImage ? new Refused('error_too_large_image') : e; }
+    let im: Rgba; try { im = await fileToRgba(f); } catch (e) { throw e instanceof TooLargeImage ? new Refused('error_too_large_image') : e instanceof UnsupportedImage ? new Refused('error_unsupported') : e; }
     r = await job({ data: im.data.buffer, w: im.w, h: im.h, fallback }, [im.data.buffer]);
     if (r.ok) r.dec.via = im.via ?? 'plain';
   }
-  if (!r.ok) throw r.err === 'oversize' ? new Refused('error_too_large_image') : new Error('analyze');
+  if (!r.ok) throw r.err === 'oversize' ? new Refused('error_too_large_image') : r.err === 'format' ? new Refused('error_unsupported') : new Error('analyze');
   root.dataset.decoded = `${r.dec.w}x${r.dec.h} ${r.dec.via}`;              // test hook: the bounded size actually decoded (no image data)
   return r.r;
 }
@@ -68,7 +68,8 @@ async function pick(f: File) {
     // The photo's own seal wins over the link's; say so when they differ (identity = header + r, P18 a), and make the URL match.
     const linked = fromHash(); let notice: string | null = null;
     if (payload && linked && sealIdentity(payload) !== sealIdentity(linked)) notice = 'notice_other_seal';
-    if (payload && r0url && r0url !== URL_PREFIX + fragment()) history.replaceState(null, '', '#' + r0url.slice(URL_PREFIX.length));
+    // Only when the page was opened from a link: a photo checked on the bare page leaves nothing in the URL or the history.
+    if (payload && r0url && fragment() && r0url !== URL_PREFIX + fragment()) history.replaceState(null, '', '#' + r0url.slice(URL_PREFIX.length));
     const seal = payload ? checkSeal(payload) : null;
     const l2 = c2pa ? await runLevel2(f, seal?.ok ? seal.keyIdHex : null) : null;
     if (!payload && l2?.payload) payload = l2.payload;                              // a video original: level 2 carries the fields

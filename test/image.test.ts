@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bitmap, decodePlan, fitPow2, hasC2pa, imageDims, jpegSize, MAX_FILE_BYTES, TooLargeImage, UNKNOWN_DIMS_MAX_BYTES } from '../src/image';
+import { bitmap, decodePlan, fitPow2, hasC2pa, imageDims, jpegSize, MAX_FILE_BYTES, TooLargeImage, UnsupportedImage } from '../src/image';
 const jpg = (...segs: number[][]) => new Uint8Array([0xff, 0xd8, ...segs.flat(), 0xff, 0xda, 0, 2]);
 const seg = (m: number, body: number[]) => [0xff, m, (body.length + 2) >> 8, (body.length + 2) & 255, ...body];
 const ascii = (s: string) => [...s].map(c => c.charCodeAt(0));
@@ -67,15 +67,16 @@ describe('imageDims + decodePlan (never a full-size decode of a huge picture)', 
     expect(imageDims(new Uint8Array([0, 0, 0, 16, ...ascii2('ftypheic'), 0, 0, 0, 0, ...ispe(512, 512), ...ispe(8064, 6048), ...ispe(320, 240)])))
       .toEqual({ w: 8064, h: 6048, orientation: 1 });
     expect(imageDims(new Uint8Array([1, 2, 3, 4, 5]))).toBeNull();
+    expect(imageDims(new Uint8Array([...ascii2('II*\0'), 8, 0, 0, 0, 0, 0]))).toBeNull();                    // TIFF: not a supported photo format
   });
-  it('plans: small → as is; large → the bounded size on the DISPLAYED axes; unknown → only a small file', () => {
+  it('plans: small → as is; large → the bounded size on the DISPLAYED axes; unknown → unsupported, never decoded', () => {
     expect(decodePlan({ w: 4000, h: 3000, orientation: 1 }, 5e6)).toEqual({ kind: 'plain' });
     expect(decodePlan({ w: 8000, h: 6000, orientation: 1 }, 2e7)).toEqual({ kind: 'resize', w: 4000, h: 3000 });
     expect(decodePlan({ w: 8000, h: 6000, orientation: 6 }, 2e7)).toEqual({ kind: 'resize', w: 3000, h: 4000 });   // 50 MP portrait
     expect(decodePlan({ w: 8000, h: 6000, orientation: 8 }, 2e7)).toEqual({ kind: 'resize', w: 3000, h: 4000 });
     expect(decodePlan({ w: 12000, h: 9000, orientation: 1 }, 1e6)).toEqual({ kind: 'resize', w: 3000, h: 2250 });   // tiny but huge PNG
-    expect(decodePlan(null, 1e6)).toEqual({ kind: 'plain' });
-    expect(decodePlan(null, UNKNOWN_DIMS_MAX_BYTES + 1)).toEqual({ kind: 'refuse' });
+    expect(decodePlan(null, 1e3)).toEqual({ kind: 'unsupported' });        // no size in the header: never decoded (decompression bomb)
+    expect(decodePlan(null, 30e6)).toEqual({ kind: 'unsupported' });
   });
 });
 describe('bounded bitmap decode (fake createImageBitmap: engines differ in resize vs EXIF order)', () => {
@@ -97,6 +98,11 @@ describe('bounded bitmap decode (fake createImageBitmap: engines differ in resiz
   it('an engine that ignores the resize hint is refused, never decoded at full size', async () => {
     const r = await run(() => ({ width: 8000, height: 6000 }));
     expect(r.e).toBeInstanceOf(TooLargeImage); expect(r.calls.every(c => c !== null)).toBe(true);
+  });
+  it('an unsupported plan never calls the decoder', async () => {
+    let called = false; (globalThis as any).createImageBitmap = async () => { called = true; };
+    await expect(bitmap(new Blob(['x']), { kind: 'unsupported' })).rejects.toBeInstanceOf(UnsupportedImage); expect(called).toBe(false);
+    delete (globalThis as any).createImageBitmap;
   });
   it('a refuse plan never calls the decoder', async () => {
     let called = false; (globalThis as any).createImageBitmap = async () => { called = true; };

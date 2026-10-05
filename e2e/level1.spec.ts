@@ -89,16 +89,30 @@ test('a huge-pixel PNG (12000 × 9000, tiny file) is decoded only at the bounded
   await expect(page.locator('p.message')).toHaveText('No CameraStamp code found in this photo', { timeout: 30_000 });
   await expect(page.locator('#app')).toHaveAttribute('data-decoded', '3000x2250 resize');
 });
-test('a large file whose size cannot be read from its header is refused, not decoded', async ({ page }) => {
+test('a file whose size cannot be read from its header is refused as unsupported, never decoded (large or small)', async ({ page }) => {
   await page.goto('./');
   await page.setInputFiles('input[type=file]', { name: 'x.heic', mimeType: 'image/heic', buffer: Buffer.alloc(7 * 1024 * 1024, 7) });
-  await expect(page.locator('p.message')).toHaveText(/too many pixels to check in the browser/);
+  await expect(page.locator('p.message')).toHaveText("This file type can't be checked here. Choose a JPEG, PNG, WebP or HEIC photo");
+  // A small TIFF (browsers that decode TIFF would decode it plain before): refused the same way.
+  const tiff = Buffer.concat([Buffer.from('II*\0'), Buffer.from([8, 0, 0, 0]), Buffer.alloc(64)]);
+  await page.setInputFiles('input[type=file]', { name: 'x.tif', mimeType: 'image/tiff', buffer: tiff });
+  await expect(page.locator('p.message')).toHaveText("This file type can't be checked here. Choose a JPEG, PNG, WebP or HEIC photo");
 });
 test('a photo whose seal differs from the opened link: notice, and the URL now names the photo\'s seal', async ({ page }) => {
   await page.goto('./#' + OK.base64url); await expect(band(page)).toHaveAttribute('data-verdict', 'yellow');
   await pick(page, 'sealed.jpg');
   await expect(page.locator('[data-notice=notice_other_seal]')).toHaveText(/carries a different seal than the link you opened/);
   expect(new URL(page.url()).hash.slice(1)).toBe(FIXTURE_URL.split('#')[1]);
+});
+test('opened without a link: checking a photo writes nothing into the URL or history', async ({ page }) => {
+  await page.goto('./'); const before = await page.evaluate(() => history.length);
+  await pick(page, 'sealed.jpg'); await expect(band(page)).toHaveAttribute('data-verdict', 'green');
+  expect(new URL(page.url()).hash).toBe(''); expect(await page.evaluate(() => history.length)).toBe(before);
+});
+test('the heading of the explainer is neutral unless green', async ({ page }) => {
+  await page.goto('./#' + OK.base64url); await expect(page.locator('.explain h2')).toHaveText('What this check shows');
+  await page.goto('./'); await pick(page, 'sealed.jpg'); await expect(page.locator('.explain h2')).toHaveText('What this proves');
+  await page.goto('./'); await pick(page, 'copied_qr.jpg'); await expect(page.locator('.explain h2')).toHaveText('What this check shows');
 });
 test('the same seal as the opened link: no notice', async ({ page }) => {
   await page.goto('./#' + FIXTURE_URL.split('#')[1]); await pick(page, 'sealed.jpg');
@@ -180,7 +194,8 @@ test('a file over 40 MB is refused with a friendly message, before any decode', 
   await expect(page.locator('p.message')).toHaveText('This file is larger than 40 MB. Choose a smaller copy of the photo');
 });
 test('an unreadable file shows "could not be read", not a blank page', async ({ page }) => {
-  await page.goto('./');
-  await page.setInputFiles('input[type=file]', { name: 'x.jpg', mimeType: 'image/jpeg', buffer: Buffer.from('not a jpeg at all') });
+  await page.goto('./');                       // a valid JPEG header (size known) with a broken body: the decoder itself fails
+  const broken = Buffer.concat([Buffer.from([0xff, 0xd8, 0xff, 0xc0, 0, 17, 8, 0, 100, 0, 100, 3]), Buffer.alloc(9), Buffer.from([0xff, 0xda, 0, 2]), Buffer.from('garbage')]);
+  await page.setInputFiles('input[type=file]', { name: 'x.jpg', mimeType: 'image/jpeg', buffer: broken });
   await expect(page.locator('p.message')).toHaveText('This file could not be read', { timeout: 15_000 });
 });

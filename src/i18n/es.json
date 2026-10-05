@@ -69,5 +69,7 @@
   "error_too_large_image": "Esta foto tiene demasiados píxeles para comprobarla en el navegador. Elige una copia más pequeña (por ejemplo, la que envió una app de chat)",
   "notice_other_seal": "Esta foto lleva un sello distinto del enlace que abriste. El resultado de abajo es el del sello de la foto",
   "unknown_line": "Resultado de comprobación desconocido",
-  "privacy_history": "El enlace que abriste, con sus coordenadas, queda en el historial de este navegador"
+  "privacy_history": "El enlace que abriste, con sus coordenadas, queda en el historial de este navegador",
+  "proves_title_neutral": "Qué muestra esta comprobación",
+  "error_unsupported": "Este tipo de archivo no se puede comprobar aquí. Elige una foto JPEG, PNG, WebP o HEIC"
 }

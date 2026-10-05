@@ -69,5 +69,7 @@
   "error_too_large_image": "Foto ini mempunyai terlalu banyak piksel untuk disemak dalam pelayar. Pilih salinan yang lebih kecil (contohnya yang dihantar oleh aplikasi sembang)",
   "notice_other_seal": "Foto ini membawa meterai yang berbeza daripada pautan yang anda buka. Keputusan di bawah adalah untuk meterai foto itu sendiri",
   "unknown_line": "Keputusan semakan tidak diketahui",
-  "privacy_history": "Pautan yang anda buka, bersama koordinatnya, kekal dalam sejarah pelayar ini"
+  "privacy_history": "Pautan yang anda buka, bersama koordinatnya, kekal dalam sejarah pelayar ini",
+  "proves_title_neutral": "Apa yang ditunjukkan semakan ini",
+  "error_unsupported": "Jenis fail ini tidak dapat disemak di sini. Pilih foto JPEG, PNG, WebP atau HEIC"
 }

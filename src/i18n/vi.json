@@ -25,7 +25,7 @@
   "proves_not_device": "Điều này không cho biết app hay điện thoại nào đã niêm phong: muốn xác nhận máy thật cần file gốc",
   "proves_screen": "Không phát hiện được trò chụp lại màn hình đang hiện một ảnh giả",
   "label_time": "Thời điểm niêm phong",
-  "label_place": "Nơi chụp",
+  "label_place": "Vị trí niêm phong",
   "label_accuracy": "±{m} m",
   "map_button": "Xem trên bản đồ",
   "address_note": "Địa chỉ trên tem do điện thoại tra từ toạ độ này",
@@ -69,5 +69,7 @@
   "error_too_large_image": "Ảnh này quá nhiều điểm ảnh để kiểm tra trên trình duyệt. Hãy chọn một bản nhỏ hơn (ví dụ bản app chat đã gửi)",
   "notice_other_seal": "Ảnh này mang một niêm phong khác với link bạn đã mở. Kết quả dưới đây là của niêm phong trong ảnh",
   "unknown_line": "Kết quả kiểm tra không xác định",
-  "privacy_history": "Link bạn đã mở, kèm toạ độ, vẫn nằm trong lịch sử của trình duyệt này"
+  "privacy_history": "Link bạn đã mở, kèm toạ độ, vẫn nằm trong lịch sử của trình duyệt này",
+  "proves_title_neutral": "Kiểm tra này cho thấy gì",
+  "error_unsupported": "Không kiểm tra được loại file này. Hãy chọn ảnh JPEG, PNG, WebP hoặc HEIC"
 }
