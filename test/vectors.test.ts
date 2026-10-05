@@ -64,7 +64,7 @@ describe('golden vectors (shared with the Android app; one bit off fails both si
       if (fx.source === 'synth') expect(png.rgba, fx.name).toEqual(GEN.synth(fx.w, fx.h, Number(/_s(\d+)/.exec(fx.name)![1])));
       expectFingerprint(fx, png.rgba, png.w, png.h, fx.frame);
     }
-  });
+  }, 120_000);                                          // ~1.5 s here; a shared 2-core CI runner running the image tests in parallel took > 30 s
   it('generated images: every halving count, odd sizes, dilation and degenerate cases', () => {
     expect(V.phashGenerated.length).toBeGreaterThan(0);
     for (const g of V.phashGenerated) { expect(GEN[g.gen], g.gen).toBeTypeOf('function'); expectFingerprint(g, GEN[g.gen](g.w, g.h, g.seed), g.w, g.h, g.frame); }

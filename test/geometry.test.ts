@@ -9,6 +9,7 @@ import { findSeal } from '../src/qr';
 import { verdict } from '../src/verdict';
 // P41 + P41b. sealed.jpg is the APP's own fixture (docs/verify/fixtures: StampLayout + QrRenderer, 2000 × 1500); flat_sealed.jpg is
 // scripts/make-crop-fixtures.ts' low-texture photo (the ❌1d class: crops keep its fingerprint distance ≤ 14).
+sharp.concurrency(1);                                   // libvips threads would starve the other image tests on a 2-core CI runner
 type Im = { data: Uint8ClampedArray; w: number; h: number };
 const decode = async (b: Buffer | string): Promise<Im> => { const { data, info } = await sharp(b).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   return { data: new Uint8ClampedArray(data.buffer, data.byteOffset, data.length), w: info.width, h: info.height }; };
@@ -55,7 +56,7 @@ describe('crop detection (P41 / P41b): resized shares pass, crops never read gre
     const im0 = await decode(FLAT); const frag = analyze(im0).url!.split('#')[1]; const table: string[] = [];
     for (const pct of [3, 5, 10]) for (const side of SIDES) {
       const im = await decode(await jpegOf(FLAT, { crop: cropBox(im0.w, im0.h, side, pct) }));
-      const bare = analyze(im), link = analyze(im, frag);
+      const bare = analyze(im), link = bare.qrInPicture ? bare : analyze(im, frag);
       table.push(`${side} ${pct}%: ${bare.qrInPicture ? `d=${bare.hamming} ${pick(bare).headline}` : `QR cut, link d=${link.hamming} ${pick(link).headline}`}`);
       if (bare.qrInPicture) {
         expect(bare.geometry, `${side} ${pct}%`).toBe('mismatch');
