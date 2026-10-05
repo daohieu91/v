@@ -20,15 +20,28 @@ GitHub Pages cannot send response headers, and a `<meta>` Content-Security-Polic
 Instead `src/framing.ts` (an external script, compatible with the CSP) hides the page and navigates the top window to it **only when the top window is on another origin**. Same-origin framing, such as `index.html` embedding `l2.html`, is left alone.
 This is a best-effort defence, not a guarantee.
 
+## Level 1 (this page)
+
+- Open `https://daohieu91.github.io/v/#<seal>` (the phone camera opens it from the QR): the seal is checked at once and the band is
+  yellow, "information is genuine — photo not compared yet". Choose the received photo to compare its content: green, yellow or red.
+- The verdict comes only from `checkSeal` (the key tag check). A level-1 green means "this photo and these details are unchanged since
+  key <8-byte id> sealed them". It does not prove which app or phone made the seal: that needs the original file (level 2, `l2.html`).
+- Decode, QR search (full image, ~1600 and ~1000 px wide, bottom-right corner, bottom band) and the fingerprint run in a Web Worker.
+  Files over 40 MB are refused; decodes are bounded to 4096 px by exact halvings.
+- 10 languages (`src/i18n/*.json`), the same terms as the app (`src/glossary.json`); `test/i18n.test.ts` enforces completeness.
+- The entry chunk has no BigInt and checks the browser first; an old browser gets a "too old" note instead of a blank page.
+- Budget: `npm run size` (< 100 KB gzipped for what one visitor downloads, and no level-2 code in level 1).
+
 ## Develop and test
 
 ```
 npm ci
 npm test            # Vitest (includes the CSP privacy test)
 npm run build       # type-check + production build into dist/
-npm run size        # level-1 bundle size budget (run after build)
+npm run size        # level-1 budget: < 100 KB gzipped, no level-2 code (run after build)
 npx playwright install chromium webkit firefox
-npm run e2e         # Playwright, against `vite preview`
+npm run e2e         # Playwright (Chromium, WebKit, Firefox, mobile Chrome), against `vite preview`
+npm run verify-file -- photo.jpg   # the level-1 pipeline on one photo, from a shell
 ```
 
 ## Golden vectors

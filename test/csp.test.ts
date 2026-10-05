@@ -35,6 +35,8 @@ describe('page-specific CSP', () => {
     expect(c).toContain("script-src 'self'");
     expect(c).not.toContain('wasm-unsafe-eval');
     expect(c).toContain("frame-src 'self'");
+    expect(c).toContain("worker-src 'self'");               // the QR + fingerprint worker; never blob: on level 1
+    expect(c).not.toMatch(/worker-src[^;]*blob:/);
   });
   it('level 2 page alone may compile wasm', () => {
     expect(csp('l2.html')).toContain("script-src 'self' 'wasm-unsafe-eval'");

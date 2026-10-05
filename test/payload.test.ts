@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { URL_PREFIX } from '../src/config';
 import { PayloadError, decodeFragment, decodePayload, encodeHeader, payloadFromUrl } from '../src/payload';
 
-const unhex = (s: string) => Uint8Array.from(s.match(/../g)!.map(x => parseInt(x, 16)));
 // v1_case0 of the vectors (canonical, verifies with the test key).
 const CASE0 = 'AQBZAGjebTwCHAAt9vkA1nOxAAYAAAJaWgD_EjRWeATK_P_xj6IbuqLxMMXX5vqvpubWTR6LKm-v9YRbdDg_b5aOp0enHN0uTUZawGmvB5pwzFM4WJY8HxrvNbs5DNOoroy7_VECPQ';
 const ruleOf = (f: () => unknown) => { try { f(); return 'ACCEPTED'; } catch (e) { return e instanceof PayloadError ? e.rule : 'THREW ' + String(e); } };
@@ -52,6 +51,5 @@ describe('payload', () => {
     const d = decodePayload(b);
     expect(encodeHeader(d.fields, d.recoveryBit)).toEqual(b.slice(0, 39));
     expect(d.signed).toEqual(encodeHeader(d.fields, 0));
-    expect(unhex('00')).toEqual(new Uint8Array([0]));
   });
 });
