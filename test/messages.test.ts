@@ -14,10 +14,13 @@ describe('postMessage validation', () => {
     expect(validJob('nope')).toBeNull(); expect(validJob(null)).toBeNull();
   });
   it('worker reply: only our URL, hamming 0..64, known decode path', () => {
-    const ok = { ok: true, r: { url: V.payloads[0].url, hamming: 3 }, dec: { w: 10, h: 10, via: 'plain' } };
+    const ok = { ok: true, r: { url: V.payloads[0].url, hamming: 3, texture: null }, dec: { w: 10, h: 10, via: 'plain' } };
     expect(validReply(ok)).toEqual(ok);
-    expect(validReply({ ...ok, r: { url: 'https://evil.example/#x', hamming: 3 } })).toBeNull();
-    expect(validReply({ ...ok, r: { url: null, hamming: 65 } })).toBeNull();
+    const flat = { ...ok, r: { url: V.payloads[0].url, hamming: null, texture: 2 ** 36 - 1 } };   // P26: Step 7 texture, an exact integer < 2³⁶
+    expect(validReply(flat)).toEqual(flat);
+    for (const texture of [-1, 2 ** 36, 1.5, '7', undefined]) expect(validReply({ ...ok, r: { ...ok.r, texture } }), String(texture)).toBeNull();
+    expect(validReply({ ...ok, r: { url: 'https://evil.example/#x', hamming: 3, texture: null } })).toBeNull();
+    expect(validReply({ ...ok, r: { url: null, hamming: 65, texture: null } })).toBeNull();
     expect(validReply({ ...ok, dec: { w: 10, h: 10, via: 'magic' } })).toBeNull();
     expect(validReply({ ok: false, need: 'pixels' })).toEqual({ ok: false, need: 'pixels' });
     expect(validReply({ ok: false, err: 'oversize' })).toEqual({ ok: false, err: 'oversize' });

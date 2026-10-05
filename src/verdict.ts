@@ -1,4 +1,4 @@
-import { THRESHOLDS } from './config';
+import { FLAT_MISMATCH_TEXTURE, THRESHOLDS } from './config';
 import type { SealPayload } from './payload';
 export type Color = 'green' | 'yellow' | 'red';
 export interface Check { key: string; status: 'pass' | 'warn' | 'fail' | 'info'; params?: Record<string, string | number> }
@@ -9,17 +9,27 @@ export interface L2Summary { kind: 'none' | 'invalid' | 'ok'; lines: Check[]; re
  * Spec §6 / §7.3, honest: one line per check, nothing merged or overstated. The seal holds ONLY when checkSeal says so (`seal.ok`):
  * a recovered key alone proves nothing, since an edited payload still recovers *a* key. A level-1 green means "this picture and these
  * details are unchanged since key <id> sealed them", never "taken by the app": that needs the original file (level 2).
+ *
+ * NO_FINGERPRINT seals (P26, P28) carry no hash, so `hamming` is ignored for them and never makes green or red. Their picture check is the
+ * received picture's Step 7 `texture`: above 8 × TEXTURE_FLOOR it cannot be the dark/flat photo that was sealed (red); at or below it
+ * the photo is "too dark or flat to compare" (yellow, and never proves_l1). `texture` null = no picture compared.
  */
-export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; keyIdHex: string | null } | null; hamming: number | null; level2: L2Summary | null }): Verdict {
+export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; keyIdHex: string | null } | null; hamming: number | null;
+  texture: number | null; level2: L2Summary | null }): Verdict {
   if (!i.payload || !i.seal || i.seal.ok !== true || !i.seal.keyIdHex) return { color: 'red', headline: 'verdict_red', checks: [{ key: 'check_seal_bad', status: 'fail' }] };
   const f = i.payload.fields; const [a, b] = THRESHOLDS; const id = i.seal.keyIdHex;
   const checks: Check[] = [{ key: 'check_seal_ok', status: 'pass', params: { id } }];
-  const c2paContent = i.hamming === null && i.level2?.kind === 'ok';       // F-M13: a valid original file binds the content itself
+  const flagged = f.noFingerprint === true;
+  const hamming = flagged ? null : i.hamming;                             // P28: never a hash compare for a NO_FINGERPRINT seal
+  const texture = flagged ? i.texture : null;
+  const flatMismatch = texture !== null && texture > FLAT_MISMATCH_TEXTURE;
+  const c2paContent = hamming === null && texture === null && i.level2?.kind === 'ok';   // F-M13: a valid original file binds the content itself
   if (c2paContent) checks.push({ key: 'check_content_c2pa', status: 'pass' });
-  else if (i.hamming === null) checks.push({ key: 'check_not_compared', status: 'info' });
-  else if (i.hamming <= a) checks.push({ key: 'check_image_match', status: 'pass', params: { d: i.hamming } });
-  else if (i.hamming <= b) checks.push({ key: 'check_image_maybe', status: 'warn', params: { d: i.hamming } });
-  else checks.push({ key: 'check_image_mismatch', status: 'fail', params: { d: i.hamming } });
+  else if (flagged && texture !== null) checks.push(flatMismatch ? { key: 'check_flat_mismatch', status: 'fail' } : { key: 'check_too_flat', status: 'warn' });
+  else if (hamming === null) checks.push({ key: 'check_not_compared', status: 'info' });
+  else if (hamming <= a) checks.push({ key: 'check_image_match', status: 'pass', params: { d: hamming } });
+  else if (hamming <= b) checks.push({ key: 'check_image_maybe', status: 'warn', params: { d: hamming } });
+  else checks.push({ key: 'check_image_mismatch', status: 'fail', params: { d: hamming } });
   const warns: Check[] = [];
   if (!f.autoTime) warns.push({ key: 'warn_auto_time', status: 'warn' });
   if (f.clockSkewSeconds !== null && Math.abs(f.clockSkewSeconds) > 120) warns.push({ key: 'warn_clock_skew', status: 'warn', params: { n: Math.round(Math.abs(f.clockSkewSeconds) / 60) } });
@@ -31,9 +41,11 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
          if (f.location.stale) checks.push({ key: 'info_stale', status: 'info', params: { n: Math.round((f.location.ageTens * 10) / 60) } }); }
   checks.push(...(i.level2 ? i.level2.lines : [{ key: 'device_unknown', status: 'info' as const }]));
   const color = ((): [Color, string] => {
-    if (i.level2?.kind === 'invalid' || (i.hamming !== null && i.hamming > b)) return ['red', 'verdict_red'];
-    if (i.hamming === null && !c2paContent) return ['yellow', 'verdict_info_not_compared'];
-    if (i.hamming !== null && i.hamming > a) return ['yellow', 'verdict_maybe_edited'];
+    if (i.level2?.kind === 'invalid' || (hamming !== null && hamming > b)) return ['red', 'verdict_red'];
+    if (flatMismatch) return ['red', 'verdict_flat_mismatch'];
+    if (texture !== null) return ['yellow', 'verdict_too_flat'];
+    if (hamming === null && !c2paContent) return ['yellow', 'verdict_info_not_compared'];
+    if (hamming !== null && hamming > a) return ['yellow', 'verdict_maybe_edited'];
     if (warns.length) return ['yellow', warns[0].key];
     return ['green', 'verdict_green'];
   })();

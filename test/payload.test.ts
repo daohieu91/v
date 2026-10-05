@@ -52,4 +52,25 @@ describe('payload', () => {
     expect(encodeHeader(d.fields, d.recoveryBit)).toEqual(b.slice(0, 39));
     expect(d.signed).toEqual(encodeHeader(d.fields, 0));
   });
+  // P26: NO_FINGERPRINT is flag bit 7 (0x80 of byte 2); with it set the 8 phash bytes must be zero. Same order as SealCodec.decode:
+  // after the GPS-time check, before the re-encode compare (and so before the field-range checks that run inside it).
+  it('NO_FINGERPRINT with a fingerprint is noncanonical, after the GPS-time check and before the re-encode compare', () => {
+    const b = Uint8Array.from(Buffer.from(CASE0, 'base64url')); expect(b.slice(23, 31).some(x => x !== 0)).toBe(true);
+    const flagged = b.slice(); flagged[2] |= 0x80;
+    expect(ruleOf(() => decodePayload(flagged))).toBe('noncanonical');
+    const gps = flagged.slice(); new DataView(gps.buffer).setInt16(21, -32768);          // GPS-time flag (0x10) with no skew: that rule first
+    expect(gps[2] & 0x10).toBe(0x10); expect(ruleOf(() => decodePayload(gps))).toBe('gps_time_without_skew');
+    const tz = flagged.slice(); new DataView(tz.buffer).setInt16(8, 18 * 60 + 1);        // a range error only the re-encode would see
+    expect(ruleOf(() => decodePayload(tz))).toBe('noncanonical');
+    const zero = flagged.slice(); zero.fill(0, 23, 31);                                  // phash 0: canonical, decodes with the flag
+    const d = decodePayload(zero); expect(d.fields.noFingerprint).toBe(true); expect(d.fields.phash).toBe(0n);
+    expect(encodeHeader(d.fields, d.recoveryBit)).toEqual(zero.slice(0, 39));
+    expect(decodePayload(b).fields.noFingerprint).toBe(false);
+  });
+  it('encodeHeader sets 0x80 for NO_FINGERPRINT and refuses it with a fingerprint', () => {
+    const d = decodePayload(Uint8Array.from(Buffer.from(CASE0, 'base64url')));
+    expect(encodeHeader({ ...d.fields, phash: 0n, noFingerprint: true }, 0)[2] & 0x80).toBe(0x80);
+    expect(encodeHeader({ ...d.fields, phash: 0n, noFingerprint: false }, 0)[2] & 0x80).toBe(0);
+    expect(ruleOf(() => encodeHeader({ ...d.fields, noFingerprint: true }, 0))).toBe('noncanonical');
+  });
 });

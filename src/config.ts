@@ -2,9 +2,19 @@
 export const URL_PREFIX = 'https://daohieu91.github.io/v/#';
 /**
  * Hamming bands: match ≤ 8, maybe ≤ 16, changed above. Identical to VerifyConfig.PHASH_MATCH_MAX / PHASH_MAYBE_MAX
- * (ruling P21, provisional until Task 10B; the vectors test enforces equality with the app).
+ * (ruling P21, confirmed on real M20 photos in Task 10B; the vectors test enforces equality with the app).
  */
 export const THRESHOLDS = [8, 16] as const;
+/**
+ * PROVISIONAL (ruling P28): PerceptualHash Step 7 floor, 2¹⁸ (a cell standard deviation of 0.5 luma). Below it the app seals with
+ * NO_FINGERPRINT and phash 0 (P26). Calibrated in Task 10C on one phone (Galaxy M20) only; the vectors test enforces equality with the app.
+ */
+export const TEXTURE_FLOOR = 262144;
+/**
+ * P28: a NO_FINGERPRINT seal was made for a dark/flat photo. A received picture whose texture is above 8 × TEXTURE_FLOOR (2 097 152)
+ * cannot be that photo, so the page shows red; at or below it the photo is "too dark/flat to compare" (yellow). Never a hash compare.
+ */
+export const FLAT_MISMATCH_TEXTURE = 8 * TEXTURE_FLOOR;
 export const PACKAGE_NAME = 'com.essenty.camerastamp';
 /**
  * SHA-256 of the APK signing certificate(s) accepted as "the real app" in level 2.

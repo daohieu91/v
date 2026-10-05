@@ -71,5 +71,9 @@
   "unknown_line": "Esito della verifica sconosciuto",
   "privacy_history": "Il link che hai aperto, con le coordinate, resta nella cronologia di questo browser",
   "proves_title_neutral": "Che cosa mostra questa verifica",
-  "error_unsupported": "Questo tipo di file non si può verificare qui. Scegli una foto JPEG, PNG, WebP o HEIC"
+  "error_unsupported": "Questo tipo di file non si può verificare qui. Scegli una foto JPEG, PNG, WebP o HEIC",
+  "verdict_too_flat": "I dati sono validi — questa foto è troppo scura o uniforme per il confronto",
+  "check_too_flat": "Troppo scura o uniforme per il confronto: sono stati controllati il sigillo e i suoi dati, non il contenuto della foto",
+  "verdict_flat_mismatch": "Questa foto non è scura né uniforme — il sigillo appartiene a un'altra foto",
+  "check_flat_mismatch": "Il sigillo è stato creato per una foto scura o uniforme, ma questa foto ha dettagli"
 }

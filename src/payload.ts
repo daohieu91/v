@@ -5,7 +5,11 @@ import { URL_PREFIX } from './config';
  * Decode is CANONICAL ONLY (ruling P17): the header is re-encoded from the parsed fields and must equal the bytes received, so no byte
  * that decoding drops (reserved flag bits, location fields without the location flag, skew without the GPS-time flag, …) is free to edit.
  * Decode order, identical to the app and to vectors_check.py: empty, version, length, inverted frame, signature range, GPS sentinel,
- * field ranges, canonical. `rule` names the check, as in the vectors' `rule` keys.
+ * NO_FINGERPRINT with a fingerprint (P26), field ranges, canonical. `rule` names the check, as in the vectors' `rule` keys.
+ *
+ * Flags (u16, bit 0 = 0x0001; payload byte 2 holds bits 0–7): 0 location · 1 approximate · 2 stale · 3 automatic time · 4 GPS time ·
+ * 5 software key · 6 recovery bit (not signed) · 7 NO_FINGERPRINT (P26: the photo was too dark/flat to fingerprint; phash MUST be 0) ·
+ * 8–15 reserved (must be 0).
  */
 export type PayloadRule = 'empty' | 'version' | 'length' | 'inverted_frame' | 'signature_range' | 'gps_time_without_skew' | 'out_of_range'
   | 'noncanonical' | 'base64url_length' | 'base64url_char' | 'base64url_pad_bits' | 'fragment_too_long';
@@ -14,7 +18,9 @@ export class PayloadError extends Error {
 }
 export interface SealLocation { latE5: number; lngE5: number; accuracyM: number; ageTens: number; approximate: boolean; stale: boolean }
 export interface SealFields { version: number; epochSeconds: number; tzOffsetMinutes: number; location: SealLocation | null; autoTime: boolean;
-  clockSkewSeconds: number | null; softwareKey: boolean; phash: bigint; frame: [number, number, number, number]; keyTag: number }
+  clockSkewSeconds: number | null; softwareKey: boolean; phash: bigint; frame: [number, number, number, number]; keyTag: number;
+  /** P26: sealed without a fingerprint (phash is 0). A verifier never compares a hash for it (P28: it measures the texture instead). */
+  noFingerprint: boolean }
 /** `signed` = header(fields, recoveryBit 0): the 39 bytes the key signed (the recovery bit is not signed). */
 export interface SealPayload { fields: SealFields; recoveryBit: 0 | 1; signature: Uint8Array; signed: Uint8Array }
 
@@ -54,6 +60,7 @@ export function encodeHeader(f: SealFields, recoveryBit: 0 | 1): Uint8Array {
   const loc = f.location; const skew = f.clockSkewSeconds;
   const int = (x: number, lo: number, hi: number) => Number.isInteger(x) && x >= lo && x <= hi;
   if (f.version !== 1 || (recoveryBit !== 0 && recoveryBit !== 1)) throw new PayloadError('version');
+  if (f.noFingerprint && f.phash !== 0n) throw new PayloadError('noncanonical');   // P26, as SealCodec.header's require
   if (!int(f.epochSeconds, 0, 2 ** 40 - 1) || !int(f.tzOffsetMinutes, -MAX_TZ_MIN, MAX_TZ_MIN) || (skew !== null && !int(skew, -32767, 32767))
     || !int(f.keyTag, -(2 ** 31), 2 ** 31 - 1) || f.phash < 0n || f.phash >= 1n << 64n || !f.frame.every(x => int(x, 0, 255)))
     throw new PayloadError('out_of_range');
@@ -67,6 +74,7 @@ export function encodeHeader(f: SealFields, recoveryBit: 0 | 1): Uint8Array {
   if (skew !== null) flags |= 0x10;
   if (f.softwareKey) flags |= 0x20;
   if (recoveryBit === 1) flags |= 0x40;
+  if (f.noFingerprint) flags |= 0x80;
   const b = new Uint8Array(HEADER_V1); const v = new DataView(b.buffer);
   b[0] = 1;
   v.setUint16(1, flags);
@@ -101,6 +109,10 @@ function decodeV1(b: Uint8Array): SealPayload {
   // r, s ∈ [1, n−1]: an out-of-range scalar is a malformed payload, not merely "does not verify".
   if (r === 0n || r >= N || s === 0n || s >= N) throw new PayloadError('signature_range');
   if ((flags & 0x10) !== 0 && skew === SKEW_NONE) throw new PayloadError('gps_time_without_skew');
+  const noFingerprint = (flags & 0x80) !== 0;
+  // P26, part of the canonical rule, explicit because the re-encode below reproduces the flag: after the GPS sentinel, before the
+  // re-encode compare (same order as SealCodec.decode). A zero phash alone never implies the flag.
+  if (noFingerprint && v.getBigUint64(23) !== 0n) throw new PayloadError('noncanonical');
   const fields: SealFields = {
     version: 1,
     epochSeconds: b[3] * 2 ** 32 + v.getUint32(4),
@@ -113,6 +125,7 @@ function decodeV1(b: Uint8Array): SealPayload {
     phash: v.getBigUint64(23),
     frame,
     keyTag: v.getInt32(35),
+    noFingerprint,
   };
   const recoveryBit = ((flags >> 6) & 1) as 0 | 1;
   const header = encodeHeader(fields, recoveryBit);

@@ -71,5 +71,9 @@
   "unknown_line": "Resultado de verificação desconhecido",
   "privacy_history": "O link que você abriu, com as coordenadas, fica no histórico deste navegador",
   "proves_title_neutral": "O que esta verificação mostra",
-  "error_unsupported": "Este tipo de arquivo não pode ser verificado aqui. Escolha uma foto JPEG, PNG, WebP ou HEIC"
+  "error_unsupported": "Este tipo de arquivo não pode ser verificado aqui. Escolha uma foto JPEG, PNG, WebP ou HEIC",
+  "verdict_too_flat": "Os dados são válidos — esta foto é escura ou uniforme demais para comparar",
+  "check_too_flat": "Escura ou uniforme demais para comparar: o selo e seus dados foram conferidos, o conteúdo da foto não",
+  "verdict_flat_mismatch": "Esta foto não é escura nem uniforme — o selo pertence a outra foto",
+  "check_flat_mismatch": "O selo foi criado para uma foto escura ou uniforme, mas esta foto tem detalhes"
 }

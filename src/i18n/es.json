@@ -71,5 +71,9 @@
   "unknown_line": "Resultado de comprobación desconocido",
   "privacy_history": "El enlace que abriste, con sus coordenadas, queda en el historial de este navegador",
   "proves_title_neutral": "Qué muestra esta comprobación",
-  "error_unsupported": "Este tipo de archivo no se puede comprobar aquí. Elige una foto JPEG, PNG, WebP o HEIC"
+  "error_unsupported": "Este tipo de archivo no se puede comprobar aquí. Elige una foto JPEG, PNG, WebP o HEIC",
+  "verdict_too_flat": "Los datos son válidos — esta foto es demasiado oscura o plana para compararla",
+  "check_too_flat": "Demasiado oscura o plana para compararla: se comprobaron el sello y sus datos, no el contenido de la foto",
+  "verdict_flat_mismatch": "Esta foto no es oscura ni plana — el sello pertenece a otra foto",
+  "check_flat_mismatch": "El sello se creó para una foto oscura o plana, pero esta foto tiene detalle"
 }

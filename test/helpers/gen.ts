@@ -23,4 +23,13 @@ export function flat(w: number, h: number, argb: number): Uint8Array {
   for (let i = 0; i < w * h; i++) { o[4 * i] = (argb >>> 16) & 255; o[4 * i + 1] = (argb >>> 8) & 255; o[4 * i + 2] = argb & 255; o[4 * i + 3] = 255; }
   return o;
 }
-export const GEN: Record<string, (w: number, h: number, seed: number) => Uint8Array> = { synth, noise, flat };
+/** The near-black floor scenes (P26): c = (x·32 div w) + 32·(y·32 div h); R = G = B = 1 if c < seed, else 0. */
+export function cells(w: number, h: number, seed: number): Uint8Array {
+  const o = new Uint8Array(w * h * 4);
+  for (let i = 0; i < w * h; i++) {
+    const x = i % w, y = Math.floor(i / w); const c = Math.floor((x * 32) / w) + 32 * Math.floor((y * 32) / h); const v = c < seed ? 1 : 0;
+    o[4 * i] = v; o[4 * i + 1] = v; o[4 * i + 2] = v; o[4 * i + 3] = 255;
+  }
+  return o;
+}
+export const GEN: Record<string, (w: number, h: number, seed: number) => Uint8Array> = { synth, noise, flat, cells };

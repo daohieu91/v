@@ -5,6 +5,7 @@ import { findSealUrl, scanPlan, type Img } from '../src/qr';
 import { analyze } from '../src/analyze';
 import { payloadFromUrl } from '../src/payload';
 import { checkSeal } from '../src/crypto';
+import { FLAT_MISMATCH_TEXTURE } from '../src/config';
 const V = JSON.parse(readFileSync('test/vectors/verify-vectors.json', 'utf8'));
 const load = (f: string): Img => { const j = jpeg.decode(readFileSync(`e2e/fixtures/${f}`), { useTArray: true, formatAsRGBA: true });
   return { data: Uint8ClampedArray.from(j.data), w: j.width, h: j.height }; };
@@ -36,5 +37,13 @@ describe('analyze (the worker body)', () => {
     expect(checkSeal(p).keyIdHex).toBe(V.payloads[0].expectKeyId); expect(r.hamming).toBe(0); });
   it('chat-compressed photo still matches; the copied QR does not', () => {
     expect(analyze(load('sealed_1600_q70.jpg')).hamming).toBeLessThanOrEqual(8); expect(analyze(load('copied_qr.jpg')).hamming).toBeGreaterThan(16); });
-  it('a picture with no code: no URL, no distance', () => expect(analyze(load('cropped_no_qr.jpg'))).toEqual({ url: null, hamming: null }));
+  it('a picture with no code: no URL, no distance', () => expect(analyze(load('cropped_no_qr.jpg'))).toEqual({ url: null, hamming: null, texture: null }));
+  it('NO_FINGERPRINT seal (P26/P28): no distance, only the texture of the picture', () => {
+    const dark = analyze(load('dark_sealed.jpg')), bright = analyze(load('bright_sealed.jpg'));
+    const c7 = V.payloads.find((p: { name: string }) => p.name === 'v1_case7');
+    expect(dark.url).toBe(c7.url); expect(bright.url).toBe(c7.url);
+    expect(dark.hamming).toBeNull(); expect(bright.hamming).toBeNull();
+    expect(dark.texture).toBeLessThanOrEqual(FLAT_MISMATCH_TEXTURE); expect(bright.texture).toBeGreaterThan(FLAT_MISMATCH_TEXTURE);
+    expect(analyze(load('sealed.jpg')).texture).toBeNull();
+  });
 });

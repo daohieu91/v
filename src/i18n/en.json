@@ -71,5 +71,9 @@
   "unknown_line": "Unrecognised check result",
   "privacy_history": "The link you opened, with its coordinates, stays in this browser's history",
   "proves_title_neutral": "What this check shows",
-  "error_unsupported": "This file type can't be checked here. Choose a JPEG, PNG, WebP or HEIC photo"
+  "error_unsupported": "This file type can't be checked here. Choose a JPEG, PNG, WebP or HEIC photo",
+  "verdict_too_flat": "Details valid — this photo is too dark or flat to compare",
+  "check_too_flat": "Too dark or flat to compare: the seal and its details were checked, the picture itself was not",
+  "verdict_flat_mismatch": "This photo isn't dark or flat — the seal belongs to a different photo",
+  "check_flat_mismatch": "The seal was made for a dark or flat photo, but this photo shows detail"
 }

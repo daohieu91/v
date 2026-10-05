@@ -3,6 +3,7 @@
  * vectors prove the two agree bit for bit. Integer arithmetic only: no float, no canvas scaler, no Math.cos. Every intermediate value
  * is an exact integer below 2⁵³, so plain `number` maths is exact; the 64 hash bits are assembled as a BigInt.
  */
+import { TEXTURE_FLOOR } from './config';
 export const TABLE: readonly (readonly number[])[] = [
   [4091, 4052, 3973, 3857, 3703, 3513, 3290, 3035, 2751, 2440, 2106, 1751, 1380, 995, 601, 201, -201, -601, -995, -1380, -1751, -2106, -2440, -2751, -3035, -3290, -3513, -3703, -3857, -3973, -4052, -4091],
   [4076, 3920, 3612, 3166, 2598, 1931, 1189, 401, -401, -1189, -1931, -2598, -3166, -3612, -3920, -4076, -4076, -3920, -3612, -3166, -2598, -1931, -1189, -401, 401, 1189, 1931, 2598, 3166, 3612, 3920, 4076],
@@ -43,13 +44,26 @@ export function halveToMax(rgba: ArrayLike<number>, w: number, h: number): { rgb
   return { rgba: px, w, h, halvings: k };
 }
 
+/** The hash and the Step 7 texture of one image, from one pass (PerceptualHash.Fingerprint). `flat` → the app seals with NO_FINGERPRINT. */
+export interface Fingerprint { hash: bigint; texture: number; flat: boolean }
+const fp = (hash: bigint, texture: number): Fingerprint => ({ hash, texture, flat: texture < TEXTURE_FLOOR });
+
 /**
  * The hash of a W × H RGBA image (row-major; alpha ignored) with the stamp rectangle `frame` (1/255ths) masked out.
  * Degenerate input (W or H < 32, or fewer than W·H pixels) hashes to 0, as in the app. Memory: one halved RGBA copy when a halving is
  * due (¼ of the input) plus a W·H luma array of the shrunk size; callers keep inputs bounded (Task 21: ≤ 4096 px per side).
  */
 export function phashRgba(rgba: ArrayLike<number>, w0: number, h0: number, frame: Frame): bigint {
-  if (w0 < MIN_SIDE || h0 < MIN_SIDE || rgba.length < w0 * h0 * 4) return 0n;
+  return fingerprintRgba(rgba, w0, h0, frame).hash;
+}
+
+/**
+ * Steps 0–7: the hash (Steps 1–6) and the texture (Step 7, P26): over the same 32 × 32 cells s, after the Step 3 mask fill,
+ * texture = 1024·Σs² − (Σs)² (= 1024² × the cell variance). S ≤ 261 120 and 1024·Q < 2³⁶, so `number` is exact (the Kotlin Long fits).
+ * Degenerate input has hash 0 and texture 0.
+ */
+export function fingerprintRgba(rgba: ArrayLike<number>, w0: number, h0: number, frame: Frame): Fingerprint {
+  if (w0 < MIN_SIDE || h0 < MIN_SIDE || rgba.length < w0 * h0 * 4) return fp(0n, 0);
   const { rgba: px, w, h, halvings } = halveToMax(rgba, w0, h0);
   // Step 2: BT.601 integer luma.
   const y = new Uint8Array(w * h);
@@ -74,6 +88,9 @@ export function phashRgba(rgba: ArrayLike<number>, w0: number, h0: number, frame
       const n = (xb - xa) * (yb - ya); s[j * 32 + i] = Math.floor((acc + Math.floor(n / 2)) / n);
     }
   }
+  // Step 7: texture of the cells (computed here, from the same cells; the DCT below does not change them).
+  let sumS = 0, sumSq = 0; for (let k = 0; k < 1024; k++) { sumS += s[k]; sumSq += s[k] * s[k]; }
+  const texture = 1024 * sumSq - sumS * sumS;
   // Step 5: unnormalised integer DCT-II, u, v = 1..8 (TABLE row u−1), rows then columns.
   const R: number[][] = [];
   for (let yy = 0; yy < 32; yy++) { const row: number[] = []; for (let u = 0; u < 8; u++) { let a = 0; for (let x = 0; x < 32; x++) a += TABLE[u][x] * s[yy * 32 + x]; row.push(a); } R.push(row); }
@@ -82,7 +99,7 @@ export function phashRgba(rgba: ArrayLike<number>, w0: number, h0: number, frame
   // Step 6: median bits; numeric sort (the default sort is lexicographic); strictly greater; bit k is bit 63 − k.
   const q = [...f].sort((a, b) => a - b); const mid2 = q[31] + q[32];
   let hash = 0n; for (let k = 0; k < 64; k++) if (2 * f[k] > mid2) hash |= 1n << BigInt(63 - k);
-  return hash;
+  return fp(hash, texture);
 }
 export function hamming(a: bigint, b: bigint): number { let x = a ^ b; let n = 0; while (x) { n += Number(x & 1n); x >>= 1n; } return n; }
 /** The one text form of a hash: exactly 16 lowercase hex digits, zero-padded. */

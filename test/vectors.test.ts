@@ -1,10 +1,10 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { THRESHOLDS, URL_PREFIX } from '../src/config';
+import { TEXTURE_FLOOR, THRESHOLDS, URL_PREFIX } from '../src/config';
 import { MAX_FRAGMENT_LEN, PayloadError, b64urlDecode, b64urlEncode, decodeFragment, decodePayload, encodeHeader, payloadFromUrl, sealIdentity } from '../src/payload';
-import { checkSeal, keyIdOf, recoverPublicKey } from '../src/crypto';
-import { TABLE, hamming, phashHex, phashRgba } from '../src/phash';
+import { checkSeal, keyIdOf, recoverPublicKey, recoverRaw } from '../src/crypto';
+import { TABLE, fingerprintRgba, hamming, phashHex, phashRgba } from '../src/phash';
 import { decodePng } from './helpers/png';
 import { GEN } from './helpers/gen';
 
@@ -20,6 +20,14 @@ const ruleOf = (f: () => unknown): string => {
 type P = { name: string; bytesHex: string; base64url: string; url: string; expectKeyId: string | null; recoveryBit: number; tamper?: string; fields: any };
 const PAY: P[] = V.payloads;
 const byName = (n: string) => PAY.find(x => x.name === n)!;
+/** Step 7 (P26): every pHash entry pins its texture and its flat flag (texture < textureFloor); the hash stays the raw Step 6 hash. */
+const expectFingerprint = (e: { name: string; phash: string; texture: number; noFingerprint: boolean }, rgba: ArrayLike<number>, w: number, h: number, frame: [number, number, number, number]) => {
+  const fp = fingerprintRgba(rgba, w, h, frame);
+  expect(phashHex(fp.hash), e.name).toBe(e.phash); expect(fp.texture, e.name).toBe(e.texture); expect(fp.flat, e.name).toBe(e.noFingerprint);
+  expect(typeof e.texture === 'number' && typeof e.noFingerprint === 'boolean', e.name).toBe(true);
+  expect(e.noFingerprint, e.name).toBe(e.texture < V.textureFloor);
+  expect(phashRgba(rgba, w, h, frame), e.name).toBe(fp.hash);
+};
 
 describe('golden vectors (shared with the Android app; one bit off fails both sides)', () => {
   it('the copy matches its recorded SHA-256 (same .sha256 file as the app)', () => {
@@ -31,13 +39,14 @@ describe('golden vectors (shared with the Android app; one bit off fails both si
     expect(V.schema).toBe(1); expect(V.urlPrefix).toBe(URL_PREFIX); expect([...THRESHOLDS]).toEqual(V.thresholds);
     expect(V.maxFragmentLength).toBe(MAX_FRAGMENT_LEN);
     expect(TABLE.map(r => [...r])).toEqual(V.table);
+    expect(V.textureFloor).toBe(262144); expect(TEXTURE_FLOOR).toBe(V.textureFloor);
   });
   it('perceptual hash of every inline image', () => {
     expect(V.images.length).toBeGreaterThan(0);
     for (const im of V.images) {
       const rgba = Uint8Array.from(Buffer.from(im.rgbaB64, 'base64'));
       expect(rgba, im.name).toEqual(GEN[im.gen](im.w, im.h, im.seed));
-      expect(phashHex(phashRgba(rgba, im.w, im.h, im.frame)), im.name).toBe(im.phash);
+      expectFingerprint(im, rgba, im.w, im.h, im.frame);
     }
   });
   it('PNG fixtures: file pin, decoded RGBA pin, perceptual hash', () => {
@@ -50,12 +59,17 @@ describe('golden vectors (shared with the Android app; one bit off fails both si
       expect([png.w, png.h], fx.name).toEqual([fx.w, fx.h]);
       expect(sha(png.rgba), fx.name).toBe(fx.rgbaSha256);
       if (fx.source === 'synth') expect(png.rgba, fx.name).toEqual(GEN.synth(fx.w, fx.h, Number(/_s(\d+)/.exec(fx.name)![1])));
-      expect(phashHex(phashRgba(png.rgba, png.w, png.h, fx.frame)), fx.name).toBe(fx.phash);
+      expectFingerprint(fx, png.rgba, png.w, png.h, fx.frame);
     }
   });
   it('generated images: every halving count, odd sizes, dilation and degenerate cases', () => {
     expect(V.phashGenerated.length).toBeGreaterThan(0);
-    for (const g of V.phashGenerated) expect(phashHex(phashRgba(GEN[g.gen](g.w, g.h, g.seed), g.w, g.h, g.frame)), g.name).toBe(g.phash);
+    for (const g of V.phashGenerated) { expect(GEN[g.gen], g.gen).toBeTypeOf('function'); expectFingerprint(g, GEN[g.gen](g.w, g.h, g.seed), g.w, g.h, g.frame); }
+    expect(Object.keys(GEN).sort()).toEqual(Object.keys(V.generators).sort());
+    // The floor pair (P26): 511 lit cells sit one below the floor, 512 exactly on it (not flat: the comparison is strict).
+    const at = (n: string) => V.phashGenerated.find((g: { name: string }) => g.name === n);
+    expect(at('cells_640x640_s511_dark_below_floor')).toMatchObject({ texture: TEXTURE_FLOOR - 1, noFingerprint: true });
+    expect(at('cells_640x640_s512_dark_at_floor')).toMatchObject({ texture: TEXTURE_FLOOR, noFingerprint: false });
   }, 120_000);
   it('payload decode, base64url, key recovery and key tag', () => {
     expect(PAY.length).toBeGreaterThan(0);
@@ -77,7 +91,32 @@ describe('golden vectors (shared with the Android app; one bit off fails both si
       expect(d.fields.location).toEqual(f.location); expect(d.fields.autoTime).toBe(f.autoTime);
       expect(d.fields.clockSkewSeconds).toBe(f.clockSkewSeconds); expect(d.fields.softwareKey).toBe(f.softwareKey);
       expect(phashHex(d.fields.phash)).toBe(f.phash); expect([...d.fields.frame]).toEqual(f.frame); expect(d.fields.keyTag).toBe(f.keyTag);
+      expect(typeof f.noFingerprint, p.name).toBe('boolean'); expect(d.fields.noFingerprint, p.name).toBe(f.noFingerprint);
     }
+  });
+  it('NO_FINGERPRINT (P26): flag bit 7 (0x80 of byte 2) with phash 0 verifies; clearing the flag loses the key', () => {
+    const c7 = byName('v1_case7'); const b = unhex(c7.bytesHex);
+    expect(b[2] & 0x80).toBe(0x80); expect(c7.fields).toMatchObject({ noFingerprint: true, phash: '0000000000000000' });
+    const d = decodePayload(b);
+    expect(d.fields.noFingerprint).toBe(true); expect(d.fields.phash).toBe(0n); expect(checkSeal(d)).toEqual({ ok: true, keyIdHex: V.testKey.keyId });
+    const t = byName('v1_tampered_no_fingerprint_cleared'); expect(t.tamper).toBe('flag_no_fingerprint');
+    const td = decodePayload(unhex(t.bytesHex)); expect(td.fields.noFingerprint).toBe(false); expect(checkSeal(td)).toEqual({ ok: false, keyIdHex: null });
+    expect(PAY.filter(p => p.fields?.noFingerprint === false).length).toBeGreaterThan(0);
+  });
+  it('NO_FINGERPRINT with a fingerprint is non-canonical, even when the test key really signed it', () => {
+    const r = V.rejects.find((x: { name: string }) => x.name === 'nc_no_fingerprint_with_phash_validly_signed');
+    expect(r.signedDespiteRule).toBe(true);
+    const b = unhex(r.bytesHex); expect(b[2] & 0x80).toBe(0x80); expect(b.slice(23, 31).some(x => x !== 0)).toBe(true);
+    expect(ruleOf(() => decodePayload(b))).toBe('noncanonical');
+    // With the rule skipped it would verify: the signature covers exactly these header bytes (recovery bit cleared) under the test key.
+    const msg = b.slice(0, 39); msg[2] &= ~0x40;
+    const pub = recoverRaw(msg, BigInt('0x' + hex(b.slice(39, 71))), BigInt('0x' + hex(b.slice(71, 103))), ((b[2] >> 6) & 1) as 0 | 1);
+    expect(hex(pub!)).toBe(V.testKey.publicKey);
+    expect(ruleOf(() => decodePayload(unhex(V.rejects.find((x: { name: string }) => x.name === 'nc_no_fingerprint_flag_with_phash').bytesHex)))).toBe('noncanonical');
+    // Bit 7 is no longer reserved: the reserved-bit reject moved to bit 9 (0x02 of byte 1).
+    const names = V.rejects.map((x: { name: string }) => x.name);
+    expect(names).toContain('nc_reserved_flag_bit9'); expect(names).not.toContain('nc_reserved_flag_bit7');
+    expect(unhex(V.rejects.find((x: { name: string }) => x.name === 'nc_reserved_flag_bit9').bytesHex)[1]).toBe(0x02);
   });
   it('every reject fails with the same rule as the app, as a fragment, a URL and as bytes', () => {
     expect(V.rejects.length).toBeGreaterThan(0);

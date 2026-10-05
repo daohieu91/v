@@ -71,5 +71,9 @@
   "unknown_line": "Keputusan semakan tidak diketahui",
   "privacy_history": "Pautan yang anda buka, bersama koordinatnya, kekal dalam sejarah pelayar ini",
   "proves_title_neutral": "Apa yang ditunjukkan semakan ini",
-  "error_unsupported": "Jenis fail ini tidak dapat disemak di sini. Pilih foto JPEG, PNG, WebP atau HEIC"
+  "error_unsupported": "Jenis fail ini tidak dapat disemak di sini. Pilih foto JPEG, PNG, WebP atau HEIC",
+  "verdict_too_flat": "Butiran sah — foto ini terlalu gelap atau rata untuk dibandingkan",
+  "check_too_flat": "Terlalu gelap atau rata untuk dibandingkan: meterai dan butirannya telah disemak, kandungan foto belum",
+  "verdict_flat_mismatch": "Foto ini tidak gelap atau rata — meterai ini milik foto lain",
+  "check_flat_mismatch": "Meterai ini dibuat untuk foto yang gelap atau rata, tetapi foto ini mempunyai butiran"
 }

@@ -47,6 +47,14 @@ describe('i18n', () => {
     expect(vi.verdict_red).toBe('Ảnh hoặc thông tin đã bị thay đổi'); expect(vi.footer_local).toBe('Kiểm tra ngay trên máy bạn');
     expect(vi.footer_upload).toBe('Ảnh không được tải lên');
   });
+  it('has the NO_FINGERPRINT copy (P26/P28) in every locale', () => {
+    const en = dict('en'), vi = dict('vi');
+    expect(en.verdict_too_flat).toBe('Details valid — this photo is too dark or flat to compare');
+    expect(en.verdict_flat_mismatch).toBe("This photo isn't dark or flat — the seal belongs to a different photo");
+    expect(vi.verdict_too_flat).toBe('Thông tin hợp lệ — ảnh quá tối hoặc quá ít chi tiết để so');
+    for (const l of LOCALES) for (const k of ['verdict_too_flat', 'check_too_flat', 'verdict_flat_mismatch', 'check_flat_mismatch'])
+      expect(dict(l)[k], `${l}.${k}`).toBeTypeOf('string');
+  });
   it('no locale claims "real / authentic / genuine / true / taken with" (P25); only the glossary\'s "real device" may say real', () => {
     for (const l of LOCALES) { const { allow, ban } = BANNED[l];
       for (const [k, raw] of Object.entries(dict(l))) { let s = raw.toLowerCase(); for (const a of allow) s = s.replace(a, ' ');

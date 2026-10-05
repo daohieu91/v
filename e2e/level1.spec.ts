@@ -7,6 +7,7 @@ import jpeg from 'jpeg-js';
 import { findSealUrl } from '../src/qr';
 import { payloadFromUrl } from '../src/payload';
 import { checkSeal } from '../src/crypto';
+import { BROWSER_RGBA } from '../test/helpers/browser-rgba';
 const V = JSON.parse(readFileSync('test/vectors/verify-vectors.json', 'utf8'));
 /** The seal URL printed in the fixtures' QR, read here with the same jsQR plan in node (independent of the page). */
 const FIXTURE_URL = (() => { const j = jpeg.decode(readFileSync('e2e/fixtures/sealed.jpg'), { useTArray: true, formatAsRGBA: true });
@@ -198,4 +199,50 @@ test('an unreadable file shows "could not be read", not a blank page', async ({ 
   const broken = Buffer.concat([Buffer.from([0xff, 0xd8, 0xff, 0xc0, 0, 17, 8, 0, 100, 0, 100, 3]), Buffer.alloc(9), Buffer.from([0xff, 0xda, 0, 2]), Buffer.from('garbage')]);
   await page.setInputFiles('input[type=file]', { name: 'x.jpg', mimeType: 'image/jpeg', buffer: broken });
   await expect(page.locator('p.message')).toHaveText('This file could not be read', { timeout: 15_000 });
+});
+
+// P26 + P28: a NO_FINGERPRINT seal (v1_case7: flag bit 7, phash 0) is never judged by a hash; the page measures the picture's texture.
+const C7 = V.payloads.find((p: any) => p.name === 'v1_case7');
+test('NO_FINGERPRINT seal, link only: yellow "not compared yet"', async ({ page }) => {
+  await page.goto('./#' + C7.base64url);
+  await expect(band(page)).toHaveAttribute('data-verdict', 'yellow'); await expect(band(page)).toHaveText('Seal is valid — photo not compared yet');
+  await expect(page.locator('li[data-key=check_seal_ok]')).toContainText(C7.expectKeyId);
+  await expect(page.locator('li[data-key=proves_l1]')).toHaveCount(0);
+});
+test('NO_FINGERPRINT seal on its dark photo: yellow "too dark or flat to compare", no distance, no "unchanged"', async ({ page }) => {
+  await page.goto('./'); await pick(page, 'dark_sealed.jpg');
+  await expect(band(page)).toHaveAttribute('data-verdict', 'yellow');
+  await expect(band(page)).toHaveText('Details valid — this photo is too dark or flat to compare');
+  await expect(page.locator('li[data-key=check_too_flat]')).toBeVisible();
+  await expect(page.locator('li[data-key^=check_image], li[data-key=proves_l1]')).toHaveCount(0);
+  await expect(page.locator('li[data-key=check_seal_ok]')).toContainText(C7.expectKeyId);
+});
+test('NO_FINGERPRINT seal moved onto a photo with detail: red', async ({ page }) => {
+  await page.goto('./'); await pick(page, 'bright_sealed.jpg');
+  await expect(band(page)).toHaveAttribute('data-verdict', 'red');
+  await expect(band(page)).toHaveText("This photo isn't dark or flat — the seal belongs to a different photo");
+  await expect(page.locator('li[data-key=check_flat_mismatch]')).toBeVisible();
+  await expect(page.locator('li[data-key=proves_l1]')).toHaveCount(0);
+});
+test('NO_FINGERPRINT in Vietnamese', async ({ page }) => {
+  await page.goto('./'); await page.selectOption('select[data-lang]', 'vi'); await pick(page, 'dark_sealed.jpg');
+  await expect(band(page)).toHaveText('Thông tin hợp lệ — ảnh quá tối hoặc quá ít chi tiết để so');
+});
+// Task 10C follow-up: scripts/verify-file.ts decodes with libjpeg-turbo (sharp); test/decode-node.test.ts pins its RGBA to these digests.
+// Here the same digests are measured in the real engines, so the pins are the browsers' pixels, not node's. WebKit decodes with
+// ImageIO, which differs from both (measured), so it is checked for size only.
+test('the JPEG decode verify-file uses is byte-identical to this browser (Chromium, Firefox)', async ({ page, browserName }) => {
+  await page.goto('./');
+  for (const [f, want] of Object.entries(BROWSER_RGBA)) {
+    const b64 = readFileSync('e2e/fixtures/' + f).toString('base64');
+    const out: { w: number; h: number; px: string } = await page.evaluate(async (b: string) => {
+      const bin = atob(b); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+      const bmp = await createImageBitmap(new Blob([u], { type: 'image/jpeg' }), { imageOrientation: 'from-image' });
+      const c = document.createElement('canvas'); c.width = bmp.width; c.height = bmp.height; const g = c.getContext('2d', { willReadFrequently: true })!; g.drawImage(bmp, 0, 0);
+      const d = g.getImageData(0, 0, c.width, c.height).data; let s = ''; for (let i = 0; i < d.length; i += 0x8000) s += String.fromCharCode(...d.subarray(i, i + 0x8000));
+      return { w: c.width, h: c.height, px: btoa(s) };
+    }, b64);
+    expect([out.w, out.h], f).toEqual([1600, 1200]);
+    if (browserName !== 'webkit') expect(createHash('sha256').update(Buffer.from(out.px, 'base64')).digest('hex'), f).toBe(want);
+  }
 });

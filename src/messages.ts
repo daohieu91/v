@@ -23,10 +23,10 @@ export function validReply(m: unknown): Reply | null {
   if (!isObj(m)) return null;
   if (m.ok === false) return { ok: false, ...(m.need === 'pixels' ? { need: 'pixels' as const } : {}), ...(m.err === 'oversize' || m.err === 'format' ? { err: m.err as 'oversize' | 'format' } : {}) };
   if (m.ok !== true || !isObj(m.r) || !isObj(m.dec)) return null;
-  const { url, hamming } = m.r; const d = m.dec;
+  const { url, hamming, texture } = m.r; const d = m.dec;
   const urlOk = url === null || (typeof url === 'string' && url.startsWith(URL_PREFIX) && url.length <= URL_PREFIX.length + MAX_FRAGMENT_LEN);
-  if (!urlOk || !(hamming === null || isInt(hamming, 0, 64)) || !isInt(d.w, 1, 8192) || !isInt(d.h, 1, 8192) || !['plain', 'resize', 'page'].includes(d.via as string)) return null;
-  return { ok: true, r: { url: url as string | null, hamming: hamming as number | null }, dec: { w: d.w, h: d.h, via: d.via as 'plain' | 'resize' | 'page' } };
+  if (!urlOk || !(hamming === null || isInt(hamming, 0, 64)) || !(texture === null || isInt(texture, 0, 2 ** 36 - 1)) || !isInt(d.w, 1, 8192) || !isInt(d.h, 1, 8192) || !['plain', 'resize', 'page'].includes(d.via as string)) return null;
+  return { ok: true, r: { url: url as string | null, hamming: hamming as number | null, texture: texture as number | null }, dec: { w: d.w, h: d.h, via: d.via as 'plain' | 'resize' | 'page' } };
 }
 const STATUS = ['pass', 'warn', 'fail', 'info'];
 function validCheck(c: unknown): Check | null {

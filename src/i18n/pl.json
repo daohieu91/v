@@ -71,5 +71,9 @@
   "unknown_line": "Nieznany wynik sprawdzenia",
   "privacy_history": "Otwarty link wraz ze współrzędnymi zostaje w historii tej przeglądarki",
   "proves_title_neutral": "Co pokazuje to sprawdzenie",
-  "error_unsupported": "Tego typu pliku nie można tu sprawdzić. Wybierz zdjęcie JPEG, PNG, WebP lub HEIC"
+  "error_unsupported": "Tego typu pliku nie można tu sprawdzić. Wybierz zdjęcie JPEG, PNG, WebP lub HEIC",
+  "verdict_too_flat": "Dane są ważne — to zdjęcie jest zbyt ciemne lub jednolite, by je porównać",
+  "check_too_flat": "Zbyt ciemne lub jednolite, by je porównać: sprawdzono pieczęć i jej dane, ale nie treść zdjęcia",
+  "verdict_flat_mismatch": "To zdjęcie nie jest ciemne ani jednolite — pieczęć należy do innego zdjęcia",
+  "check_flat_mismatch": "Pieczęć utworzono dla ciemnego lub jednolitego zdjęcia, a to zdjęcie ma szczegóły"
 }
