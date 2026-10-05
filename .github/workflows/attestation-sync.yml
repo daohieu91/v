@@ -1,21 +1,30 @@
 name: attestation-sync
+# Daily copy of Google's attestation roots and revocation list; the page itself never contacts Google.
+# Every run also commits public/attestation/meta.json (the date shown on the page). That daily commit is the
+# keep-alive: GitHub disables scheduled workflows after 60 days without repository activity.
 on: { schedule: [{ cron: '17 3 * * *' }], workflow_dispatch: {} }
 permissions: { contents: write, actions: write }
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with: { node-version: 22 }
       - run: |
           set -euo pipefail
-          curl -fsSL https://android.googleapis.com/attestation/root   -o /tmp/roots.json
-          curl -fsSL https://android.googleapis.com/attestation/status -o /tmp/status.json
-          node -e 'const r=JSON.parse(require("fs").readFileSync("/tmp/roots.json"));if(!Array.isArray(r)||!r.length||!r.every(p=>p.includes("BEGIN CERTIFICATE")))process.exit(1)'
-          node -e 'const s=JSON.parse(require("fs").readFileSync("/tmp/status.json"));if(typeof s.entries!=="object")process.exit(1)'
+          curl -fsSL --retry 3 https://android.googleapis.com/attestation/root   -o /tmp/roots.json
+          curl -fsSL --retry 3 https://android.googleapis.com/attestation/status -o /tmp/status.json
+          # Fails the job (and keeps the old copy) if either file is null, unparsable, not X.509, or has no entries object.
+          node scripts/validate-attestation.mjs /tmp/roots.json /tmp/status.json
           cp /tmp/roots.json public/attestation/roots.json; cp /tmp/status.json public/attestation/status.json
-          if git diff --quiet; then echo "unchanged"; exit 0; fi
+          printf '{"checkedAt":"%s"}\n' "$(date -u +%F)" > public/attestation/meta.json
+          node -e 'import("./scripts/validate-attestation.mjs").then(m=>m.validateMeta(require("fs").readFileSync("public/attestation/meta.json","utf8")))'
           git config user.name "attestation-sync[bot]"; git config user.email "attestation-sync@users.noreply.github.com"
-          git add public/attestation && git commit -m "chore: daily copy of Google attestation roots and revocation list" && git push
+          git add public/attestation
+          if git diff --cached --quiet; then echo "unchanged (re-run on the same day)"; exit 0; fi
+          git commit -m "chore: daily copy of Google attestation roots and revocation list"
+          git push
           gh workflow run deploy.yml
         env:
           GH_TOKEN: ${{ github.token }}
