@@ -1,6 +1,6 @@
 import { decodeCbor, type Cbor } from './cbor';
-import { kids, readDer } from './der';
-import { commonName, hasEku, parseCert } from './x509';
+import { eq, hex, kids, readDer } from './der';
+import { commonName, hasEku, parseCert, type Cert } from './x509';
 /**
  * Finds the C2PA manifest store (JUMBF) of a JPEG or an MP4 and reads the two things c2pa-web's report does not expose (spike item 1c):
  * the COSE signer's x5chain and its RFC 3161 time-stamp token. Reads a File by slices (segment and box headers, then the store itself),
@@ -95,19 +95,29 @@ export function formatGenTime(g: string): string {
   const m = /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(?:\.\d+)?Z$/.exec(g);
   return m ? `${m[1]}-${m[2]}-${m[3]} ${m[4]}:${m[5]}:${m[6]} UTC` : g.slice(0, 40);
 }
-/** RFC 3161 token: ContentInfo → SignedData → encapContentInfo → TSTInfo.genTime; the TSA name is the CN of the certificate with EKU timeStamping. */
+/**
+ * RFC 3161 token: ContentInfo → SignedData → encapContentInfo → TSTInfo.genTime. The TSA name is the CN of the token's SIGNER certificate,
+ * the one its SignerInfo's sid names (RFC 5652 §5.3: issuerAndSerialNumber, or [0] subjectKeyIdentifier), never just any certificate in
+ * the bag; no signer certificate → tsaName null. This only reads: whether the token is valid is c2pa-web's `timeStamp.validated`.
+ */
 export function tstInfo(token: Uint8Array): { genTime: string; tsaName: string | null } | null {
   try {
     const sd = readDer(kids(readDer(token))[1].content);                                // [0] EXPLICIT → SignedData SEQUENCE
-    const parts = kids(sd); const eci = parts[2];                                        // version, digestAlgorithms, encapContentInfo, [0] certificates, …
+    const parts = kids(sd); const eci = parts[2];                                        // version, digestAlgorithms, encapContentInfo, [0] certificates, …, signerInfos
     const tst = kids(readDer(kids(kids(eci)[1])[0].content));                            // [0] EXPLICIT eContent OCTET STRING → TSTInfo SEQUENCE
     if (tst[4]?.tag !== 24) return null;                                                 // version, policy, messageImprint, serialNumber, genTime
     const genTime = formatGenTime(new TextDecoder().decode(tst[4].content));
+    const infos = parts[parts.length - 1]; if (infos.cls !== 0 || infos.tag !== 17) return { genTime, tsaName: null };
+    const si = kids(kids(infos)[0]); const sid = si[1];
+    let match: (c: Cert) => boolean = () => false;
+    if (sid.cls === 0 && sid.tag === 16) { const [iss, ser] = kids(sid); const issuer = sid.content.subarray(iss.start, iss.end);
+      const serial = hex(ser.content).replace(/^0+/, '') || '0'; match = c => eq(c.issuer, issuer) && c.serial === serial; }
+    else if (sid.cls === 2 && sid.tag === 0) { const ski = sid.content;
+      match = c => { const e = c.ext.get('2.5.29.14'); try { return !!e && eq(readDer(e.value).content, ski); } catch { return false; } }; }
     let tsaName: string | null = null;
     const certs = parts.find(p => p.cls === 2 && p.tag === 0);
     if (certs) for (const c of kids(certs)) {
-      const raw = certs.content.subarray(c.start, c.end);
-      try { const cert = parseCert(raw); if (hasEku(cert, '1.3.6.1.5.5.7.3.8')) { tsaName = commonName(cert.subject); break; } } catch { /* next */ }
+      try { const cert = parseCert(certs.content.subarray(c.start, c.end)); if (match(cert)) { tsaName = hasEku(cert, '1.3.6.1.5.5.7.3.8') ? commonName(cert.subject) : null; break; } } catch { /* next */ }
     }
     return { genTime, tsaName };
   } catch { return null; }

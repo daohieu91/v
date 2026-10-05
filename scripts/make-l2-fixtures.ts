@@ -7,7 +7,6 @@
 import { createHash, createPrivateKey } from 'node:crypto'; import { execFileSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs'; import { tmpdir } from 'node:os'; import { join } from 'node:path';
 import jpeg from 'jpeg-js';
-import { SIGNING_DIGESTS } from '../src/config';
 import { findSealUrl } from '../src/qr';
 import { chain, genKey, importKey, pem } from '../test/helpers/attest-gen';
 const V = JSON.parse(readFileSync('test/vectors/verify-vectors.json', 'utf8'));
@@ -21,7 +20,8 @@ writeFileSync(join(work, 'key.pem'), createPrivateKey({ key: { kty: 'EC', crv: '
 const j = jpeg.decode(readFileSync('e2e/fixtures/sealed.jpg'), { useTArray: true, formatAsRGBA: true });
 const qrUrl = findSealUrl({ data: Uint8ClampedArray.from(j.data), w: j.width, h: j.height }); if (!qrUrl) throw new Error('no QR in sealed.jpg');
 const photoPayload = qrUrl.slice(qrUrl.indexOf('#') + 1);
-const DEV = SIGNING_DIGESTS.find(d => d.dev)!.hex; const UNKNOWN = createHash('sha256').update('camerastamp-test-unregistered-signer').digest('hex');
+const DEV = '6dcef54931f170eff8e8d53bd77e62ec66c078479a6141411d08b00287077602';   // the debug key (releaseSmoke); not in the deployed list (P36)
+const UNKNOWN = createHash('sha256').update('camerastamp-test-unregistered-signer').digest('hex');
 const PKG = [{ name: 'com.essenty.camerastamp', version: 1 }];
 const hwRoot = await genKey('P-384');
 const hwDesc = { attLevel: 1, keyLevel: 1, packages: PKG, digests: [DEV], rot: { locked: true, state: 0 } };

@@ -74,7 +74,7 @@ async function pick(f: File) {
     const seal = payload ? checkSeal(payload) : null;
     const l2 = c2pa ? await runLevel2(f, seal?.ok ? seal.keyIdHex : null) : null;
     if (!payload && l2?.payload) payload = l2.payload;                              // a video original: level 2 carries the fields
-    if (!payload && !code && l2?.summary.lines[0]?.key === 'l2_error') return fail('l2_error');
+    if (!payload && !code && c2pa && (!l2 || l2.summary.lines[0]?.key === 'l2_error')) return fail('l2_error');   // C2PA data seen but not read (bridge timeout incl.)
     if (!payload && !code && !(l2?.payload || l2?.summary.kind === 'invalid')) return fail('no_code');   // e.g. another app's C2PA file
     // The file's binding stands for the content only if the seal in the file IS the seal shown (P30; identity = header + r, P18 a).
     const l2s = l2 && payload && !(l2.payload && sealIdentity(l2.payload) === sealIdentity(payload)) ? { ...l2.summary, bound: false } : l2?.summary ?? null;

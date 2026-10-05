@@ -80,7 +80,8 @@
   "l2_app_unknown": "Pengesahan telefon tidak menamakan aplikasi (biasa pada Android 7)",
   "l2_boot_unknown": "Keadaan but tidak disahkan (pengesahan perisian)",
   "l2_no_seal": "Data C2PA fail ini tiada meterai CameraStamp",
-  "l2_error": "Fail asal tidak dapat disemak dalam pelayar ini",
+  "l2_error": "Fail ini tidak dapat dibaca di sini — cuba pelayar lain atau komputer",
   "verdict_l2_bad": "Meterai fail asal tidak boleh dipercayai",
-  "error_too_big_video": "Video ini melebihi 100 MB dan tidak boleh disemak di sini"
+  "error_too_big_video": "Video ini melebihi 100 MB dan tidak boleh disemak di sini",
+  "verdict_uncertified": "Kunci tidak diperakui — kepercayaan lebih rendah"
 }

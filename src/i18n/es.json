@@ -80,7 +80,8 @@
   "l2_app_unknown": "La certificación del teléfono no indica la app (normal en Android 7)",
   "l2_boot_unknown": "Estado de arranque no certificado (certificación por software)",
   "l2_no_seal": "Los datos C2PA de este archivo no tienen sello de CameraStamp",
-  "l2_error": "No se pudo comprobar el archivo original en este navegador",
+  "l2_error": "No se pudo leer este archivo aquí: prueba otro navegador o un ordenador",
   "verdict_l2_bad": "No se puede confiar en el sello del archivo original",
-  "error_too_big_video": "Este vídeo pesa más de 100 MB y no se puede comprobar aquí"
+  "error_too_big_video": "Este vídeo pesa más de 100 MB y no se puede comprobar aquí",
+  "verdict_uncertified": "Clave no certificada — menor confianza"
 }

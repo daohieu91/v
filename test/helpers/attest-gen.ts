@@ -26,9 +26,10 @@ function derSig(raw: Bytes, n: number): Bytes {
 export interface Ext { oid: string; critical?: boolean; value: Bytes }
 const ext = (e: Ext) => seq(oid(e.oid), ...(e.critical ? [bool(true)] : []), octet(e.value));
 export const CA_EXT: Ext = { oid: '2.5.29.19', critical: true, value: seq(bool(true)) };
-export async function cert(o: { serial: bigint; issuer: string; subject: string; spki: Bytes; signer: Key; exts?: Ext[] }): Promise<Bytes> {
+export async function cert(o: { serial: bigint; issuer: string | Bytes; subject: string | Bytes; spki: Bytes; signer: Key; exts?: Ext[] }): Promise<Bytes> {
   const [alg, hash, n] = ALG[o.signer.curve]; const algId = seq(oid(alg));
-  const tbs = seq(ctx(0, true, int(2)), int(o.serial), algId, name(o.issuer), seq(utcTime('200101000000Z'), genTime('99991231235959Z')), name(o.subject), o.spki,
+  const nm = (x: string | Bytes) => (typeof x === 'string' ? name(x) : x);
+  const tbs = seq(ctx(0, true, int(2)), int(o.serial), algId, nm(o.issuer), seq(utcTime('200101000000Z'), genTime('99991231235959Z')), nm(o.subject), o.spki,
     ...(o.exts?.length ? [ctx(3, true, seq(...o.exts.map(ext)))] : []));
   const raw = new Uint8Array(await subtle.sign({ name: 'ECDSA', hash }, o.signer.priv, tbs));
   return seq(tbs, algId, bits(derSig(raw, n)));

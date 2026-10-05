@@ -80,7 +80,8 @@
   "l2_app_unknown": "Chứng thực của điện thoại không ghi tên app (bình thường trên Android 7)",
   "l2_boot_unknown": "Trạng thái khởi động không được chứng thực (chứng thực bằng phần mềm)",
   "l2_no_seal": "Dữ liệu C2PA của file này không có niêm phong CameraStamp",
-  "l2_error": "Không kiểm tra được file gốc trên trình duyệt này",
+  "l2_error": "Không đọc được file này ở đây — hãy thử trình duyệt khác hoặc máy tính",
   "verdict_l2_bad": "Không thể tin niêm phong của file gốc",
-  "error_too_big_video": "Video này lớn hơn 100 MB nên không kiểm tra được ở đây"
+  "error_too_big_video": "Video này lớn hơn 100 MB nên không kiểm tra được ở đây",
+  "verdict_uncertified": "Khoá chưa được chứng nhận — độ tin cậy thấp hơn"
 }

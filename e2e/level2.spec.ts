@@ -32,20 +32,23 @@ async function pick(page: Page, f: string | { name: string; mimeType: string; bu
 }
 test.describe.configure({ timeout: 90_000 });
 
-test('certified hardware original from a test build: green, every device line, the QR link, the time-stamp; never "real device"', async ({ page, browserName }) => {
+test('certified hardware original (debug-signed, P36: not registered): green, every device line, the time-stamp; never "real device"', async ({ page, browserName }) => {
   test.skip(!ROUTABLE(browserName), 'needs the injected fake root (no routing on WebKit)');
   await withFakeRoot(page); await page.goto('./'); await pick(page, 'original_hw.jpg');
   await expect(band(page)).toHaveAttribute('data-verdict', 'green');
   for (const k of ['l2_signature_ok', 'l2_chain_ok', 'l2_level_hw', 'l2_boot_ok', 'l2_locked_ok']) await expect(line(page, k), k).toHaveAttribute('data-status', 'pass');
-  await expect(line(page, 'l2_app_dev')).toHaveText('Made by a test build of CameraStamp');
+  await expect(line(page, 'l2_app_unregistered')).toHaveText('App signature not yet registered on this page — not confirmed as the CameraStamp app');
+  await expect(line(page, 'l2_app_dev')).toHaveCount(0);
   await expect(line(page, 'l2_qr_same_key')).toHaveText('This QR was sealed by the same key as this original file');
   await expect(line(page, 'l2_tsa')).toContainText(/Existed no later than 20\d\d-\d\d-\d\d \d\d:\d\d:\d\d UTC — confirmed by DigiCert/);
   await expect(line(page, 'l2_untrusted_note')).toBeVisible();
   await expect(line(page, 'l2_real_device')).toHaveCount(0); await expect(line(page, 'l2_qr_link')).toHaveCount(0);
-  await expect(line(page, 'proves_not_device')).toBeVisible(); await expect(line(page, 'proves_screen')).toBeVisible();
+  await expect(line(page, 'proves_not_device')).toHaveCount(0); await expect(line(page, 'proves_screen')).toBeVisible();
 });
-test('the same original against Google\'s real roots (the live page today): signed and unchanged, key not certified', async ({ page }) => {
+test('the same original against Google\'s real roots (the live page today): YELLOW "key not certified — lower trust", never green (P35)', async ({ page }) => {
   await page.goto('./'); await pick(page, 'original_hw.jpg');
+  await expect(band(page)).toHaveAttribute('data-verdict', 'yellow'); await expect(band(page)).toHaveText('Key not certified — lower trust');
+  await expect(line(page, 'proves_l1')).toHaveCount(0);
   await expect(line(page, 'l2_signature_ok')).toHaveText('The original file is signed and unchanged');
   await expect(line(page, 'l2_chain_bad')).toHaveText("Key not certified by Google");
   await expect(line(page, 'l2_real_device')).toHaveCount(0);
@@ -85,9 +88,9 @@ test('a certificate in Google\'s revocation list (the daily status.json copy): r
   await expect(band(page)).toHaveAttribute('data-verdict', 'red'); await expect(line(page, 'l2_revoked')).toBeVisible();
   await expect(line(page, 'l2_chain_ok')).toHaveCount(0);
 });
-test('video original: the fields come from level 2 and the file binding makes it green (no picture to compare)', async ({ page }) => {
+test('video original: the fields come from level 2 and the file binding makes it green (no picture to compare)', async ({ page, browserName }) => {
   await withFakeRoot(page); await page.goto('./'); await pick(page, 'original_video.mp4');
-  await expect(band(page)).toHaveAttribute('data-verdict', 'green');
+  await expect(band(page)).toHaveAttribute('data-verdict', ROUTABLE(browserName) ? 'green' : 'yellow');   // WebKit: no injected root → not certified
   await expect(line(page, 'check_content_c2pa')).toBeVisible(); await expect(line(page, 'l2_video')).toHaveText('Video: duration 3 s, data from its first second');
   await expect(page.locator('[data-field=time]')).toBeVisible();
 });
@@ -104,16 +107,17 @@ test('a chat-compressed copy has no level 2 and still says so', async ({ page })
 test('a browser that cannot run the reader (wasm blocked) says so, and level 1 still answers', async ({ page, browserName }) => {
   test.skip(!ROUTABLE(browserName), 'needs routing');
   await page.route('**/*.wasm', r => r.abort()); await page.goto('./'); await pick(page, 'original_hw.jpg');
-  await expect(line(page, 'l2_error')).toHaveText('The original file could not be checked in this browser');
+  await expect(line(page, 'l2_error')).toHaveText("Couldn't read this file here — try another browser or a computer");
   await expect(line(page, 'check_image_match')).toBeVisible(); await expect(line(page, 'l2_signature_ok')).toHaveCount(0);
 });
-test('P30: a NO_FINGERPRINT seal on its own original file is green from the file binding, with the level-2 wording', async ({ page }) => {
-  await page.goto('./'); await pick(page, 'original_dark.jpg');
+test('P30: a NO_FINGERPRINT seal on its own original file is green from the file binding, with the level-2 wording', async ({ page, browserName }) => {
+  test.skip(!ROUTABLE(browserName), 'needs the injected fake root (no routing on WebKit)');
+  await withFakeRoot(page); await page.goto('./'); await pick(page, 'original_dark.jpg');
   await expect(band(page)).toHaveAttribute('data-verdict', 'green');
   await expect(line(page, 'check_content_c2pa')).toHaveText("The original file's content is unchanged"); await expect(line(page, 'check_too_flat')).toHaveCount(0);
 });
 test('P30 needs THIS seal in the file: the same key\'s other seal in the file leaves the dark photo yellow', async ({ page }) => {
-  await page.goto('./'); await pick(page, 'original_dark_other.jpg');
+  await withFakeRoot(page); await page.goto('./'); await pick(page, 'original_dark_other.jpg');
   await expect(band(page)).toHaveAttribute('data-verdict', 'yellow'); await expect(line(page, 'check_too_flat')).toBeVisible();
   await expect(line(page, 'check_content_c2pa')).toHaveCount(0);
 });

@@ -31,6 +31,8 @@ export function parseKeyDescription(ext: Uint8Array): KeyDescription {
  * chainOk = every certificate is signed by the next one, every issuer is a CA, only the leaf carries a KeyDescription (else a
  * hardware-attested key could sign a fake "leaf" with any extension it likes), the last certificate's public key is one of Google's
  * roots, and no serial is in Google's status list (any entry — REVOKED or SUSPENDED — is not trusted). Never throws.
+ * Validity dates are deliberately NOT checked, and the page makes no claim about them (lenient, P35): Google's own guidance, Keystore
+ * leaves with meaningless dates, and the M20 chain's root expired on 2026-05-24 while Google re-issued the same key to 2042.
  */
 export async function checkChain(chainDer: Uint8Array[], rootsPem: string[], status: { entries: Record<string, unknown> }): Promise<ChainCheck> {
   const none: ChainCheck = { chainOk: false, revoked: false, leaf: null, leafKey: null };

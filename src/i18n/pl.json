@@ -80,7 +80,8 @@
   "l2_app_unknown": "Poświadczenie telefonu nie wskazuje aplikacji (normalne na Androidzie 7)",
   "l2_boot_unknown": "Stan rozruchu niepoświadczony (poświadczenie programowe)",
   "l2_no_seal": "Dane C2PA tego pliku nie mają pieczęci CameraStamp",
-  "l2_error": "Nie udało się sprawdzić oryginalnego pliku w tej przeglądarce",
+  "l2_error": "Nie udało się tu odczytać tego pliku — spróbuj innej przeglądarki lub komputera",
   "verdict_l2_bad": "Pieczęci oryginalnego pliku nie można ufać",
-  "error_too_big_video": "Ten film ma ponad 100 MB i nie można go tu sprawdzić"
+  "error_too_big_video": "Ten film ma ponad 100 MB i nie można go tu sprawdzić",
+  "verdict_uncertified": "Klucz niepoświadczony — mniejsze zaufanie"
 }

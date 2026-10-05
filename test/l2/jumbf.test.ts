@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { activeSignature, coseSigner, extractJumbf, formatGenTime, tstInfo } from '../../src/l2/jumbf';
-import { hex } from '../../src/l2/der';
+import { hex, kids, readDer } from '../../src/l2/der';
 import { commonName, ecPoint, parseCert } from '../../src/l2/x509';
 // test/fixtures/c2pa/*: the APP's own writer (C2PA_LIB=SELF), copied from app/build/c2pa-conformance (solid-colour picture, public TEST
 // key, all-0x01 payload, no location: P3). photo_multiseg.jpg's store spans 3 APP11 segments; photo_tsa.jpg holds a real DigiCert token.
@@ -35,6 +35,14 @@ describe('jumbf/cose', () => {
     const s = await signerOf('test/fixtures/c2pa/photo_tsa.jpg'); expect(s.tstTokens.length).toBe(1);
     const t = tstInfo(s.tstTokens[0])!; expect(t.genTime).toMatch(/^2026-\d\d-\d\d \d\d:\d\d:\d\d UTC$/); expect(t.tsaName).toMatch(/DigiCert/);
     expect((await signerOf('test/fixtures/c2pa/photo.jpg')).tstTokens).toEqual([]);
+  });
+  it('the TSA name is the token\'s SIGNER certificate (SignerInfo sid), not any certificate with the time-stamping EKU', async () => {
+    const tok = (await signerOf('test/fixtures/c2pa/photo_tsa.jpg')).tstTokens[0];
+    const sd = readDer(kids(readDer(tok))[1].content); const parts = kids(sd); const sid = kids(kids(parts[parts.length - 1])[0])[1];
+    expect(sid.tag).toBe(16);                                                              // DigiCert: issuerAndSerialNumber
+    const ser = kids(sid)[1]; const off = ser.content.byteOffset - tok.byteOffset;
+    const altered = tok.slice(); altered[off + ser.content.length - 1] ^= 1;                // the sid names a certificate that is not in the token
+    expect(tstInfo(altered)!.tsaName).toBeNull(); expect(tstInfo(tok)!.tsaName).toMatch(/DigiCert/);
   });
   it('a plain JPEG or MP4 has no JUMBF; garbage gives null, never a throw', async () => {
     expect(await extractJumbf(f('e2e/fixtures/sealed.jpg'))).toBeNull();

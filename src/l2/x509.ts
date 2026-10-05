@@ -72,9 +72,9 @@ export function isCa(c: Cert): boolean {
   const e = c.ext.get('2.5.29.19'); if (!e) return false;
   const seq = kids(readDer(e.value)); return seq[0]?.tag === 1 && seq[0].content[0] !== 0;
 }
-/** The first CN (2.5.4.3) of a Name, or null. */
-export function commonName(name: Uint8Array): string | null {
-  try { for (const rdn of kids(readDer(name))) for (const atv of kids(rdn)) { const [t, v] = kids(atv); if (oid(t.content) === '2.5.4.3') return new TextDecoder().decode(v.content); } } catch { /* none */ }
+/** The first attribute `type` of a Name (CN 2.5.4.3 by default; O is 2.5.4.10), or null. */
+export function commonName(name: Uint8Array, type = '2.5.4.3'): string | null {
+  try { for (const rdn of kids(readDer(name))) for (const atv of kids(rdn)) { const [t, v] = kids(atv); if (oid(t.content) === type) return new TextDecoder().decode(v.content); } } catch { /* none */ }
   return null;
 }
 /** extendedKeyUsage contains `purpose`. */

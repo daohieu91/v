@@ -10,6 +10,7 @@ export interface Verdict { color: Color; headline: string; checks: Check[] }
 export interface L2Summary { kind: 'none' | 'invalid' | 'ok'; lines: Check[]; realDevice: boolean; bound: boolean }
 /** Level-2 findings that make the file itself untrustworthy: a revoked certificate, a signer that is not the seal's/attested key, a QR of another key. */
 const L2_RED = new Set(['l2_revoked', 'l2_binding_bad', 'l2_qr_other_key']);
+const UNCERTIFIED = new Set(['l2_chain_bad', 'l2_no_seal']);
 
 /**
  * Spec §6 / §7.3, honest: one line per check, nothing merged or overstated. The seal holds ONLY when checkSeal says so (`seal.ok`):
@@ -61,11 +62,15 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
     if (warns.length) return ['yellow', warns[0].key];
     // P11: the original file's attestation says software key (Android 7–8, emulators), even if the payload's flag did not.
     if (i.level2?.lines.some(c => c.key === 'l2_level_sw')) return ['yellow', 'warn_software_key'];
+    // P35: an original whose key is not certified by Google (no attestation, a stripped or foreign chain, no seal) is the same tier as a
+    // software key: removing evidence from a file must never make the verdict better than keeping it.
+    if (i.level2?.kind === 'ok' && i.level2.lines.some(c => UNCERTIFIED.has(c.key))) return ['yellow', 'verdict_uncertified'];
     return ['green', 'verdict_green'];
   })();
   // P25: "unchanged since sealed by key X" is said ONLY when it is what the page found: on green, never on red or yellow.
   if (color[0] === 'green') checks.push({ key: 'proves_l1', status: 'info', params: { id } });
-  if (!i.level2?.realDevice) checks.push({ key: 'proves_not_device', status: 'info' });
+  // Only when no original file was checked: once one was, its own lines say what is (not) confirmed about the device.
+  if (!i.level2 || i.level2.kind === 'none') checks.push({ key: 'proves_not_device', status: 'info' });
   checks.push({ key: 'proves_screen', status: 'info' });
   return { color: color[0], headline: color[1], checks };
 }

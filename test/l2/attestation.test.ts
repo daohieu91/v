@@ -2,7 +2,8 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { checkChain, OID_KEY_DESC, parseKeyDescription } from '../../src/l2/attestation';
 import { hex } from '../../src/l2/der';
-import { pemToDer } from '../../src/l2/x509';
+import { eq } from '../../src/l2/der';
+import { parseCert, pemToDer } from '../../src/l2/x509';
 import { CA_EXT, cert, chain, genKey, keyDescription } from '../helpers/attest-gen';
 const roots = JSON.parse(readFileSync('public/attestation/roots.json', 'utf8')) as string[];
 const synthRoots = JSON.parse(readFileSync('test/fixtures/attestation/synth_roots.json', 'utf8')) as string[];
@@ -30,6 +31,20 @@ describe('attestation (real Galaxy M20 chain: values measured in the Task 4 spik
     expect((await checkChain(ders('m20.pem').slice(0, 3), roots, { entries: {} })).chainOk).toBe(false);   // ends at an intermediate
     expect((await checkChain(ders('synth_hw.pem'), roots, { entries: {} })).chainOk).toBe(false);
     expect((await checkChain(ders('synth_hw.pem'), synthRoots, { entries: {} })).chainOk).toBe(true);    // same chain, its (fake) root trusted
+  });
+  it('a root is pinned by its KEY: a self-signed root with Google\'s subject name but another key is not Google', async () => {
+    const google = parseCert(ders('m20.pem')[3]); const fakeRoot = await genKey('P-384'); const inter = await genKey('P-256');
+    const rootDer = await cert({ serial: 0xe8fa196314d2fa18n, issuer: google.subject, subject: google.subject, spki: fakeRoot.spki, signer: fakeRoot, exts: [CA_EXT] });
+    const interDer = await cert({ serial: 5n, issuer: google.subject, subject: 'FAKE TEST INTERMEDIATE', spki: inter.spki, signer: fakeRoot, exts: [CA_EXT] });
+    const leaf = await cert({ serial: 6n, issuer: 'FAKE TEST INTERMEDIATE', subject: 'Android Keystore Key', spki: (await genKey()).spki, signer: inter,
+      exts: [{ oid: OID_KEY_DESC, value: keyDescription({ attLevel: 1, keyLevel: 1, packages: PKG, digests: [DEV], rot: { locked: true, state: 0 } }) }] });
+    expect(eq(parseCert(rootDer).subject, google.subject)).toBe(true);
+    expect((await checkChain([leaf, interDer, rootDer], roots, { entries: {} })).chainOk).toBe(false);
+  });
+  it('Google\'s real root key with a corrupted self-signature is refused', async () => {
+    const d = ders('m20.pem'); const root = d[3].slice(); root[root.length - 10] ^= 0x01;               // inside the RSA signature value
+    expect(parseCert(root).spki).toEqual(parseCert(d[3]).spki);
+    expect((await checkChain([d[0], d[1], d[2], root], roots, { entries: {} })).chainOk).toBe(false);
   });
   it('garbage never throws', async () => {
     for (const bad of [[], [new Uint8Array([0x30, 0x03, 1, 2])], Array(11).fill(ders('m20.pem')[0])])

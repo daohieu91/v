@@ -10,7 +10,7 @@
     "l2_title": ["original_file"], "l2_real_device": ["real_device"], "l2_qr_link": ["real_device"],
     "proves_l1": ["seal"], "proves_not_device": ["real_device", "original_file"],
     "check_too_flat": ["seal"], "verdict_flat_mismatch": ["seal"], "check_flat_mismatch": ["seal"],
-    "l2_no_seal": ["seal"], "l2_error": ["original_file"], "verdict_l2_bad": ["seal", "original_file"]
+    "l2_no_seal": ["seal"], "verdict_l2_bad": ["seal", "original_file"]
   },
   "androidUses": {
     "stamp_verifiable_badge": ["verifiable"], "review_badge": ["verifiable"], "cd_badge_sealed": ["verifiable"],

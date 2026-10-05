@@ -80,7 +80,8 @@
   "l2_app_unknown": "L'attestazione del telefono non indica l'app (normale su Android 7)",
   "l2_boot_unknown": "Stato di avvio non attestato (attestazione software)",
   "l2_no_seal": "I dati C2PA di questo file non hanno un sigillo CameraStamp",
-  "l2_error": "Non è stato possibile controllare il file originale in questo browser",
+  "l2_error": "Impossibile leggere questo file qui: prova un altro browser o un computer",
   "verdict_l2_bad": "Il sigillo del file originale non è affidabile",
-  "error_too_big_video": "Questo video supera i 100 MB e non può essere controllato qui"
+  "error_too_big_video": "Questo video supera i 100 MB e non può essere controllato qui",
+  "verdict_uncertified": "Chiave non certificata — affidabilità minore"
 }

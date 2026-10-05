@@ -21,9 +21,9 @@ export const PACKAGE_NAME = 'com.essenty.camerastamp';
  * DEV entries are the debug key used by releaseSmoke builds (acceptance on the M20); Part 4 replaces them with the Play
  * App Signing certificate digest from Play Console before launch (Task 23 records this as an open item).
  */
-export const SIGNING_DIGESTS: readonly { hex: string; dev: boolean }[] = [
-  { hex: '6dcef54931f170eff8e8d53bd77e62ec66c078479a6141411d08b00287077602', dev: true },
-];
+export const SIGNING_DIGESTS: readonly { hex: string; dev: boolean }[] = [];
+// P36: the debug key's digest (6dcef549…7602, releaseSmoke builds) is NOT deployed: a debug-signed file reads "app signature not yet
+// registered". Tests inject digests. Part 4 adds the Play App Signing digest here as { hex, dev: false }.
 /** Videos are checked by level 2 only (C2PA, read by slices): a 30 s FHD clip from the app is ~50–60 MB (12S-c). Photos keep image.ts's 40 MB. */
 export const MAX_VIDEO_BYTES = 100 * 1024 * 1024;
 export const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.essenty.camerastamp&referrer=utm_source%3Dverify';

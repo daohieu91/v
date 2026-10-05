@@ -80,7 +80,8 @@
   "l2_app_unknown": "The phone's attestation does not name the app (normal on Android 7)",
   "l2_boot_unknown": "Boot state not attested (software attestation)",
   "l2_no_seal": "This file's C2PA data has no CameraStamp seal",
-  "l2_error": "The original file could not be checked in this browser",
+  "l2_error": "Couldn't read this file here — try another browser or a computer",
   "verdict_l2_bad": "The original file's seal can't be trusted",
-  "error_too_big_video": "This video is larger than 100 MB and can't be checked here"
+  "error_too_big_video": "This video is larger than 100 MB and can't be checked here",
+  "verdict_uncertified": "Key not certified — lower trust"
 }

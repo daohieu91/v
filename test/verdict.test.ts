@@ -121,18 +121,27 @@ describe('verdict with level 2', () => {
     const v1 = r(['l2_signature_ok', 'l2_level_sw']); expect([v1.color, v1.headline]).toEqual(['yellow', 'warn_software_key']);
     expect(r(['l2_signature_ok', 'l2_level_hw']).color).toBe('green');
   });
-  it('a test build, an unregistered app signature or an uncertified chain are lines, not colours', () => {
-    for (const k of ['l2_app_dev', 'l2_app_unregistered', 'l2_chain_bad', 'l2_app_unknown']) expect(r(['l2_signature_ok', k]).color, k).toBe('green');
+  it('a test build or an unregistered app signature on a certified key are lines, not colours', () => {
+    for (const k of ['l2_app_dev', 'l2_app_unregistered', 'l2_app_unknown']) expect(r(['l2_signature_ok', 'l2_chain_ok', k]).color, k).toBe('green');
+  });
+  it('P35: a key not certified by Google (no or stripped attestation, no seal in the file) is yellow "Key not certified — lower trust", never green', () => {
+    for (const k of ['l2_chain_bad', 'l2_no_seal']) { const v1 = r(['l2_signature_ok', k]); expect([v1.color, v1.headline], k).toEqual(['yellow', 'verdict_uncertified']);
+      expect(v1.checks.some(c => c.key === 'proves_l1'), k).toBe(false); }
+    // stripping evidence never improves the verdict: an uncertified file is never better than a software-attested one
+    expect(r(['l2_signature_ok', 'l2_chain_bad']).color).toBe(r(['l2_signature_ok', 'l2_chain_bad', 'l2_level_sw']).color);
+    const video = verdict({ payload: base(), seal: ok, hamming: null, texture: null, level2: L(['l2_chain_bad']) }); expect(video.color).toBe('yellow');
   });
   it('P30/F-M13 needs the file to be bound to THIS seal: an unbound file never stands in for the content', () => {
     const v1 = verdict({ payload: base(), seal: ok, hamming: null, texture: null, level2: L([], { bound: false }) });
     expect([v1.color, v1.headline]).toEqual(['yellow', 'verdict_info_not_compared']); expect(v1.checks.some(c => c.key === 'check_content_c2pa')).toBe(false);
     expect(verdict({ payload: base(), seal: ok, hamming: null, texture: null, level2: L([]) }).color).toBe('green');
   });
-  it('"sealed by a key in a real device" keeps proves_screen, and drops proves_not_device only when level 2 says real', () => {
+  it('"sealed by a key in a real device" keeps proves_screen; proves_not_device only when no original file was checked', () => {
     const real = r(['l2_real_device'], { realDevice: true }).checks.map(c => c.key);
     expect(real).toContain('proves_screen'); expect(real).not.toContain('proves_not_device');
-    expect(r([]).checks.map(c => c.key)).toContain('proves_not_device');
+    expect(r(['l2_chain_bad']).checks.map(c => c.key), 'an original was checked: its lines say it').not.toContain('proves_not_device');
+    expect(r(['l2_error'], { kind: 'none', bound: false }).checks.map(c => c.key), 'original not readable').toContain('proves_not_device');
+    expect(v(base(), 2).checks.map(c => c.key), 'no original').toContain('proves_not_device');
   });
   it('a broken original file without a readable seal (a tampered video) is red and says why', () => {
     const v1 = verdict({ payload: null, seal: null, hamming: null, texture: null, level2: L(['l2_invalid'], { kind: 'invalid', bound: false }) });
