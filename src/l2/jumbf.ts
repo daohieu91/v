@@ -78,6 +78,35 @@ export function activeSignature(jumbf: Uint8Array): Uint8Array | null {
     return sig?.children.find(c => c.type === 'cbor')?.payload ?? null;
   } catch { return null; }
 }
+/** The active manifest's claim bytes (c2pa.claim.v2, or c2pa.claim for v1): what its COSE signature covers (detached payload). */
+export function activeClaim(jumbf: Uint8Array): Uint8Array | null {
+  try {
+    const store = boxes(jumbf).find(b => b.label === 'c2pa'); const manifests = store?.children.filter(c => c.type === 'jumb') ?? [];
+    const claim = manifests[manifests.length - 1]?.children.find(c => c.label === 'c2pa.claim.v2' || c.label === 'c2pa.claim');
+    return claim?.children.find(c => c.type === 'cbor')?.payload ?? null;
+  } catch { return null; }
+}
+const te = new TextEncoder();
+const cborHead = (major: number, n: number) => Uint8Array.from(n < 24 ? [(major << 5) | n] : n < 256 ? [(major << 5) | 24, n] : n < 65536 ? [(major << 5) | 25, n >> 8, n & 255]
+  : [(major << 5) | 26, n >>> 24, (n >>> 16) & 255, (n >>> 8) & 255, n & 255]);
+const cborBytes = (b: Uint8Array) => cat([cborHead(2, b.length), b]);
+/**
+ * Our OWN check that `point` (P-256, 65 bytes) made the active manifest's claim signature: ES256 over the COSE Sig_structure
+ * ["Signature1", protected, h'', claim] (RFC 9052 §4.4; C2PA §13.2, detached payload). This ties the key we parsed from x5chain[0] to a
+ * signature in this file by itself, whatever a parser differential with c2pa-web might do; c2pa-web's own validation still decides
+ * "valid". Never throws.
+ */
+export async function verifyClaimSignature(cose: Uint8Array, claim: Uint8Array, point: Uint8Array): Promise<boolean> {
+  try {
+    let v = decodeCbor(cose); if (v && typeof v === 'object' && 'tag' in (v as object)) v = (v as { value: Cbor }).value;
+    if (!Array.isArray(v) || v.length !== 4 || !(v[0] instanceof Uint8Array) || !(v[3] instanceof Uint8Array)) return false;
+    const prot = v[0], sig = v[3]; const ph = decodeCbor(prot) as Map<Cbor, Cbor>;
+    if (!(ph instanceof Map) || ph.get(1) !== -7 || sig.length !== 64 || point.length !== 65 || point[0] !== 4) return false;   // ES256 only (the app's alg)
+    const tbs = cat([Uint8Array.of(0x84), cborHead(3, 10), te.encode('Signature1'), cborBytes(prot), cborBytes(new Uint8Array()), cborBytes(claim)]);
+    const key = await crypto.subtle.importKey('raw', point.slice().buffer, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['verify']);
+    return await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, key, sig.slice().buffer, tbs.slice().buffer);
+  } catch { return false; }
+}
 /** COSE_Sign1 (RFC 9052): x5chain (label 33) from the protected header, else the unprotected one; tokens of sigTst2 (C2PA 2.x), else sigTst. */
 export function coseSigner(cose: Uint8Array): { x5chain: Uint8Array[]; tstTokens: Uint8Array[] } {
   let v = decodeCbor(cose); if (v && typeof v === 'object' && 'tag' in (v as object)) v = (v as { value: Cbor }).value;

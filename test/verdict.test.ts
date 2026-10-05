@@ -117,6 +117,14 @@ describe('verdict with level 2', () => {
     for (const k of ['l2_revoked', 'l2_binding_bad', 'l2_qr_other_key']) { const v1 = r(['l2_signature_ok', k]);
       expect([v1.color, v1.headline], k).toEqual(['red', 'verdict_l2_bad']); expect(v1.checks.some(c => c.key === 'proves_l1'), k).toBe(false); }
   });
+  it('round 2: a certified key of ANOTHER app (l2_app_bad) is red', () => {
+    const v1 = r(['l2_signature_ok', 'l2_chain_ok', 'l2_app_bad', 'l2_level_hw', 'l2_boot_ok', 'l2_locked_ok']);
+    expect([v1.color, v1.headline]).toEqual(['red', 'verdict_l2_bad']); expect(v1.checks.some(c => c.key === 'proves_l1')).toBe(false);
+  });
+  it.each(['l2_boot_bad', 'l2_locked_bad', 'l2_boot_unknown'])('round 2: a certified key with %s is yellow, headed by that line, never green', k => {
+    const v1 = r(['l2_signature_ok', 'l2_chain_ok', 'l2_app_unregistered', 'l2_level_hw', k]);
+    expect([v1.color, v1.headline]).toEqual(['yellow', k]); expect(v1.checks.some(c => c.key === 'proves_l1')).toBe(false);
+  });
   it('a software attestation (P11: Android 7–8, emulators) turns a green yellow "software key — lower trust"', () => {
     const v1 = r(['l2_signature_ok', 'l2_level_sw']); expect([v1.color, v1.headline]).toEqual(['yellow', 'warn_software_key']);
     expect(r(['l2_signature_ok', 'l2_level_hw']).color).toBe('green');

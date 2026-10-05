@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { activeSignature, extractJumbf } from '../../src/l2/jumbf';
+import { activeClaim, activeSignature, extractJumbf, verifyClaimSignature } from '../../src/l2/jumbf';
 import { SEAL_LABEL, summarize, type L2Input } from '../../src/l2/summary';
 import { pemToDer } from '../../src/l2/x509';
 // c2pa-web's manifest-store shape (as c2patool prints it: spike item 1c), with our own COSE read of a real signed file.
@@ -9,15 +9,18 @@ const synthRoots = JSON.parse(readFileSync('test/fixtures/attestation/synth_root
 const b64 = (d: Uint8Array) => Buffer.from(d).toString('base64');
 const chainOf = (f: string) => pemToDer(readFileSync(`test/fixtures/attestation/${f}`, 'utf8')).map(b64);
 const cose = async (f: string) => activeSignature((await extractJumbf(new Uint8Array(readFileSync(f))))!);
+const claimOf = async (f: string) => activeClaim((await extractJumbf(new Uint8Array(readFileSync(f))))!);
 // signature_info exactly as c2pa-web 0.15.3 reported it for original_hw.jpg (measured in Chromium; serial is decimal, issuer is the O).
 const SIG_INFO = { alg: 'Es256', issuer: 'CameraStamp', common_name: 'CameraStamp seal f18fa21b6b1a2c70', cert_serial_number: '17406309323454950512' };
 const OK_SUCCESS = ['timeStamp.validated', 'claimSignature.insideValidity', 'claimSignature.validated', 'assertion.hashedURI.match', 'assertion.dataHash.match'];
-const store = (seal: Record<string, unknown> | null, failure: string[] = ['signingCredential.untrusted'], success: string[] = OK_SUCCESS, sigInfo: unknown = SIG_INFO) => ({ active_manifest: 'urn:x',
-  manifests: { 'urn:x': { signature_info: sigInfo, assertions: seal ? [{ label: 'c2pa.actions.v2', data: {} }, { label: SEAL_LABEL, data: seal }] : [] } },
+// crJSON exactly as c2pa-web 0.15.3 returned it for e2e/fixtures/original_hw.jpg (measured in Chromium, test/fixtures/c2pa/original_hw.crjson.json).
+const CR = readFileSync('test/fixtures/c2pa/original_hw.crjson.json', 'utf8'); const LABEL = JSON.parse(CR).manifests[0].label as string;
+const store = (seal: Record<string, unknown> | null, failure: string[] = ['signingCredential.untrusted'], success: string[] = OK_SUCCESS, sigInfo: unknown = SIG_INFO) => ({ active_manifest: LABEL,
+  manifests: { [LABEL]: { signature_info: sigInfo, assertions: seal ? [{ label: 'c2pa.actions.v2', data: {} }, { label: SEAL_LABEL, data: seal }] : [] } },
   validation_results: { activeManifest: { failure: failure.map(code => ({ code })), success: success.map(code => ({ code })) } } });
 const DEV = [{ hex: '6dcef54931f170eff8e8d53bd77e62ec66c078479a6141411d08b00287077602', dev: true }];
 const seal = (o: Record<string, unknown> = {}) => ({ version: 1, kind: 'photo', payload: V.payloads[0].base64url, keyId: 'f18fa21b6b1a2c70', attestationChain: chainOf('synth_hw.pem'), app: 't', ...o });
-const run = async (o: Partial<L2Input>) => summarize({ store: store(seal()), cose: await cose('e2e/fixtures/original_hw.jpg'), roots: synthRoots, status: { entries: {} }, qrKeyIdHex: null, digests: DEV, ...o });
+const run = async (o: Partial<L2Input>) => summarize({ store: store(seal()), cose: await cose('e2e/fixtures/original_hw.jpg'), claim: await claimOf('e2e/fixtures/original_hw.jpg'), cr: CR, roots: synthRoots, status: { entries: {} }, qrKeyIdHex: null, digests: DEV, ...o });
 const keys = (r: Awaited<ReturnType<typeof run>>) => r.summary.lines.map(l => l.key);
 describe('level-2 summary', () => {
   it('a valid file with a bound, certified seal (dev digest): signature, chain, device lines, TSA; no "real device" on a test build', async () => {
@@ -60,6 +63,30 @@ describe('level-2 summary', () => {
     }
     // a second, different store in the file: our COSE read (another signer) does not match what the reader validated
     const other = await cose('test/fixtures/c2pa/video.mp4'); expect(keys(await run({ cose: other, store: store(seal(), undefined, undefined, { ...SIG_INFO, cert_serial_number: '1' }) }))).toEqual(['l2_error']);
+  });
+  it('round 2: our signer must be tied to the claim c2pa-web validated (crJSON certificate + assertion hashes + our own ES256 check)', async () => {
+    const base = await run({}); expect(base.summary.kind).toBe('ok'); const claimHw = (await claimOf('e2e/fixtures/original_hw.jpg'))!;
+    const cr = JSON.parse(CR); const edit = (f: (m: any) => void) => { const c = structuredClone(cr); f(c.manifests[0]); return JSON.stringify(c); };
+    const bad: [string, Partial<L2Input>][] = [
+      ['no crJSON', { cr: null }],
+      ['crJSON for another manifest label', { cr: edit(m => { m.label = 'urn:c2pa:other'; }) }],
+      ['certificateInfo serial differs', { cr: edit(m => { m.signature.certificateInfo.serialNumber = 'f18fa21b6b1a2c71'; }) }],
+      ['certificateInfo subject O differs', { cr: edit(m => { m.signature.certificateInfo.subject.O = 'Other'; }) }],
+      ['validated claim hashes another hard binding', { cr: edit(m => { m['claim.v2'].created_assertions[0].hash = "b64'AAAA'"; }) }],
+      ['validated claim has an extra assertion', { cr: edit(m => { m['claim.v2'].gathered_assertions.push({ url: 'self#jumbf=c2pa.assertions/x', hash: "b64'AAAA'" }); }) }],
+      ['our claim altered outside its assertion list (same hashes; our ES256 check fails)', { claim: (() => { const c = claimHw.slice();
+        const at = Buffer.from(c).indexOf('xmp:iid:'); expect(at).toBeGreaterThan(0); c[at + 9] = c[at + 9] === 0x61 ? 0x62 : 0x61; return c; })() }],
+      ['our claim from another file (the app sample: other hashes)', { claim: await claimOf('test/fixtures/c2pa/photo.jpg') }],
+    ];
+    for (const [name, o] of bad) { const r = await run(o); expect([r.summary.lines.map(l => l.key), r.summary.bound, r.summary.realDevice], name).toEqual([['l2_error'], false, false]); }
+  });
+  it('round 2: our own ES256 check of the claim signature (Sig_structure) holds for the real file and fails for one changed claim byte', async () => {
+    const c = (await claimOf('e2e/fixtures/original_hw.jpg'))!; const k = Uint8Array.from(Buffer.from('043a336eeda2c82b3955c947e81fc5c79924b105eb5848efb13e1e4301790530577a20e06f004362e469c57cf6468e7b6de0aa5714034e461c5cbab4646717ec44', 'hex'));
+    const cs = (await cose('e2e/fixtures/original_hw.jpg'))!;
+    expect(await verifyClaimSignature(cs, c, k)).toBe(true);
+    const c2 = c.slice(); c2[c2.length - 5] ^= 1; expect(await verifyClaimSignature(cs, c2, k)).toBe(false);
+    const k2 = k.slice(); k2[64] ^= 1; expect(await verifyClaimSignature(cs, c, k2)).toBe(false);
+    expect(await verifyClaimSignature((await cose('test/fixtures/c2pa/photo.jpg'))!, (await claimOf('test/fixtures/c2pa/photo.jpg'))!, k), 'the app\'s own writer').toBe(true);
   });
   it('another app\'s C2PA file (no seal assertion) is "no CameraStamp seal", unbound, nothing about devices', async () => {
     const r = await run({ store: store(null) }); expect(keys(r)).toEqual(['l2_signature_ok', 'l2_untrusted_note', 'l2_no_seal']);

@@ -11,6 +11,7 @@ export interface L2Summary { kind: 'none' | 'invalid' | 'ok'; lines: Check[]; re
 /** Level-2 findings that make the file itself untrustworthy: a revoked certificate, a signer that is not the seal's/attested key, a QR of another key. */
 const L2_RED = new Set(['l2_revoked', 'l2_binding_bad', 'l2_qr_other_key']);
 const UNCERTIFIED = new Set(['l2_chain_bad', 'l2_no_seal']);
+const DEVICE_YELLOW = new Set(['l2_boot_bad', 'l2_locked_bad', 'l2_boot_unknown']);
 
 /**
  * Spec §6 / §7.3, honest: one line per check, nothing merged or overstated. The seal holds ONLY when checkSeal says so (`seal.ok`):
@@ -55,6 +56,8 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
   const color = ((): [Color, string] => {
     if (i.level2?.kind === 'invalid' || (hamming !== null && hamming > b)) return ['red', 'verdict_red'];
     if (i.level2?.lines.some(c => L2_RED.has(c.key))) return ['red', 'verdict_l2_bad'];
+    // A Google-certified key of ANOTHER app sealed a file that claims to be ours (P35 round 2).
+    if (i.level2?.lines.some(c => c.key === 'l2_chain_ok') && i.level2.lines.some(c => c.key === 'l2_app_bad')) return ['red', 'verdict_l2_bad'];
     if (flatMismatch) return ['red', 'verdict_flat_mismatch'];
     if (texture !== null && !c2paContent) return ['yellow', 'verdict_too_flat'];
     if (hamming === null && !c2paContent) return ['yellow', 'verdict_info_not_compared'];
@@ -65,6 +68,9 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
     // P35: an original whose key is not certified by Google (no attestation, a stripped or foreign chain, no seal) is the same tier as a
     // software key: removing evidence from a file must never make the verdict better than keeping it.
     if (i.level2?.kind === 'ok' && i.level2.lines.some(c => UNCERTIFIED.has(c.key))) return ['yellow', 'verdict_uncertified'];
+    // A certified key on a phone whose boot is not verified, whose bootloader is unlocked, or whose boot state is not attested: same tier.
+    const device = i.level2?.kind === 'ok' ? i.level2.lines.find(c => DEVICE_YELLOW.has(c.key)) : undefined;
+    if (device) return ['yellow', device.key];
     return ['green', 'verdict_green'];
   })();
   // P25: "unchanged since sealed by key X" is said ONLY when it is what the page found: on green, never on red or yellow.

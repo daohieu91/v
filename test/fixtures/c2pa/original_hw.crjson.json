@@ -1,0 +1,191 @@
+{
+ "@context": {
+  "@vocab": "https://c2pa.org/crjson",
+  "extras": "https://c2pa.org/crjson/extras"
+ },
+ "manifests": [
+  {
+   "label": "urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7",
+   "isUpdateManifest": false,
+   "isCompressedManifest": false,
+   "assertions": {
+    "c2pa.thumbnail.claim": {
+     "format": "image/jpeg",
+     "identifier": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.assertions/c2pa.thumbnail.claim",
+     "hash": "b64'vnYtM/WpreQutRm2LuELwytlqpBfRqy7ehhAvz/fTnw='"
+    },
+    "c2pa.actions.v2": {
+     "actions": [
+      {
+       "action": "c2pa.created",
+       "digitalSourceType": "http://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture"
+      }
+     ]
+    },
+    "com.essenty.camerastamp.seal": {
+     "version": 1,
+     "kind": "photo",
+     "payload": "AQAZAGjebTwCHAAt9vkA1nOxAAYAAALMMnbcKjOLzASX-_rxj6Ib2DUrqJNMWEWFdyDoygaa-8lLcVBfLlksrOpTt4HwryZ0cdzVFIHCrKVexiIjoIkdbo5h-Qv5Y8pkU4GPzpKOwA",
+     "keyId": "f18fa21b6b1a2c70",
+     "attestationChain": [
+      "MIICAzCCAamgAwIBAgIBATAKBggqhkjOPQQDAjAhMR8wHQYDVQQDDBZGQUtFIFRFU1QgSU5URVJNRURJQVRFMCAXDTIwMDEwMTAwMDAwMFoYDzk5OTkxMjMxMjM1OTU5WjAfMR0wGwYDVQQDDBRBbmRyb2lkIEtleXN0b3JlIEtleTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABDozbu2iyCs5VclH6B/Fx5kksQXrWEjvsT4eQwF5BTBXeiDgbwBDYuRpxXz2Ro57beCqVxQDTkYcXLq0ZGcX7ESjgdEwgc4wgcsGCisGAQQB1nkCAREEgbwwgbkCAQMKAQECAQQKAQEECWNoYWxsZW5nZQQAMEy/hUVIBEYwRDEeMBwEF2NvbS5lc3NlbnR5LmNhbWVyYXN0YW1wAgEBMSIEIG3O9Ukx8XDv+OjVO9d+YuxmwHhHmmFBQR0IsAKHB3YCMFC/hUBMMEoEIAcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHAQH/CgEABCAJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCTAKBggqhkjOPQQDAgNIADBFAiEAlO6VsFYmoHUhh+6jSRp5tvZqRURvOOexvGnDE4hpTwcCIAdF0SZFy3EspaXIGAcv15AGoGPrXP0Td4kLGMywd0wS",
+      "MIIBbjCB9aADAgECAgUA+k4AAjAKBggqhkjOPQQDAzAmMSQwIgYDVQQDDBtGQUtFIFRFU1QgUk9PVCAobm90IEdvb2dsZSkwIBcNMjAwMTAxMDAwMDAwWhgPOTk5OTEyMzEyMzU5NTlaMCExHzAdBgNVBAMMFkZBS0UgVEVTVCBJTlRFUk1FRElBVEUwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASg9cQ6KNZz8/N7lGEPNmD4ts2SMbEebaNNPBLk37Z6SbGZeWaI1ArVmiUJNF0Vo3tIb+PM/MCYtN8h6nrTjKxcoxMwETAPBgNVHRMBAf8EBTADAQH/MAoGCCqGSM49BAMDA2gAMGUCMDQlkigd4Cc1PdM6vq6e3IP9kfYCGmXj0eIH0kPKlozp5iykN7EpGKP0CTbrg52ekAIxANuQN1jxig2q2AaUuKeuFKSI1hn6eL3uZwPGDsydZ2jSnGFsJoPIgVKUcW5Zsl/MsQ==",
+      "MIIBkTCCARegAwIBAgIFAPpOAAEwCgYIKoZIzj0EAwMwJjEkMCIGA1UEAwwbRkFLRSBURVNUIFJPT1QgKG5vdCBHb29nbGUpMCAXDTIwMDEwMTAwMDAwMFoYDzk5OTkxMjMxMjM1OTU5WjAmMSQwIgYDVQQDDBtGQUtFIFRFU1QgUk9PVCAobm90IEdvb2dsZSkwdjAQBgcqhkjOPQIBBgUrgQQAIgNiAATbHN6rVfB+WcJufBZZFnOzKV+zdwqUdhhV+sa+Jj56GA4cxSEClmgqHHfnzEzGBuy9HNYB89oxsimrcm+l+3zUJ6GO+dUsYRTMNAn/SI6ab4CRmqILMkV88ha+gUBdBFWjEzARMA8GA1UdEwEB/wQFMAMBAf8wCgYIKoZIzj0EAwMDaAAwZQIxAIVCVRRbRCQb923B0gk+tqJPSCExDCOQE3/4weT2nZTONhp1UPvqAN6wkGQDD04FPwIwAIdB+xri+6ejprE3cFBVPnnLfnqjflDPiJ+osqaf4ssQZbba7ZQm6Z+ts8K9/+Sp"
+     ],
+     "app": "fixture"
+    },
+    "c2pa.hash.data": {
+     "exclusions": [
+      {
+       "start": 20,
+       "length": 100454
+      }
+     ],
+     "name": "jumbf manifest",
+     "alg": "sha256",
+     "hash": "b64'ocFP/UhQ1OgLxNhdIRdtJle+tT8/dxuW6RaSbXmVTYU='",
+     "pad": "b64'AAAAAAAAAA=='"
+    }
+   },
+   "claim.v2": {
+    "instanceID": "xmp:iid:05eba760-8fb7-459d-a362-b78e3b35706b",
+    "signature": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.signature",
+    "claim_generator_info": {
+     "name": "CameraStamp",
+     "version": "fixture",
+     "org.contentauth.c2pa_rs": "0.90.22"
+    },
+    "alg": "sha256",
+    "dc:title": "original_hw.jpg",
+    "redacted_assertions": [],
+    "created_assertions": [
+     {
+      "url": "self#jumbf=c2pa.assertions/c2pa.hash.data",
+      "hash": "b64'IUik6Y5o4RfizWodC64SaSgltz2WJa5IqNM/XPshZlY='"
+     }
+    ],
+    "gathered_assertions": [
+     {
+      "url": "self#jumbf=c2pa.assertions/c2pa.thumbnail.claim",
+      "hash": "b64'vnYtM/WpreQutRm2LuELwytlqpBfRqy7ehhAvz/fTnw='"
+     },
+     {
+      "url": "self#jumbf=c2pa.assertions/c2pa.actions.v2",
+      "hash": "b64'3lHWNO4iOMX9RbiUP8NacwdlaLEtCRSpUlFWLOKcM30='"
+     },
+     {
+      "url": "self#jumbf=c2pa.assertions/com.essenty.camerastamp.seal",
+      "hash": "b64'N2xtoS3zcbjjBjjzSUm0l7pn6cvpfqZcpKV20muMVfk='"
+     }
+    ]
+   },
+   "signature": {
+    "algorithm": "es256",
+    "certificateInfo": {
+     "serialNumber": "f18fa21b6b1a2c70",
+     "issuer": {
+      "CN": "CameraStamp seal f18fa21b6b1a2c70",
+      "O": "CameraStamp"
+     },
+     "subject": {
+      "CN": "CameraStamp seal f18fa21b6b1a2c70",
+      "O": "CameraStamp"
+     },
+     "validity": {
+      "notBefore": "2020-01-01T00:00:00+00:00",
+      "notAfter": "9999-12-31T23:59:59+00:00"
+     }
+    },
+    "timeStampInfo": {
+     "timestamp": "2026-10-05T13:31:22+00:00",
+     "certificateInfo": {
+      "serialNumber": "84fdc334f7e454edbc30f8ff9921835",
+      "issuer": {
+       "C": "US",
+       "O": "DigiCert, Inc.",
+       "CN": "DigiCert Trusted G4 TimeStamping RSA4096 SHA256 2025 CA1"
+      },
+      "subject": {
+       "C": "US",
+       "O": "DigiCert, Inc.",
+       "CN": "DigiCert SHA256 RSA4096 Timestamp Responder 2026 1"
+      },
+      "validity": {
+       "notBefore": "2026-08-05T00:00:00+00:00",
+       "notAfter": "2037-11-04T23:59:59+00:00"
+      }
+     }
+    }
+   },
+   "validationResults": {
+    "success": [
+     {
+      "code": "timeStamp.validated",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.signature",
+      "explanation": "timestamp message digest matched: DigiCert SHA256 RSA4096 Timestamp Responder 2026 1"
+     },
+     {
+      "code": "claimSignature.insideValidity",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.signature",
+      "explanation": "claim signature valid"
+     },
+     {
+      "code": "claimSignature.validated",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.signature",
+      "explanation": "claim signature valid"
+     },
+     {
+      "code": "assertion.hashedURI.match",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.assertions/c2pa.hash.data",
+      "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/c2pa.hash.data"
+     },
+     {
+      "code": "assertion.hashedURI.match",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.assertions/c2pa.thumbnail.claim",
+      "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/c2pa.thumbnail.claim"
+     },
+     {
+      "code": "assertion.hashedURI.match",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.assertions/c2pa.actions.v2",
+      "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/c2pa.actions.v2"
+     },
+     {
+      "code": "assertion.hashedURI.match",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.assertions/com.essenty.camerastamp.seal",
+      "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/com.essenty.camerastamp.seal"
+     },
+     {
+      "code": "assertion.dataHash.match",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.assertions/c2pa.hash.data",
+      "explanation": "data hash valid"
+     }
+    ],
+    "informational": [
+     {
+      "code": "signingCredential.ocsp.skipped",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.signature",
+      "explanation": "OCSP fetching skipped"
+     },
+     {
+      "code": "timeStamp.untrusted",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.signature",
+      "explanation": "timestamp cert untrusted: DigiCert SHA256 RSA4096 Timestamp Responder 2026 1"
+     }
+    ],
+    "failure": [
+     {
+      "code": "signingCredential.untrusted",
+      "url": "self#jumbf=/c2pa/urn:c2pa:08e5ac7f-4590-42a1-bb0c-f4ca182f9cd7/c2pa.signature",
+      "explanation": "signing certificate untrusted"
+     }
+    ],
+    "specVersion": "2.3.0",
+    "validationTime": "2026-10-05T14:24:53.229+00:00"
+   }
+  }
+ ],
+ "jsonGenerator": {
+  "name": "c2pa-rs",
+  "version": "0.91.0"
+ }
+}

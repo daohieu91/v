@@ -1,7 +1,7 @@
 import { createC2pa, Reader, type C2pa } from '@contentauth/c2pa-web';
 import wasmSrc from '@contentauth/c2pa-web/resources/c2pa.wasm?url';
 import { MAX_VIDEO_BYTES } from '../config';
-import { activeSignature, extractJumbf } from './jumbf';
+import { activeClaim, activeSignature, extractJumbf } from './jumbf';
 import { summarize, type L2Reply } from './summary';
 /** The page's own caps (40 MB photo, 100 MB video) come first; this bounds level 2 whoever calls it. c2pa-web reads the File by slices in its worker, and we read only the store. */
 export const L2_MAX_BYTES = MAX_VIDEO_BYTES;
@@ -19,7 +19,7 @@ export function readFailure(e: unknown): 'l2_invalid' | 'l2_error' {
   return FORMAT_ERROR.test(msg) ? 'l2_invalid' : 'l2_error';
 }
 export interface L2Deps {
-  read(file: File): Promise<unknown>;                  // the manifest store, or null when the file has no C2PA data
+  read(file: File): Promise<{ store: unknown; cr: unknown } | null>;   // manifest store + crJSON, or null when the file has no C2PA data
   attestation(): Promise<{ roots: string[]; status: { entries: Record<string, unknown> } }>;
   deadlineMs: number;
 }
@@ -29,11 +29,11 @@ function within<T>(p: Promise<T>, ms: number): Promise<T> {
   return Promise.race([p, new Promise<never>((_, no) => { t = setTimeout(() => no(new Timeout('deadline')), ms); })]).finally(() => clearTimeout(t));
 }
 let c2pa: Promise<C2pa> | null = null;
-async function readStore(file: File): Promise<unknown> {
+async function readStore(file: File): Promise<{ store: unknown; cr: unknown } | null> {
   let c: C2pa;
   try { c = await (c2pa ??= createC2pa({ wasmSrc })); } catch (e) { c2pa = null; throw e; }   // no wasm / worker blocked: l2_error
   const r = await Reader.fromBlob(c, file.type || undefined, file); if (!r) return null;
-  try { return await r.manifestStore(); } finally { await r.free().catch(() => undefined); }
+  try { return { store: await r.manifestStore(), cr: await r.crJson() }; } finally { await r.free().catch(() => undefined); }
 }
 async function attestationData(): Promise<{ roots: string[]; status: { entries: Record<string, unknown> } }> {
   // The daily copy (attestation-sync.yml); the page never contacts Google. Unreadable → no roots, so nothing can be "certified" (fail closed).
@@ -50,11 +50,12 @@ export async function level2(file: File, qrKeyIdHex: string | null, deps: L2Deps
   if (file.size > L2_MAX_BYTES) return fail('l2_error');
   try {
     return await within((async () => {
-      let store: unknown;
-      try { store = await deps.read(file); } catch (e) { if (e instanceof Timeout) throw e; if (readFailure(e) === 'l2_error') c2pa = null; return fail(readFailure(e)); }
-      if (!store) return summarize({ store, cose: null, roots: [], status: { entries: {} }, qrKeyIdHex });
+      let got: { store: unknown; cr: unknown } | null;
+      try { got = await deps.read(file); } catch (e) { if (e instanceof Timeout) throw e; if (readFailure(e) === 'l2_error') c2pa = null; return fail(readFailure(e)); }
+      if (!got?.store) return summarize({ store: null, cose: null, roots: [], status: { entries: {} }, qrKeyIdHex });
       const [jumbf, att] = await Promise.all([extractJumbf(file), deps.attestation()]);
-      return summarize({ store, cose: jumbf ? activeSignature(jumbf) : null, roots: att.roots, status: att.status, qrKeyIdHex });
+      return summarize({ store: got.store, cr: got.cr, cose: jumbf ? activeSignature(jumbf) : null, claim: jumbf ? activeClaim(jumbf) : null,
+        roots: att.roots, status: att.status, qrKeyIdHex });
     })(), deps.deadlineMs);
   } catch { c2pa?.then(x => x.dispose(), () => undefined); c2pa = null; return fail('l2_error'); }   // timeout or anything unexpected
 }
