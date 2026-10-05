@@ -105,17 +105,28 @@ export async function verifyClaimSignature(cose: Uint8Array, claim: Uint8Array, 
     return await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, key, sig.slice().buffer, tbs.slice().buffer);
   } catch { return false; }
 }
-/** COSE_Sign1 (RFC 9052): x5chain (label 33) from the protected header, else the unprotected one; tokens of sigTst2 (C2PA 2.x), else sigTst. */
-export function coseSigner(cose: Uint8Array): { x5chain: Uint8Array[]; tstTokens: Uint8Array[] } {
+/**
+ * COSE_Sign1 (RFC 9052): x5chain (label 33) from the protected header, else the unprotected one; EVERY time-stamp token the signature
+ * carries (sigTst2's, C2PA 2.x, then sigTst's), so a caller can refuse more than one (P45); the protected bytes and the signature, for the
+ * token's imprint (counterSignToBeSigned).
+ */
+export function coseSigner(cose: Uint8Array): { x5chain: Uint8Array[]; tstTokens: Uint8Array[]; protected: Uint8Array; signature: Uint8Array } {
   let v = decodeCbor(cose); if (v && typeof v === 'object' && 'tag' in (v as object)) v = (v as { value: Cbor }).value;
-  if (!Array.isArray(v) || v.length !== 4 || !(v[0] instanceof Uint8Array) || !(v[1] instanceof Map)) throw new Error('cose');
+  if (!Array.isArray(v) || v.length !== 4 || !(v[0] instanceof Uint8Array) || !(v[1] instanceof Map) || !(v[3] instanceof Uint8Array)) throw new Error('cose');
   const p = v[0].length ? decodeCbor(v[0]) as Map<Cbor, Cbor> : new Map<Cbor, Cbor>(); const u = v[1] as Map<Cbor, Cbor>;
   const x = (p.get(33) ?? u.get(33)) as Uint8Array | Uint8Array[] | undefined;
-  const tst = (u.get('sigTst2') ?? u.get('sigTst')) as Map<Cbor, Cbor> | undefined;
-  const list = tst instanceof Map ? tst.get('tstTokens') : undefined;
-  const tokens = (Array.isArray(list) ? list : []).map(t => (t instanceof Map ? t.get('val') : null)).filter((t): t is Uint8Array => t instanceof Uint8Array);
+  const tokensOf = (tst: Cbor | undefined): Uint8Array[] => { const list = tst instanceof Map ? tst.get('tstTokens') : undefined;
+    return (Array.isArray(list) ? list : []).map(t => (t instanceof Map ? t.get('val') : t)).map(t => (t instanceof Uint8Array ? t : new Uint8Array())); };
   const chain = x instanceof Uint8Array ? [x] : Array.isArray(x) ? x.filter((c): c is Uint8Array => c instanceof Uint8Array) : [];
-  return { x5chain: chain, tstTokens: tokens };
+  return { x5chain: chain, tstTokens: [...tokensOf(u.get('sigTst2')), ...tokensOf(u.get('sigTst'))], protected: v[0], signature: v[3] };
+}
+/**
+ * C2PA §10.3.2.5.2–3 (v2 time-stamp), as the app's Cose.counterSignToBeSigned: the token's imprint is SHA-256 of the CBOR array
+ * ["CounterSignature", protected, h'', bstr(signature)], where the last element is the signature bstr SERIALIZED (0x58 0x40 ‖ r ‖ s)
+ * and then wrapped as a bstr again.
+ */
+export function counterSignToBeSigned(prot: Uint8Array, signature: Uint8Array): Uint8Array {
+  return cat([Uint8Array.of(0x84), cborHead(3, 16), te.encode('CounterSignature'), cborBytes(prot), cborBytes(new Uint8Array()), cborBytes(cborBytes(signature))]);
 }
 /** GeneralizedTime "YYYYMMDDHHMMSS[.f]Z" → "YYYY-MM-DD HH:MM:SS UTC"; anything else is returned unchanged (it is shown as text only). */
 export function formatGenTime(g: string): string {

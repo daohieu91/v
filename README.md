@@ -33,7 +33,9 @@ This is a best-effort defence, not a guarantee.
   (jsQR's finder centres) with where the app's layout puts it (a port of `StampLayout.qrSidePx` and the QR placement, checked against
   `test/fixtures/geometry/qrside-java.json`, a literal Java transcription). A mismatch is yellow "This photo may have been cropped", never green
   (red only when the fingerprint itself says so). A picked photo whose own QR is not read is never green either (I4): with a link it is
-  compared with the link's seal and capped at yellow. Tolerances come from `scripts/calibrate-geometry.mts` (numbers in `src/geometry.ts`).
+  compared with the link's seal and capped at yellow. A QR that was read but whose geometry cannot be checked (tilted over ~2°, skewed, no
+  finder centres) is capped at yellow too, "Couldn't check the framing of this photo" (P45). Tolerances come from
+  `scripts/calibrate-geometry.mts` (numbers in `src/geometry.ts`; it also counts unedited shares that come out "unknown": must be 0).
 - Decode, QR search (full image, ~1600 and ~1000 px wide, bottom-right corner, bottom band) and the fingerprint run in a Web Worker.
   Files over 40 MB are refused. The size is read from the header (JPEG incl. EXIF orientation, PNG, WebP, GIF, BMP, HEIF/AVIF): above 4096 px
   the browser decodes straight at the bounded size, never at full size; a large file of unknown size is refused.
@@ -49,6 +51,9 @@ This is a best-effort defence, not a guarantee.
   "Confirmed by <TSA>" also needs our own check (`src/l2/tsa.ts`, I2): the token's CMS signature, ESS signing certificate and a chain to
   one of the app's pinned TSA roots (`src/l2/tsa-roots.ts`: DigiCert Trusted Root G4, DigiCert Assured ID, FreeTSA; they expire 2031–2041).
   c2pa-web's `timeStamp.validated` alone is not trust: it accepts a self-made "DigiCert" (`e2e/fixtures/original_tsa_forged.jpg`).
+  P45, as the app's C2paReader: EXACTLY one token per signature, and the page checks itself that its TSTInfo messageImprint is SHA-256 of
+  `["CounterSignature", protected, h'', bstr(signature)]`. Two tokens, or a real token over other data, get no name
+  (`e2e/fixtures/original_tsa_two.jpg`, `original_tsa_imprint.jpg`, made by `scripts/make-tsa-fixtures.ts`).
 - M8: once a non-dev release digest is in `SIGNING_DIGESTS`, our package signed by any other certificate is "not made by the app" (red).
   `src/l2/jumbf.ts` reads the COSE signer and RFC 3161 token by slices; `src/l2/x509.ts` + `attestation.ts` check the Android attestation
   chain (links, CA issuers, KeyDescription in the leaf only, Google root by key, `public/attestation/status.json`); `device.ts` makes one

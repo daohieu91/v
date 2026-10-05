@@ -92,5 +92,7 @@
   "check_code_not_in_photo": "Il codice della foto stessa non è stato letto, quindi nulla nella foto la collega a questo sigillo",
   "verdict_maybe_cropped": "Questa foto potrebbe essere stata ritagliata",
   "check_geometry_mismatch": "La forma della foto o la posizione del codice non corrispondono alla foto sigillata: potrebbe essere stata ritagliata o incorniciata (per esempio, uno screenshot)",
+  "verdict_geometry_unknown": "Impossibile controllare l'inquadratura di questa foto",
+  "check_geometry_unknown": "Il codice in questa foto è inclinato o deformato, quindi non è stato possibile confrontarne l'inquadratura con la foto sigillata: potrebbe essere stata ritagliata",
   "verdict_l2_resaved": "Salvata di nuovo o modificata dopo la sigillatura — l'immagine corrisponde ancora al suo sigillo"
 }

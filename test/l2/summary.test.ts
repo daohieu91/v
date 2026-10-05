@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { activeClaim, activeSignature, extractJumbf, verifyClaimSignature } from '../../src/l2/jumbf';
 import { SEAL_LABEL, summarize, type L2Input } from '../../src/l2/summary';
 import { pemToDer } from '../../src/l2/x509';
+import { coseSigner } from '../../src/l2/jumbf';
+import { withTokens } from '../helpers/cose-tst';
 // c2pa-web's manifest-store shape (as c2patool prints it: spike item 1c), with our own COSE read of a real signed file.
 const V = JSON.parse(readFileSync('test/vectors/verify-vectors.json', 'utf8'));
 const synthRoots = JSON.parse(readFileSync('test/fixtures/attestation/synth_roots.json', 'utf8')) as string[];
@@ -65,6 +67,17 @@ describe('level-2 summary', () => {
     expect(r.summary.kind).toBe('ok'); expect(keys(r)).toContain('l2_no_tsa'); expect(keys(r)).not.toContain('l2_tsa');
     expect(JSON.stringify(r.summary.lines)).not.toMatch(/DigiCert/);
     expect(keys(await run({}))).toContain('l2_tsa');                                         // the real DigiCert original still says it
+  });
+  // P45: c2pa-web says timeStamp.validated (OK_SUCCESS) in every case below, so only OUR token-count and imprint checks can refuse.
+  it('P45: "confirmed by" needs exactly ONE token whose imprint is over THIS signature', async () => {
+    const hw = (await cose('e2e/fixtures/original_hw.jpg'))!; const own = coseSigner(hw).tstTokens[0];
+    const old = coseSigner((await cose('test/fixtures/c2pa/photo_tsa.jpg'))!).tstTokens[0];     // a real DigiCert token over other data
+    const tsa = async (tokens: Uint8Array[]) => keys(await run({ cose: withTokens(hw, tokens, false) })).filter(k => k.includes('tsa'));
+    expect(await tsa([own]), 'control: its own token, re-encoded').toEqual(['l2_tsa']);
+    expect(await tsa([old]), 'one token, wrong imprint').toEqual(['l2_no_tsa']);
+    expect(await tsa([old, own]), 'two tokens, the first a real old one over other data').toEqual(['l2_no_tsa']);
+    expect(await tsa([own, old]), 'two tokens, its own first').toEqual(['l2_no_tsa']);
+    expect(await tsa([]), 'no token').toEqual(['l2_no_tsa']);
   });
   it('our x5chain[0] must be the certificate the reader validated (signature_info): any mismatch → l2_error, unbound, never real', async () => {
     for (const bad of [{ ...SIG_INFO, cert_serial_number: '17406309323454950513' }, { ...SIG_INFO, common_name: 'CameraStamp seal 0000000000000000' },

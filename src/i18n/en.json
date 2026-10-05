@@ -92,5 +92,7 @@
   "check_code_not_in_photo": "This photo's own code was not read, so nothing in the photo ties it to this seal",
   "verdict_maybe_cropped": "This photo may have been cropped",
   "check_geometry_mismatch": "The photo's shape or the code's position doesn't match the sealed photo: it may have been cropped or framed (for example, a screenshot)",
+  "verdict_geometry_unknown": "Couldn't check the framing of this photo",
+  "check_geometry_unknown": "The code in this photo is tilted or distorted, so its framing couldn't be compared with the sealed photo — it may have been cropped",
   "verdict_l2_resaved": "Re-saved or edited after sealing — the picture still matches its seal"
 }

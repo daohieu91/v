@@ -92,5 +92,7 @@
   "check_code_not_in_photo": "No se leyó el código de la propia foto, así que nada en la foto la vincula con este sello",
   "verdict_maybe_cropped": "Puede que esta foto se haya recortado",
   "check_geometry_mismatch": "La forma de la foto o la posición del código no coinciden con la foto sellada: puede que se haya recortado o enmarcado (por ejemplo, una captura de pantalla)",
+  "verdict_geometry_unknown": "No se pudo comprobar el encuadre de esta foto",
+  "check_geometry_unknown": "El código de esta foto está inclinado o deformado, así que no se pudo comparar su encuadre con la foto sellada: puede que se haya recortado",
   "verdict_l2_resaved": "Guardada de nuevo o editada después de sellarse — la imagen sigue coincidiendo con su sello"
 }

@@ -1,5 +1,5 @@
 import { eq, kids, oid, readDer, type Der } from './der';
-import { formatGenTime } from './jumbf';
+import { counterSignToBeSigned, formatGenTime } from './jumbf';
 import { TSA_ROOTS_B64 } from './tsa-roots';
 import { commonName, derTime, hasEku, isCa, parseCert, signedBy, verifyWith, type Cert } from './x509';
 /**
@@ -68,6 +68,29 @@ export async function verifyTsaToken(token: Uint8Array, pinned: readonly Cert[] 
     if (!(await chainsToPinned(signer, certs, pinned, genMs))) return null;
     const name = commonName(signer.subject); if (!name) return null;
     return { genTime: formatGenTime(new TextDecoder().decode(gt.content)), tsaName: name };
+  } catch { return null; }
+}
+/** TSTInfo.messageImprint (RFC 3161 §2.4.2) of a token: its hash algorithm OID and hashedMessage; null when unreadable. Never throws. */
+export function tstImprint(token: Uint8Array): { alg: string; hash: Uint8Array } | null {
+  try {
+    const sd = kids(kids(kids(readDer(token))[1])[0]); const tst = kids(kids(sd[2])[1])[0]; if (tst.tag !== 4) return null;
+    const mi = kids(kids(readDer(tst.content))[2]); const alg = kids(mi[0])[0];
+    if (mi.length !== 2 || !alg || alg.tag !== 6 || mi[1].tag !== 4) return null;
+    return { alg: oid(alg.content), hash: mi[1].content };
+  } catch { return null; }
+}
+/**
+ * P45: the time-stamp of one COSE signature, as the app's C2paReader (§10.3.2.5): EXACTLY one token (none, or two or more → null: no
+ * "confirmed by"), whose messageImprint is SHA-256 of OUR counterSignToBeSigned(protected, signature) — checked here, not taken from
+ * c2pa-web — and which then passes verifyTsaToken (pinned roots). Its algorithm OID is not compared, as the app: 32 equal bytes are SHA-256. A real token over other data (an old one, another file's) is refused.
+ */
+export async function verifyCoseTimeStamp(sig: { protected: Uint8Array; signature: Uint8Array; tstTokens: readonly Uint8Array[] },
+  pinned: readonly Cert[] = roots()): Promise<{ genTime: string; tsaName: string } | null> {
+  try {
+    if (sig.tstTokens.length !== 1) return null;
+    const token = sig.tstTokens[0]; const imprint = tstImprint(token);
+    if (!imprint || !eq(imprint.hash, await digest('SHA-256', counterSignToBeSigned(sig.protected, sig.signature)))) return null;
+    return await verifyTsaToken(token, pinned);
   } catch { return null; }
 }
 /** RFC 5652 §5.3: issuerAndSerialNumber, or [0] subjectKeyIdentifier. */

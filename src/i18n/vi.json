@@ -92,5 +92,7 @@
   "check_code_not_in_photo": "Không đọc được mã của chính ảnh này, nên không có gì trong ảnh gắn nó với niêm phong này",
   "verdict_maybe_cropped": "Ảnh này có thể đã bị cắt",
   "check_geometry_mismatch": "Tỉ lệ ảnh hoặc vị trí mã không khớp với ảnh đã niêm phong: ảnh có thể đã bị cắt hoặc bị đóng khung (ví dụ ảnh chụp màn hình)",
+  "verdict_geometry_unknown": "Không kiểm tra được khung hình của ảnh này",
+  "check_geometry_unknown": "Mã trong ảnh này bị nghiêng hoặc méo, nên không so được khung hình với ảnh đã niêm phong — ảnh có thể đã bị cắt",
   "verdict_l2_resaved": "Đã được lưu lại hoặc chỉnh sửa sau khi niêm phong — hình ảnh vẫn khớp với niêm phong"
 }

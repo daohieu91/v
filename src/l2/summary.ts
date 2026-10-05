@@ -6,7 +6,7 @@ import { checkChain } from './attestation';
 import { deviceLines, type Digest } from './device';
 import { decodeCbor, type Cbor } from './cbor';
 import { coseSigner, verifyClaimSignature } from './jumbf';
-import { verifyTsaToken } from './tsa';
+import { verifyCoseTimeStamp } from './tsa';
 import { commonName, ecPoint, parseCert, type Cert } from './x509';
 const norm = (refs: unknown, enc: (h: unknown) => string | null): string[] | null => {
   if (!Array.isArray(refs)) return null; const out: string[] = [];
@@ -98,7 +98,8 @@ export async function summarize(i: L2Input): Promise<L2Reply> {
   // trusted, and a self-made "DigiCert" certificate passes it (measured). X is that verified signer's CN. Anything else: no independent
   // time-stamp is claimed (l2_no_tsa), never a name.
   const tsOk = !tsBroken && successes.some(c => c === 'timeStamp.validated' || c === 'timeStamp.trusted');
-  const tst = tsOk && signer?.tstTokens[0] ? await verifyTsaToken(signer.tstTokens[0], i.tsaRoots) : null;
+  // P45: exactly one token, whose imprint WE check against this signature (verifyCoseTimeStamp); a second or a foreign token → no name.
+  const tst = tsOk && signer ? await verifyCoseTimeStamp(signer, i.tsaRoots) : null;
   lines.push(tst?.tsaName ? { key: 'l2_tsa', status: 'pass', params: { time: tst.genTime, tsa: tst.tsaName.slice(0, 100) } } : { key: 'l2_no_tsa', status: 'info' });
   return done('ok', d.realDevice, d.contentBound, payload);
 }

@@ -92,5 +92,7 @@
   "check_code_not_in_photo": "Nie odczytano kodu z samego zdjęcia, więc nic na zdjęciu nie wiąże go z tą pieczęcią",
   "verdict_maybe_cropped": "To zdjęcie mogło zostać przycięte",
   "check_geometry_mismatch": "Kształt zdjęcia lub położenie kodu nie zgadza się z opieczętowanym zdjęciem: mogło zostać przycięte lub obramowane (np. zrzut ekranu)",
+  "verdict_geometry_unknown": "Nie udało się sprawdzić kadru tego zdjęcia",
+  "check_geometry_unknown": "Kod na tym zdjęciu jest przechylony lub zniekształcony, więc nie dało się porównać kadru z opieczętowanym zdjęciem — mogło zostać przycięte",
   "verdict_l2_resaved": "Zapisano ponownie lub edytowano po opieczętowaniu — obraz nadal zgadza się z pieczęcią"
 }

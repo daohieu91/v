@@ -92,5 +92,7 @@
   "check_code_not_in_photo": "Kod foto ini sendiri tidak dibaca, jadi tiada apa-apa dalam foto yang mengaitkannya dengan meterai ini",
   "verdict_maybe_cropped": "Foto ini mungkin telah dipangkas",
   "check_geometry_mismatch": "Bentuk foto atau kedudukan kod tidak sepadan dengan foto yang dimeterai: foto mungkin telah dipangkas atau dibingkaikan (contohnya tangkapan skrin)",
+  "verdict_geometry_unknown": "Pembingkaian foto ini tidak dapat disemak",
+  "check_geometry_unknown": "Kod dalam foto ini condong atau herot, jadi pembingkaiannya tidak dapat dibandingkan dengan foto yang dimeterai — foto mungkin telah dipangkas",
   "verdict_l2_resaved": "Disimpan semula atau disunting selepas dimeterai — gambar masih sepadan dengan meterainya"
 }

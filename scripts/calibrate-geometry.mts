@@ -62,6 +62,9 @@ for (const t of ['v1', 'm20-pre-P27a', 'layout-only']) { const s = ok.filter(r =
   console.log(`  ${t}: ${s.length} variants, max aspect ${max(s.map(r => r.aspect)).toFixed(5)}, max residual ${max(s.map(r => r.resid)).toFixed(3)}`); }
 const worst = [...ok].sort((a, b) => (b.resid ?? 0) - (a.resid ?? 0)).slice(0, 5); console.log('  worst residuals:', worst.map(r => `${r.kind}=${r.resid?.toFixed(2)}`).join(', '));
 const flagged = ok.filter(r => (r.aspect ?? 0) > ASPECT_TOL || (r.resid ?? 0) > GEOMETRY_TOL);
+// P45: 'unknown' (no finders, or not an upright square: tilt over ~2°) caps the verdict at yellow, so an unedited share must never be unknown.
+const unknown = ok.filter(r => r.resid === null);
+console.log(`unknown (no finders / tilt): ${unknown.length} of ${ok.length} unedited ${unknown.slice(0, 20).map(r => r.kind).join(', ')}`);
 console.log(`with ASPECT_TOL ${ASPECT_TOL}, GEOMETRY_TOL ${GEOMETRY_TOL}: ${flagged.length} unedited flagged ${flagged.map(r => r.kind).join(', ')}`);
 console.log('\ncrop → flagged / total (QR lost counts as not flagged here: the page then says "no code" or caps at yellow anyway)');
 for (const [k, rs] of Object.entries(crops)) {

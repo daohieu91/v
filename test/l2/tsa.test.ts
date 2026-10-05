@@ -1,9 +1,10 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { activeSignature, coseSigner, extractJumbf } from '../../src/l2/jumbf';
+import { activeSignature, coseSigner, counterSignToBeSigned, extractJumbf } from '../../src/l2/jumbf';
 import { kids, readDer } from '../../src/l2/der';
-import { verifyTsaToken } from '../../src/l2/tsa';
+import { tstImprint, verifyCoseTimeStamp, verifyTsaToken } from '../../src/l2/tsa';
+import { withTokens } from '../helpers/cose-tst';
 import { TSA_ROOTS_B64 } from '../../src/l2/tsa-roots';
 import { commonName, parseCert } from '../../src/l2/x509';
 // I2. photo_tsa.jpg (the app's own writer) and original_hw.jpg carry REAL DigiCert tokens. original_tsa_forged.jpg carries a token from a
@@ -51,5 +52,50 @@ describe('RFC 3161 token trust (I2: pinned TSA roots, as the app)', () => {
     const si = kids(kids(parts[parts.length - 1])[0]); const sig = si[si.length - 1].content;
     const t2 = tok.slice(); t2[sig.byteOffset - tok.byteOffset + 10] ^= 1; expect(await verifyTsaToken(t2)).toBeNull();
     for (const g of [new Uint8Array(), Uint8Array.of(0x30, 0), new Uint8Array(64).fill(0x30)]) expect(await verifyTsaToken(g)).toBeNull();
+  });
+});
+
+// P45: exactly one token per signature, and OUR check that its imprint is SHA-256 of the C2PA v2 countersignature to-be-signed bytes.
+const signerOf = async (p: string) => { const c = activeSignature((await extractJumbf(new Uint8Array(readFileSync(p))))!)!; return { cose: c, s: coseSigner(c) }; };
+describe('P45: one time-stamp token, imprint over this signature (as the app\'s C2paReader)', () => {
+  it('known answer from two independent writers: each real DigiCert imprint = SHA-256(["CounterSignature", prot, h\'\', bstr(sig)])', async () => {
+    // photo_tsa.jpg: the app's own writer (Cose.counterSignToBeSigned); original_hw / original_tsa_forged: c2patool (c2pa-rs). The TSA
+    // hashed what each writer sent; our bytes must hash to the same.
+    for (const f of ['test/fixtures/c2pa/photo_tsa.jpg', 'e2e/fixtures/original_hw.jpg', 'e2e/fixtures/original_tsa_forged.jpg']) {
+      const { s } = await signerOf(f); const im = tstImprint(s.tstTokens[0])!;
+      expect(im.alg, f).toBe('2.16.840.1.101.3.4.2.1');
+      expect(Buffer.from(im.hash).toString('hex'), f).toBe(createHash('sha256').update(counterSignToBeSigned(s.protected, s.signature)).digest('hex'));
+    }
+    const { s } = await signerOf('test/fixtures/c2pa/photo_tsa.jpg');                    // the layout, byte for byte
+    const tbs = counterSignToBeSigned(s.protected, s.signature);
+    expect(Buffer.from(tbs.subarray(0, 18)).toString('hex')).toBe('8470' + Buffer.from('CounterSignature').toString('hex'));
+    expect(Buffer.from(tbs.subarray(tbs.length - 68)).toString('hex')).toBe('58425840' + Buffer.from(s.signature).toString('hex'));
+  });
+  it('the single real token of each original: confirmed (control)', async () => {
+    for (const f of ['test/fixtures/c2pa/photo_tsa.jpg', 'e2e/fixtures/original_hw.jpg'])
+      expect(await verifyCoseTimeStamp((await signerOf(f)).s), f).toMatchObject({ tsaName: 'DigiCert SHA256 RSA4096 Timestamp Responder 2026 1' });
+    const { cose } = await signerOf('test/fixtures/c2pa/photo_tsa.jpg');                 // the fixture helper re-encodes the writer's bytes exactly
+    expect(Buffer.from(withTokens(cose, [coseSigner(cose).tstTokens[0]])).equals(Buffer.from(cose))).toBe(true);
+  });
+  it('fixture original_tsa_imprint.jpg — ONE real DigiCert token over other data (a wrong imprint) → refused', async () => {
+    const { s } = await signerOf('e2e/fixtures/original_tsa_imprint.jpg'); expect(s.tstTokens.length).toBe(1);
+    expect(await verifyTsaToken(s.tstTokens[0]), 'the token itself is real and pinned').not.toBeNull();
+    expect(await verifyCoseTimeStamp(s)).toBeNull();
+  });
+  it('fixture original_tsa_two.jpg — two tokens, the first a real old token over other data, the second the file\'s own → refused', async () => {
+    const { s } = await signerOf('e2e/fixtures/original_tsa_two.jpg'); expect(s.tstTokens.length).toBe(2);
+    expect(await verifyCoseTimeStamp({ ...s, tstTokens: [s.tstTokens[1]] }), 'its second token alone would confirm').not.toBeNull();
+    expect(await verifyCoseTimeStamp(s)).toBeNull();
+  });
+  it('two tokens with the file\'s own FIRST, or two copies of it → refused (the count rule, independent of the imprint)', async () => {
+    const { s } = await signerOf('test/fixtures/c2pa/photo_tsa.jpg'); const old = (await signerOf('e2e/fixtures/original_hw.jpg')).s.tstTokens[0];
+    expect(await verifyCoseTimeStamp({ ...s, tstTokens: [s.tstTokens[0], old] })).toBeNull();
+    expect(await verifyCoseTimeStamp({ ...s, tstTokens: [s.tstTokens[0], s.tstTokens[0]] })).toBeNull();
+    expect(await verifyCoseTimeStamp({ ...s, tstTokens: [] })).toBeNull();
+  });
+  it('a junk second entry next to the real token still counts: two entries → refused', async () => {
+    const { cose } = await signerOf('test/fixtures/c2pa/photo_tsa.jpg'); const s = coseSigner(cose);
+    const two = coseSigner(withTokens(cose, [s.tstTokens[0], Uint8Array.of(1)], false)); expect(two.tstTokens.length).toBe(2);
+    expect(await verifyCoseTimeStamp(two)).toBeNull();
   });
 });

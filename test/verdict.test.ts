@@ -194,8 +194,20 @@ describe('verdict, final fix wave', () => {
     const c = V({ picture: pic(true, 'mismatch') });
     expect([c.color, c.headline]).toEqual(['yellow', 'verdict_maybe_cropped']); expect(keys(c)).toContain('check_geometry_mismatch'); expect(keys(c)).not.toContain('proves_l1');
     expect(V({ hamming: 20, picture: pic(true, 'mismatch') }).color).toBe('red');
-    for (const g of ['ok', 'unknown'] as const) expect(V({ picture: pic(true, g) }).color, g).toBe('green');
+    expect(V({ picture: pic(true, 'ok') }).color).toBe('green');
     expect(V({ level2: BOUND, picture: pic(true, 'mismatch') }).headline).toBe('verdict_green_exact');
+  });
+  it('P45: geometry "unknown" (QR tilted over ~2°, or no finders) caps at yellow "couldn\'t check the framing", never green, never red by itself', () => {
+    const u = V({ picture: pic(true, 'unknown') });
+    expect([u.color, u.headline]).toEqual(['yellow', 'verdict_geometry_unknown']); expect(keys(u)).toContain('check_geometry_unknown');
+    expect(keys(u)).not.toContain('proves_l1'); expect(u.sub).toBeUndefined();
+    expect(V({ hamming: 20, picture: pic(true, 'unknown') }).color).toBe('red');                     // a fingerprint mismatch stays red
+    expect(V({ hamming: 12, picture: pic(true, 'unknown') }).headline).toBe('verdict_maybe_edited');  // a more specific yellow keeps its headline
+    expect(keys(V({ hamming: 12, picture: pic(true, 'unknown') }))).toContain('check_geometry_unknown');
+    // The exact bytes of a bound original skip it (as a mismatch); a photo without its own QR says that instead (no second line).
+    expect(V({ level2: BOUND, picture: pic(true, 'unknown') }).headline).toBe('verdict_green_exact');
+    const nq = V({ picture: pic(false, 'unknown') }); expect(nq.headline).toBe('verdict_code_not_in_photo'); expect(keys(nq)).not.toContain('check_geometry_unknown');
+    expect(keys(V({ picture: pic(true, 'ok') }))).not.toContain('check_geometry_unknown');
   });
   it('M13: an original re-saved with its C2PA data kept, whose own QR picture still matches: yellow, not red; anything less stays red', () => {
     const INV = { kind: 'invalid' as const, lines: [{ key: 'l2_invalid', status: 'fail' as const }], realDevice: false, bound: false };

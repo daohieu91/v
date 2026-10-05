@@ -92,5 +92,7 @@
   "check_code_not_in_photo": "Kode milik foto ini tidak terbaca, jadi tidak ada apa pun di foto yang mengaitkannya dengan segel ini",
   "verdict_maybe_cropped": "Foto ini mungkin telah dipotong",
   "check_geometry_mismatch": "Bentuk foto atau posisi kode tidak cocok dengan foto yang disegel: foto mungkin telah dipotong atau dibingkai (misalnya tangkapan layar)",
+  "verdict_geometry_unknown": "Pembingkaian foto ini tidak dapat diperiksa",
+  "check_geometry_unknown": "Kode di foto ini miring atau terdistorsi, jadi pembingkaiannya tidak dapat dibandingkan dengan foto yang disegel — foto mungkin telah dipotong",
   "verdict_l2_resaved": "Disimpan ulang atau diedit setelah disegel — gambar masih cocok dengan segelnya"
 }

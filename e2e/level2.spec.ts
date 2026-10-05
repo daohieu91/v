@@ -75,6 +75,17 @@ test('I2: a time-stamp from a self-made TSA carrying DigiCert\'s names gets no "
   await expect(line(page, 'l2_no_tsa')).toHaveText('No independent timestamp'); await expect(line(page, 'l2_tsa')).toHaveCount(0);
   await expect(page.locator('#app')).not.toContainText('DigiCert');
 });
+// P45 (scripts/make-tsa-fixtures.ts): real DigiCert tokens, but not exactly one over THIS signature. c2pa-web 0.15.3 reports neither
+// timeStamp.validated nor a timeStamp failure for these (measured), so the page's own count + imprint check (tsa.ts) is the second line;
+// it is mutation-proved in test/l2 with the reader stubbed to "validated".
+for (const [f, what] of [['original_tsa_two.jpg', 'two tokens, the first a real DigiCert token over other data'],
+  ['original_tsa_imprint.jpg', 'one real DigiCert token over other data (wrong imprint)']] as const)
+  test(`P45: ${what} → no "confirmed by" line; the file itself is still read`, async ({ page }) => {
+    await page.goto('./'); await pick(page, f);
+    await expect(line(page, 'l2_signature_ok')).toBeVisible(); await expect(line(page, 'l2_qr_same_key')).toBeVisible();
+    await expect(line(page, 'l2_no_tsa')).toHaveText('No independent timestamp'); await expect(line(page, 'l2_tsa')).toHaveCount(0);
+    await expect(page.locator('#app')).not.toContainText('DigiCert');
+  });
 test('software attestation (API 24–27 / emulator shape): yellow "software key — lower trust", app and boot unknown', async ({ page }) => {
   await withFakeRoot(page); await page.goto('./'); await pick(page, 'original_sw.jpg');
   await expect(band(page)).toHaveAttribute('data-verdict', 'yellow');

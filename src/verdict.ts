@@ -50,6 +50,9 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
   // P41 / P41b: the picture's shape or QR placement does not fit the seal → it may have been cropped (yellow, never red). Skipped when
   // the original file proves the exact bytes.
   const cropped = !!i.picture && i.picture.geometry === 'mismatch' && !exact;
+  // P45: the picture's own QR was read but its geometry could not be checked (tilted over ~2°, skewed, or no finder centres): a crop
+  // cannot be ruled out, so never green (yellow at most, the most specific yellow keeps the headline). Skipped for the exact bytes.
+  const unframed = !!i.picture && i.picture.qr && i.picture.geometry === 'unknown' && !exact;
   if (c2paContent) checks.push({ key: 'check_content_c2pa', status: 'pass' });
   else if (flagged && texture !== null) checks.push(flatMismatch ? { key: 'check_flat_mismatch', status: 'fail' } : { key: 'check_too_flat', status: 'warn' });
   else if (hamming === null) checks.push({ key: 'check_not_compared', status: 'info' });
@@ -58,6 +61,7 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
   else checks.push({ key: 'check_image_mismatch', status: 'fail', params: { d: hamming } });
   if (noQr) checks.push({ key: 'check_code_not_in_photo', status: 'warn' });
   if (cropped) checks.push({ key: 'check_geometry_mismatch', status: 'warn' });
+  if (unframed) checks.push({ key: 'check_geometry_unknown', status: 'warn' });
   const warns: Check[] = [];
   if (!f.autoTime) warns.push({ key: 'warn_auto_time', status: 'warn' });
   if (f.clockSkewSeconds !== null && Math.abs(f.clockSkewSeconds) > 120) warns.push({ key: 'warn_clock_skew', status: 'warn', params: { n: Math.round(Math.abs(f.clockSkewSeconds) / 60) } });
@@ -92,6 +96,7 @@ export function verdict(i: { payload: SealPayload | null; seal: { ok: boolean; k
     // A certified key on a phone whose boot is not verified, whose bootloader is unlocked, or whose boot state is not attested: same tier.
     const device = i.level2?.kind === 'ok' ? i.level2.lines.find(c => DEVICE_YELLOW.has(c.key)) : undefined;
     if (device) return ['yellow', device.key];
+    if (unframed) return ['yellow', 'verdict_geometry_unknown'];
     // P44: level 1 (a 64-bit perceptual hash) says "matches what was sealed"; "unchanged" only for the exact bytes of a bound original.
     return ['green', exact ? 'verdict_green_exact' : 'verdict_green'];
   })();
