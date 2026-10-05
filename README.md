@@ -68,6 +68,8 @@ update the pins from node alone.
 
 `test/vectors/` (JSON, `.sha256`, `fixtures/*.png`) is a byte-identical copy of the CameraStamp app repo's `docs/verify/`. Never edit or re-record it here: copy it with the procedure in the app's `docs/verify/README.md` and check it with the app's `scripts/check-vectors-sync.sh`.
 
+`src/glossary.json` (plus `src/glossary.json.sha256`) is pinned the same way: a byte-identical copy of the app's `docs/verify/glossary.json`, never edited here. `test/glossary-pin.test.ts` hashes it against the pin and fails on drift; to update, copy both files from the app together.
+
 ## Deploy
 
 Pushing to `main` runs `.github/workflows/deploy.yml` (tests, build, GitHub Pages via Actions).
