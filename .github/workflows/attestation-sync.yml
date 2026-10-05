@@ -1,0 +1,21 @@
+name: attestation-sync
+on: { schedule: [{ cron: '17 3 * * *' }], workflow_dispatch: {} }
+permissions: { contents: write, actions: write }
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          set -euo pipefail
+          curl -fsSL https://android.googleapis.com/attestation/root   -o /tmp/roots.json
+          curl -fsSL https://android.googleapis.com/attestation/status -o /tmp/status.json
+          node -e 'const r=JSON.parse(require("fs").readFileSync("/tmp/roots.json"));if(!Array.isArray(r)||!r.length||!r.every(p=>p.includes("BEGIN CERTIFICATE")))process.exit(1)'
+          node -e 'const s=JSON.parse(require("fs").readFileSync("/tmp/status.json"));if(typeof s.entries!=="object")process.exit(1)'
+          cp /tmp/roots.json public/attestation/roots.json; cp /tmp/status.json public/attestation/status.json
+          if git diff --quiet; then echo "unchanged"; exit 0; fi
+          git config user.name "attestation-sync[bot]"; git config user.email "attestation-sync@users.noreply.github.com"
+          git add public/attestation && git commit -m "chore: daily copy of Google attestation roots and revocation list" && git push
+          gh workflow run deploy.yml
+        env:
+          GH_TOKEN: ${{ github.token }}

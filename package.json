@@ -1,0 +1,29 @@
+{
+  "name": "v",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "size": "node scripts/check-size.mjs",
+    "verify-file": "tsx scripts/verify-file.ts"
+  },
+  "dependencies": {
+    "@contentauth/c2pa-web": "0.15.3",
+    "@noble/curves": "2.4.0",
+    "@noble/hashes": "2.4.0",
+    "@peculiar/x509": "2.1.0",
+    "jsqr": "1.4.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "^22.20.5",
+    "jpeg-js": "0.4.4",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.2",
+    "vitest": "5.0.3"
+  }
+}
