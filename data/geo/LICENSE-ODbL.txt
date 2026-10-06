@@ -1,0 +1,21 @@
+Open Database License (ODbL) v1.0 - summary
+
+Applies to: vn-provinces-2025.geojson (derived from OpenStreetMap data).
+Data (c) OpenStreetMap contributors.
+
+You are free:
+  - To share: copy, distribute and use the database.
+  - To create: produce works from the database.
+  - To adapt: modify, transform and build upon the database.
+
+As long as you:
+  - Attribute: credit "(c) OpenStreetMap contributors" and keep this notice.
+  - Share-Alike: if you publicly use any adapted version of this database, or works
+    produced from an adapted database, you must also offer that adapted database
+    under the ODbL.
+  - Keep open: if you redistribute the database, or an adapted version of it, you may
+    not apply technological measures that restrict the use the licence permits.
+
+This is a human-readable summary, not the licence itself. The full legal text is at:
+  https://opendatacommons.org/licenses/odbl/1-0/
+  https://www.openstreetmap.org/copyright
