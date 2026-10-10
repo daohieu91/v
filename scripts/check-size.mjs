@@ -13,3 +13,9 @@ console.log(`level-1 gzip total: ${total + html} B (budget ${BUDGET})`);
 if (!(total + html < BUDGET)) { console.error('over the level-1 budget'); process.exit(1); }
 const bad = leaks(files, read);
 if (bad.length) { console.error('level-2 code in level 1: ' + bad.join(', ')); process.exit(1); }
+// Part 4B: the deployed page never registers the debug key (P36; it is DEV only in the `--mode e2e` build) and does register Play's.
+import { readdirSync } from 'node:fs';
+const assets = readdirSync('dist/assets').filter(f => f.endsWith('.js')).map(f => readFileSync('dist/assets/' + f, 'utf8')).join('\n');
+if (assets.includes('6dcef54931f170eff8e8d53bd77e62ec66c078479a6141411d08b00287077602')) { console.error('debug signing digest in the deployed build'); process.exit(1); }
+if (!assets.includes('b0ff802fd83926409ce0bab830a7ec9d292d86513ad661401c6a836586d07502')) { console.error('Play App Signing digest missing from the build'); process.exit(1); }
+console.log('signing digests: Play only');

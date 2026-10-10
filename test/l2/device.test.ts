@@ -5,6 +5,7 @@ import { checkChain, type ChainCheck } from '../../src/l2/attestation';
 import { hex } from '../../src/l2/der';
 import { deviceLines, type DeviceInput } from '../../src/l2/device';
 import { pemToDer } from '../../src/l2/x509';
+import { SIGNING_DIGESTS } from '../../src/config';
 // The REAL M20 chain decides everything except the app digest: it carries the debug digest, which a test may register as "release"
 // to reach the one path that says "real device". The shipped list (config.ts) has the debug digest as dev only.
 const roots = JSON.parse(readFileSync('public/attestation/roots.json', 'utf8')) as string[];
@@ -62,5 +63,20 @@ describe('device lines (spec §5.2, Task 21 carry-over)', () => {
     const r = deviceLines(await input({ chain: { chainOk: false, revoked: false, leafKey: (await input()).chain.leafKey,
       leaf: { securityLevel: 0, keySecurityLevel: 0, packages: [], signatureDigests: [], verifiedBootState: null, deviceLocked: null } } }));
     expect(keys(r)).toEqual(['l2_chain_bad', 'l2_app_unknown', 'l2_level_sw', 'l2_boot_unknown']);
+  });
+});
+describe('shipped SIGNING_DIGESTS: the Play App Signing certificate (Part 4B Task 9)', () => {
+  const PLAY = 'b0ff802fd83926409ce0bab830a7ec9d292d86513ad661401c6a836586d07502';
+  const UPLOAD = '1b866c28fb1128da20bbf726b731c4097e4779c67abcf37a9d3e539e844fd023';   // upload key: Play re-signs, never in a user's file
+  it('holds exactly the Play digest as a release entry: 64 lower-case hex, never the upload key, never a SHA-1', () => {
+    for (const d of SIGNING_DIGESTS) expect(d.hex).toMatch(/^[0-9a-f]{64}$/);
+    expect(SIGNING_DIGESTS.map(d => d.hex)).not.toContain(UPLOAD);
+    expect(SIGNING_DIGESTS).toEqual([{ hex: PLAY, dev: false }]);
+  });
+  it('a file from the Play-signed app (leaf digest = Play) reads l2_app_ok with the shipped list; a debug-signed one is l2_app_bad (M8)', async () => {
+    const m = await input();
+    const playSigned = { ...m.chain, leaf: { ...m.chain.leaf!, signatureDigests: [PLAY] } };
+    expect(keys(deviceLines(await input({ chain: playSigned, digests: SIGNING_DIGESTS })))).toContain('l2_app_ok');
+    expect(keys(deviceLines(await input({ digests: SIGNING_DIGESTS })))).toContain('l2_app_bad');
   });
 });

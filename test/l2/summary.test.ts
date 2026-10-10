@@ -45,8 +45,9 @@ describe('level-2 summary', () => {
     const r = await run({ store: store(seal(), ['signingCredential.untrusted', 'timeStamp.mismatch']) });
     expect(r.summary.kind).toBe('ok'); expect(keys(r)).toContain('l2_no_tsa'); expect(keys(r)).not.toContain('l2_tsa');
   });
-  it('the shipped digest list (P36) holds no debug key: a debug-signed file is "app signature not yet registered"', async () => {
-    const r = await run({ digests: undefined }); expect(keys(r)).toContain('l2_app_unregistered'); expect(keys(r)).not.toContain('l2_app_dev');
+  it('the shipped digest list (P36) holds no debug key; with the Play digest registered (M8) a debug-signed file is "not made by the app"', async () => {
+    const r = await run({ digests: undefined }); expect(keys(r)).toContain('l2_app_bad'); expect(keys(r)).not.toContain('l2_app_dev');
+    expect(keys(r)).not.toContain('l2_app_unregistered'); expect(r.summary.realDevice).toBe(false);
   });
   it('no validation report from the reader → l2_error, never assumed valid', async () => {
     const st: any = store(seal()); delete st.validation_results; expect(keys(await run({ store: st }))).toEqual(['l2_error']);
