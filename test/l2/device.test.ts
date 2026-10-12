@@ -67,16 +67,25 @@ describe('device lines (spec §5.2, Task 21 carry-over)', () => {
 });
 describe('shipped SIGNING_DIGESTS: the Play App Signing certificate (Part 4B Task 9)', () => {
   const PLAY = 'b0ff802fd83926409ce0bab830a7ec9d292d86513ad661401c6a836586d07502';
+  const V32_RSA = 'bc76980b5271cea1f5b70938a20dafa91e1c3c22bba4d5c6946b80be18f25214';   // Play's v3.2 hybrid pair (Android 17+)
+  const V32_MLDSA = 'b9efecf63ec9047415604fafba0b2cc8e033f84d3c8592fdc05c70d4d02bf6d6';
   const UPLOAD = '1b866c28fb1128da20bbf726b731c4097e4779c67abcf37a9d3e539e844fd023';   // upload key: Play re-signs, never in a user's file
-  it('holds exactly the Play digest as a release entry: 64 lower-case hex, never the upload key, never a SHA-1', () => {
+  it('holds exactly the Play digests (v3.0 + the v3.2 pair) as release entries: 64 lower-case hex, never the upload key, never a SHA-1', () => {
     for (const d of SIGNING_DIGESTS) expect(d.hex).toMatch(/^[0-9a-f]{64}$/);
     expect(SIGNING_DIGESTS.map(d => d.hex)).not.toContain(UPLOAD);
-    expect(SIGNING_DIGESTS).toEqual([{ hex: PLAY, dev: false }]);
+    expect(SIGNING_DIGESTS).toEqual([PLAY, V32_RSA, V32_MLDSA].map(hex => ({ hex, dev: false })));
   });
   it('a file from the Play-signed app (leaf digest = Play) reads l2_app_ok with the shipped list; a debug-signed one is l2_app_bad (M8)', async () => {
     const m = await input();
     const playSigned = { ...m.chain, leaf: { ...m.chain.leaf!, signatureDigests: [PLAY] } };
     expect(keys(deviceLines(await input({ chain: playSigned, digests: SIGNING_DIGESTS })))).toContain('l2_app_ok');
     expect(keys(deviceLines(await input({ digests: SIGNING_DIGESTS })))).toContain('l2_app_bad');
+  });
+  it('an Android 17 copy attesting either v3.2 certificate (alone, or with the v3.0 one) reads l2_app_ok', async () => {
+    const m = await input();
+    for (const digs of [[V32_RSA], [V32_MLDSA], [V32_MLDSA, V32_RSA, PLAY]]) {
+      const chain = { ...m.chain, leaf: { ...m.chain.leaf!, signatureDigests: digs } };
+      expect(keys(deviceLines(await input({ chain, digests: SIGNING_DIGESTS }))), digs.join()).toContain('l2_app_ok');
+    }
   });
 });

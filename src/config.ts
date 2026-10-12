@@ -24,6 +24,12 @@ export const PACKAGE_NAME = 'com.essenty.camerastamp';
  */
 export const SIGNING_DIGESTS: readonly { hex: string; dev: boolean }[] = [
   { hex: 'b0ff802fd83926409ce0bab830a7ec9d292d86513ad661401c6a836586d07502', dev: false },
+  // Play also signs every copy with an APK Signature Scheme v3.2 hybrid pair, used from Android 17 (API 37) on (measured 2026-10-12
+  // in the vc 1 APKs from Play): RSA-4096 bc76980b… and ML-DSA b9efecf6…, held by Play like the key above. Android 17 treats them as
+  // a rotation (current = ML-DSA, oldest = b0ff802f…). Which one Keystore attests on Android 17 could not be observed (Play blocks
+  // side-loaded copies), so both are registered: only Play can sign with them, so a re-packaged app still reads l2_app_bad.
+  { hex: 'bc76980b5271cea1f5b70938a20dafa91e1c3c22bba4d5c6946b80be18f25214', dev: false },
+  { hex: 'b9efecf63ec9047415604fafba0b2cc8e033f84d3c8592fdc05c70d4d02bf6d6', dev: false },
   // e2e build only (`vite build --mode e2e`, playwright.config.ts): the debug key as DEV, so the debug-signed e2e originals keep
   // exercising the green path. Never in `npm run build` (the deployed page); test/l2/device.test.ts and the dist grep pin that.
   ...(import.meta.env?.MODE === 'e2e' ? [{ hex: '6dcef54931f170eff8e8d53bd77e62ec66c078479a6141411d08b00287077602', dev: true }] : []),
