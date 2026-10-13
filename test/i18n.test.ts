@@ -6,7 +6,10 @@ const ph = (s: string) => [...s.matchAll(/\{(\w+)\}/g)].map(m => m[1]).sort();
 const SAME_OK = new Set(['brand', 'label_accuracy']);   // a brand name and a pure unit pattern are legitimately identical
 const G = JSON.parse(readFileSync('src/glossary.json', 'utf8')) as { terms: Record<string, Record<string, string>>; uses: Record<string, string[]> };
 // Per locale: phrases allowed first (the glossary's "real device" / "original file", and "approximate" in vi), then banned stems.
-const g = (...x: string[]) => x.map(r => new RegExp(r, 'gu'));
+// Arabic harakat (U+064B–U+0652), superscript alef (U+0670) and tatweel (U+0640) are optional marks: "موثَّق" and "موثّق" are one
+// word. Both the copy and the patterns are matched with them stripped, so a mark in any order cannot slip a banned word through.
+const bare = (x: string) => x.replace(/[\u064B-\u0652\u0670\u0640]/gu, '');
+const g = (...x: string[]) => x.map(r => new RegExp(bare(r), 'gu'));
 const BANNED: Record<string, { allow: RegExp[]; ban: RegExp[] }> = {
   en: { allow: g('real device'), ban: g('\\breal\\b', 'authentic', 'genuine', '\\btrue\\b', 'taken with') },
   vi: { allow: g('máy thật', 'gần đúng'), ban: g('thật', 'xác thực', 'đúng', 'chụp bằng', 'nơi chụp') },
@@ -64,7 +67,8 @@ describe('i18n', () => {
       pl: /bez zmian|nie zmienił|każda zmiana/i, th: /ไม่เปลี่ยน/, ms: /tidak berubah|sebarang perubahan/i,
       ar: /لم يُعدَّل|لم يعدل|غير معدّل|غير معدل|تفصيل واحد|أي تغيير|كل تغيير|لم يتغير|لم يتغيّر/ };
     for (const l of LOCALES) { const d = dict(l);
-      for (const k of L1) expect(OVER[l].test(d[k]), `${l}.${k} overclaims: "${d[k]}"`).toBe(false);
+      const over = new RegExp(bare(OVER[l].source), OVER[l].flags);
+      for (const k of L1) expect(over.test(bare(d[k])), `${l}.${k} overclaims: "${d[k]}"`).toBe(false);
       expect(d.verdict_green, l).not.toBe(d.verdict_green_exact); }
   });
   it('P42 / P41 / I4 copy: withheld location, maybe cropped, code not in the photo', () => {
@@ -87,8 +91,13 @@ describe('i18n', () => {
   });
   it('no locale claims "real / authentic / genuine / true / taken with" (P25); only the glossary\'s "real device" may say real', () => {
     for (const l of LOCALES) { const { allow, ban } = BANNED[l];
-      for (const [k, raw] of Object.entries(dict(l))) { let s = raw.toLowerCase(); for (const a of allow) s = s.replace(a, ' ');
+      for (const [k, raw] of Object.entries(dict(l))) { let s = bare(raw.toLowerCase()); for (const a of allow) s = s.replace(a, ' ');
         for (const w of ban) expect(new RegExp(w.source, "u").test(s), `${l}.${k} uses banned ${w}: "${raw}"`).toBe(false); } }
+  });
+  it('Arabic: "not on a trust list" (other C2PA tools) never reuses the word for Google-"certified" (l2_chain_ok / verdict_uncertified)', () => {
+    const ar = dict('ar'); const certified = 'معتمد';
+    expect(ar.l2_chain_ok).toContain(certified); expect(ar.verdict_uncertified).toContain(certified);
+    expect(ar.l2_untrusted_note).not.toContain(certified);
   });
   it('Hindi never uses the ambiguous "की" for "key" (it is also the genitive particle): the key is कुंजी', () => {
     const hi = dict('hi'); for (const k of ['check_seal_ok', 'proves_l1', 'warn_software_key', 'l2_chain_ok', 'l2_level_hw', 'l2_qr_link', 'l2_binding_bad'])

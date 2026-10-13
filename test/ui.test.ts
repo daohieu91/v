@@ -38,6 +38,14 @@ describe('ui RTL (Arabic)', () => {
     expect(seal.querySelector('bdi[dir="ltr"]')?.textContent).toBe(OK.expectKeyId);
     expect(seal.textContent).toBe(line(en, 'check_seal_ok', { id: OK.expectKeyId }));
   });
+  it('the timestamp line isolates the TSA time and the TSA name, each in its own LTR bdi', () => {
+    const v = view('ar'); const time = '2026-10-13 12:00:00 UTC', tsa = 'Example TSA';
+    const verdict_ = { ...v.verdict, checks: [...v.verdict.checks, { key: 'l2_tsa', status: 'pass' as const, params: { time, tsa } }] };
+    const root = document.createElement('main'); render(root, { ...v, verdict: verdict_ });
+    const li = root.querySelector('li[data-key="l2_tsa"]')!;
+    expect([...li.querySelectorAll('bdi[dir="ltr"]')].map(b => b.textContent)).toEqual([time, tsa]);
+    expect(li.textContent).toBe(line(en, 'l2_tsa', { time, tsa }));
+  });
   it('the attestation copy date (YYYY-MM-DD) sits in an LTR isolate, so an Arabic line cannot show it as 13-10-2026', () => {
     const root = document.createElement('main'); render(root, { ...view('ar'), attested: '2026-10-13' });
     const p = root.querySelector('[data-attested]')!;
