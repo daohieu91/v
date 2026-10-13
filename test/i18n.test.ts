@@ -23,7 +23,7 @@ const BANNED: Record<string, { allow: RegExp[]; ban: RegExp[] }> = {
   ms: { allow: g('peranti sebenar'), ban: g('sebenar', 'tulen', 'asli', 'benar', 'diambil dengan') },
   // The app's SealCopyTest list: "الملف الأصلي" (original file) is the glossary term; "أصلي" alone stays banned.
   ar: { allow: g('جهاز حقيقي', 'الملف الأصلي'), ban: g('حقيقي', 'حقيقية', 'أصلي', 'أصلية', 'موثّق', 'موثق', 'موثوق', 'مصادق', 'التُقطت بواسطة',
-    'التقطت بواسطة', 'مُلتقطة بـ', 'ملتقطة ب') },
+    'التقطت بواسطة', 'مُلتقطة بـ', 'ملتقطة ب', 'صحيح', 'أصيل') },
 };
 describe('i18n', () => {
   it('every locale has every key with the same placeholders, none left in English', () => {
@@ -93,6 +93,14 @@ describe('i18n', () => {
     for (const l of LOCALES) { const { allow, ban } = BANNED[l];
       for (const [k, raw] of Object.entries(dict(l))) { let s = bare(raw.toLowerCase()); for (const a of allow) s = s.replace(a, ' ');
         for (const w of ban) expect(new RegExp(w.source, "u").test(s), `${l}.${k} uses banned ${w}: "${raw}"`).toBe(false); } }
+  });
+  it('Arabic: a vowelled or stretched banned word is still caught; the glossary phrases still pass (app SealCopyTest mirror)', () => {
+    const { allow, ban } = BANNED.ar;
+    const hits = (raw: string) => { let s = bare(raw.toLowerCase()); for (const a of allow) s = s.replace(a, ' ');
+      return ban.filter(w => new RegExp(w.source, 'u').test(s)); };
+    for (const v of ['صورة حَقِيقِيَّة', 'صورة حقـيـقية', 'ملف أَصْلِيّ', 'نتيجة صَحِيحَة', 'صورة أَصِيلَة', 'مُوَثَّق', 'صحيح'])
+      expect(hits(v), `"${v}" is caught`).not.toEqual([]);
+    for (const v of ['جِهَازٍ حَقِيقِيٍّ', 'الْمَلَفّ الأَصْلِيّ', 'التفاصيل']) expect(hits(v), `"${v}" is allowed`).toEqual([]);
   });
   it('Arabic: "not on a trust list" (other C2PA tools) never reuses the word for Google-"certified" (l2_chain_ok / verdict_uncertified)', () => {
     const ar = dict('ar'); const certified = 'معتمد';
