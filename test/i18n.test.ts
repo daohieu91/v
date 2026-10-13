@@ -18,6 +18,9 @@ const BANNED: Record<string, { allow: RegExp[]; ban: RegExp[] }> = {
   pl: { allow: g('prawdziw\\p{L}* urządzen\\p{L}*'), ban: g('prawdziw', 'autentycz', 'zrobion') },
   th: { allow: g('เครื่องจริง'), ban: g('จริง', 'แท้', 'ถ่ายด้วย', 'ข้อมูลถูกต้อง') },
   ms: { allow: g('peranti sebenar'), ban: g('sebenar', 'tulen', 'asli', 'benar', 'diambil dengan') },
+  // The app's SealCopyTest list: "الملف الأصلي" (original file) is the glossary term; "أصلي" alone stays banned.
+  ar: { allow: g('جهاز حقيقي', 'الملف الأصلي'), ban: g('حقيقي', 'حقيقية', 'أصلي', 'أصلية', 'موثّق', 'موثق', 'موثوق', 'مصادق', 'التُقطت بواسطة',
+    'التقطت بواسطة', 'مُلتقطة بـ', 'ملتقطة ب') },
 };
 describe('i18n', () => {
   it('every locale has every key with the same placeholders, none left in English', () => {
@@ -58,7 +61,8 @@ describe('i18n', () => {
     const OVER: Record<string, RegExp> = { en: /unchanged|not (been )?edited|not changed|any change|one detail|untouched/i,
       vi: /không đổi|chưa bị sửa|không bị (thay đổi|sửa)|mọi thay đổi|một chi tiết/i, hi: /नहीं बदल|बदला नहीं/, id: /tidak berubah|tidak diedit|setiap perubahan/i,
       es: /sin cambios|no ha cambiado|cualquier cambio/i, 'pt-BR': /sem altera|não mud|qualquer altera/i, it: /invariat|non è cambiat|qualsiasi modific/i,
-      pl: /bez zmian|nie zmienił|każda zmiana/i, th: /ไม่เปลี่ยน/, ms: /tidak berubah|sebarang perubahan/i };
+      pl: /bez zmian|nie zmienił|każda zmiana/i, th: /ไม่เปลี่ยน/, ms: /tidak berubah|sebarang perubahan/i,
+      ar: /لم يُعدَّل|لم يعدل|غير معدّل|غير معدل|تفصيل واحد|أي تغيير|كل تغيير|لم يتغير|لم يتغيّر/ };
     for (const l of LOCALES) { const d = dict(l);
       for (const k of L1) expect(OVER[l].test(d[k]), `${l}.${k} overclaims: "${d[k]}"`).toBe(false);
       expect(d.verdict_green, l).not.toBe(d.verdict_green_exact); }
@@ -103,6 +107,7 @@ describe('i18n', () => {
     expect(pickLocale(['vi-VN', 'en'])).toBe('vi'); expect(pickLocale(['pt-PT'])).toBe('pt-BR'); expect(pickLocale(['es-MX'])).toBe('es');
     expect(pickLocale(['in'])).toBe('id'); expect(pickLocale(['de-DE'])).toBe('en'); expect(pickLocale([])).toBe('en');
     expect(pickLocale(['de', 'th-TH'])).toBe('th');
+    expect(pickLocale(['ar-EG'])).toBe('ar'); expect(pickLocale(['ar-SA', 'en'])).toBe('ar');
   });
   it('fills placeholders and never returns undefined', () => { expect(t({ a: 'x {n} y' }, 'a', { n: 3 })).toBe('x 3 y'); expect(t({}, 'missing')).toBe('missing'); });
 });

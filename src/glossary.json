@@ -1,10 +1,10 @@
 {
   "terms": {
-    "seal":          { "en": "seal", "hi": "सील", "id": "segel", "es": "sell", "pt-BR": "sel", "it": "sigill", "pl": "piecz", "vi": "niêm phong", "th": "ผนึก", "ms": "meterai" },
-    "verifiable":    { "en": "verifiable", "hi": "सत्यापन योग्य", "id": "dapat diverifikasi", "es": "verificable", "pt-BR": "verificável", "it": "verificabile", "pl": "weryfikowaln", "vi": "xác minh được", "th": "ตรวจสอบได้", "ms": "boleh disahkan" },
-    "original_file": { "en": "original file", "hi": "मूल फ़ाइल", "id": "file asli", "es": "archivo original", "pt-BR": "arquivo original", "it": "file originale", "pl": "oryginaln", "vi": "file gốc", "th": "ไฟล์ต้นฉบับ", "ms": "fail asal" },
-    "real_device":   { "en": "real device", "hi": "असली डिवाइस", "id": "perangkat asli", "es": "dispositivo real", "pt-BR": "aparelho real", "it": "dispositivo reale", "pl": "prawdziw", "vi": "máy thật", "th": "เครื่องจริง", "ms": "peranti sebenar" },
-    "matches_sealed": { "en": "matches what was sealed", "hi": "सील के समय से मेल खाती है", "id": "cocok dengan saat disegel", "es": "coincide con lo sellado", "pt-BR": "corresponde ao que recebeu o selo", "it": "corrisponde a quanto sigillato", "pl": "z tym, co opieczętowano", "vi": "khớp với lúc niêm phong", "th": "ตรงกับตอนที่ผนึก", "ms": "sepadan dengan yang dimeterai" }
+    "seal":          { "en": "seal", "hi": "सील", "id": "segel", "es": "sell", "pt-BR": "sel", "it": "sigill", "pl": "piecz", "vi": "niêm phong", "th": "ผนึก", "ms": "meterai", "ar": "ختم" },
+    "verifiable":    { "en": "verifiable", "hi": "सत्यापन योग्य", "id": "dapat diverifikasi", "es": "verificable", "pt-BR": "verificável", "it": "verificabile", "pl": "weryfikowaln", "vi": "xác minh được", "th": "ตรวจสอบได้", "ms": "boleh disahkan", "ar": "يمكن التحقق" },
+    "original_file": { "en": "original file", "hi": "मूल फ़ाइल", "id": "file asli", "es": "archivo original", "pt-BR": "arquivo original", "it": "file originale", "pl": "oryginaln", "vi": "file gốc", "th": "ไฟล์ต้นฉบับ", "ms": "fail asal", "ar": "الملف الأصلي" },
+    "real_device":   { "en": "real device", "hi": "असली डिवाइस", "id": "perangkat asli", "es": "dispositivo real", "pt-BR": "aparelho real", "it": "dispositivo reale", "pl": "prawdziw", "vi": "máy thật", "th": "เครื่องจริง", "ms": "peranti sebenar", "ar": "جهاز حقيقي" },
+    "matches_sealed": { "en": "matches what was sealed", "hi": "सील के समय से मेल खाती है", "id": "cocok dengan saat disegel", "es": "coincide con lo sellado", "pt-BR": "corresponde ao que recebeu o selo", "it": "corrisponde a quanto sigillato", "pl": "z tym, co opieczętowano", "vi": "khớp với lúc niêm phong", "th": "ตรงกับตอนที่ผนึก", "ms": "sepadan dengan yang dimeterai", "ar": "تطابق ما تم ختمه" }
   },
   "uses": {
     "check_seal_ok": ["seal"], "check_seal_bad": ["seal"], "device_unknown": ["real_device", "original_file"],

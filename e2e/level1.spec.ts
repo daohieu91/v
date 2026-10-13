@@ -172,6 +172,22 @@ test('the browser language is picked', async ({ browser }) => {
   const ctx = await browser.newContext({ locale: 'vi-VN' }); const page = await ctx.newPage();
   await page.goto('./#' + OK.base64url); await expect(band(page)).toHaveText('Niêm phong hợp lệ — chưa so ảnh'); await ctx.close();
 });
+test('Arabic browser (ar-EG): RTL page, LTR coordinates, key id and offset, Latin digits; switching back is LTR', async ({ browser }) => {
+  const ctx = await browser.newContext({ locale: 'ar-EG' }); const page = await ctx.newPage();
+  await page.goto('./#' + OK.base64url);
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl'); await expect(page.locator('html')).toHaveAttribute('lang', 'ar');
+  await expect(band(page)).toBeVisible(); await expect(band(page)).toHaveAttribute('data-verdict', 'yellow');
+  await expect(band(page)).toHaveText('الختم صالح — لم تُقارَن الصورة بعد');
+  await expect(page.locator('[data-field=place] bdi[dir=ltr]')).toHaveText('30.12345, 140.54321');
+  await expect(page.locator('[data-field=time] bdi[dir=ltr]')).toHaveText(/^GMT[+-]\d\d:\d\d$/);
+  await expect(page.locator('[data-field=time]')).toContainText('2025'); await expect(page.locator('[data-field=time]')).not.toContainText(/[٠-٩]/);
+  await expect(page.locator('li[data-key=check_seal_ok] bdi[dir=ltr]')).toHaveText(OK.expectKeyId);
+  const li = page.locator('li[data-key=check_seal_ok]');   // the status mark and its gap sit on the right in RTL
+  expect(await li.evaluate(e => [getComputedStyle(e).paddingRight, getComputedStyle(e).paddingLeft])).toEqual(['28px', '0px']);
+  await page.selectOption('select[data-lang]', 'en');
+  await expect(page.locator('html')).toHaveAttribute('dir', 'ltr'); await expect(band(page)).toHaveText('Seal is valid — photo not compared yet');
+  await ctx.close();
+});
 test('a browser without BigInt gets a readable "too old" message, and the core chunk is never fetched', async ({ page }) => {
   const fetched: string[] = []; page.on('request', r => fetched.push(r.url()));
   await page.addInitScript(() => { delete (window as any).BigInt; });
