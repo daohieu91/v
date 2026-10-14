@@ -1,8 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { activeClaim, activeSignature, extractJumbf, verifyClaimSignature } from '../../src/l2/jumbf';
-import { SEAL_LABEL, summarize, type L2Input } from '../../src/l2/summary';
-import { pemToDer } from '../../src/l2/x509';
+import { SEAL_LABEL, sameSigner, summarize, type L2Input } from '../../src/l2/summary';
+import { pemToDer, type Cert } from '../../src/l2/x509';
+import { oid, seq, set, utf8, name as cnName } from '../helpers/asn1';
 import { coseSigner } from '../../src/l2/jumbf';
 import { withTokens } from '../helpers/cose-tst';
 // c2pa-web's manifest-store shape (as c2patool prints it: spike item 1c), with our own COSE read of a real signed file.
@@ -128,5 +129,18 @@ describe('level-2 summary', () => {
   });
   it('no readable COSE signer (a truncated read) → l2_error, unbound', async () => {
     const r = await run({ cose: null }); expect([keys(r), r.summary.bound]).toEqual([['l2_error'], false]);
+  });
+});
+// A new MapStamp-signed file: sameSigner compares the reader's signature_info with the certificate's OWN subject CN and issuer O, never a constant.
+describe('sameSigner with a MapStamp certificate', () => {
+  const org = (o: string) => seq(set(seq(oid('2.5.4.10'), utf8(o))));
+  const cert = (cn: string, o: string) => ({ serial: BigInt('17406309323454950512').toString(16), subject: cnName(cn), issuer: org(o) }) as unknown as Cert;
+  const info = { alg: 'Es256', issuer: 'MapStamp', common_name: 'MapStamp seal f18fa21b6b1a2c70', cert_serial_number: '17406309323454950512' };
+  it('accepts the new name, and refuses a name that is not on the certificate', () => {
+    expect(sameSigner(cert('MapStamp seal f18fa21b6b1a2c70', 'MapStamp'), info)).toBe(true);
+    expect(sameSigner(cert('MapStamp seal f18fa21b6b1a2c70', 'MapStamp'), { ...info, common_name: 'CameraStamp seal f18fa21b6b1a2c70' })).toBe(false);
+    expect(sameSigner(cert('MapStamp seal f18fa21b6b1a2c70', 'MapStamp'), { ...info, issuer: 'CameraStamp' })).toBe(false);
+    expect(sameSigner(cert('CameraStamp seal f18fa21b6b1a2c70', 'CameraStamp'), info)).toBe(false);          // old certificate vs new claim
+    expect(sameSigner(cert('CameraStamp seal f18fa21b6b1a2c70', 'CameraStamp'), { ...info, common_name: 'CameraStamp seal f18fa21b6b1a2c70', issuer: 'CameraStamp' })).toBe(true); // old files keep verifying
   });
 });

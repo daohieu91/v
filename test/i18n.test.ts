@@ -49,7 +49,7 @@ describe('i18n', () => {
     expect(en.verdict_info_not_compared).toBe('Seal is valid — photo not compared yet'); expect(vi.verdict_info_not_compared).toBe('Niêm phong hợp lệ — chưa so ảnh');
     expect(en.label_time).toBe('Sealed at'); expect(vi.label_time).toBe('Thời điểm niêm phong'); expect(vi.label_place).toBe('Vị trí niêm phong');
     expect(en.proves_title_neutral).toBe('What this check shows'); expect(vi.proves_title_neutral).toBe('Kiểm tra này cho thấy gì');
-    expect(en.footer_app).toBe('Checked with CameraStamp — get the app'); expect(vi.footer_app).toBe('Kiểm tra bằng CameraStamp — tải app');
+    expect(en.footer_app).toBe('Checked with MapStamp — get the app'); expect(vi.footer_app).toBe('Kiểm tra bằng MapStamp — tải app');
     expect(vi.verdict_red).toBe('Ảnh hoặc thông tin đã bị thay đổi'); expect(vi.footer_local).toBe('Kiểm tra ngay trên máy bạn');
     expect(vi.footer_upload).toBe('Ảnh không được tải lên');
   });

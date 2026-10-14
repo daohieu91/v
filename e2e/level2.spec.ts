@@ -37,7 +37,7 @@ test('certified hardware original (debug-signed; DEV only in the e2e build, P36)
   await withFakeRoot(page); await page.goto('./'); await pick(page, 'original_hw.jpg');
   await expect(band(page)).toHaveAttribute('data-verdict', 'green');
   for (const k of ['l2_signature_ok', 'l2_chain_ok', 'l2_level_hw', 'l2_boot_ok', 'l2_locked_ok']) await expect(line(page, k), k).toHaveAttribute('data-status', 'pass');
-  await expect(line(page, 'l2_app_dev')).toHaveText('Made by a test build of CameraStamp');
+  await expect(line(page, 'l2_app_dev')).toHaveText('Made by a test build of MapStamp');
   await expect(line(page, 'l2_app_unregistered')).toHaveCount(0);
   await expect(line(page, 'l2_qr_same_key')).toHaveText('This QR was sealed by the same key as this original file');
   await expect(line(page, 'l2_tsa')).toContainText(/Existed no later than 20\d\d-\d\d-\d\d \d\d:\d\d:\d\d UTC — confirmed by DigiCert/);
@@ -96,7 +96,7 @@ test('software attestation (API 24–27 / emulator shape): yellow "software key 
 });
 test('M8: our package signed by a certificate the page does not know (the Play digest is registered): "not made by the app", never "real device"', async ({ page, browserName }) => {
   await withFakeRoot(page); await page.goto('./'); await pick(page, 'original_unreg.jpg');
-  await expect(line(page, 'l2_app_bad')).toHaveText('Not made by the CameraStamp app');
+  await expect(line(page, 'l2_app_bad')).toHaveText('Not made by the MapStamp app');
   await expect(line(page, 'l2_app_bad')).toHaveAttribute('data-status', 'fail');
   await expect(line(page, 'l2_app_unregistered')).toHaveCount(0);
   if (ROUTABLE(browserName)) await expect(band(page)).toHaveAttribute('data-verdict', 'red');

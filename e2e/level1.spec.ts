@@ -89,7 +89,7 @@ test('a 48 MP portrait-stored photo with EXIF rotation is decoded at the bounded
 test('a huge-pixel PNG (12000 × 9000, tiny file) is decoded only at the bounded size', async ({ page }) => {
   await page.goto('./');
   await page.setInputFiles('input[type=file]', { name: 'big.png', mimeType: 'image/png', buffer: bigPng(12000, 9000) });
-  await expect(page.locator('p.message')).toHaveText('No CameraStamp code found in this photo', { timeout: 30_000 });
+  await expect(page.locator('p.message')).toHaveText('No MapStamp code found in this photo', { timeout: 30_000 });
   await expect(page.locator('#app')).toHaveAttribute('data-decoded', '3000x2250 resize');
 });
 test('a file whose size cannot be read from its header is refused as unsupported, never decoded (large or small)', async ({ page }) => {
@@ -157,12 +157,12 @@ test('P42: a seal made with the location hidden says "Location not included in t
   await expect(page.locator('li[data-key=info_location_withheld]')).toHaveText('Vị trí không nằm trong niêm phong này');
 });
 test('QR cropped away: no code found', async ({ page }) => { await page.goto('./'); await pick(page, 'cropped_no_qr.jpg');
-  await expect(band(page)).toHaveAttribute('data-verdict', 'none'); await expect(page.locator('p.message')).toHaveText('No CameraStamp code found in this photo'); });
+  await expect(band(page)).toHaveAttribute('data-verdict', 'none'); await expect(page.locator('p.message')).toHaveText('No MapStamp code found in this photo'); });
 test('language switch and footer', async ({ page }) => {
   await page.goto('./#' + OK.base64url);
   await page.selectOption('select[data-lang]', 'vi');
   await expect(page.locator('footer')).toContainText('Ảnh không được tải lên');
-  await expect(page.locator('footer')).toContainText('Kiểm tra bằng CameraStamp — tải app');
+  await expect(page.locator('footer')).toContainText('Kiểm tra bằng MapStamp — tải app');
   await expect(band(page)).toHaveText('Niêm phong hợp lệ — chưa so ảnh');
   await expect(page.locator('dt').first()).toHaveText('Thời điểm niêm phong');
   await expect(page.locator('footer a[data-play]')).toHaveAttribute('href', /referrer=utm_source%3Dverify/);

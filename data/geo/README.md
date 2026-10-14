@@ -7,7 +7,7 @@ It is administrative boundaries only: no photos and no user locations.
   fetched through the Overpass API (overpass-api.de) on 2026-10-06.
 - OSM relation ids: 1844412, 1873490, 1874283, 1875748, 1875866, 1875887, 1884018, 1884034, 1885367, 1887959, 1890793, 1891418, 1891483, 1895630, 1898458, 1898509, 1898590, 1898961, 1900963, 1901032, 1902682, 1902690, 1902930, 1902947, 1902967, 1903291, 1903322, 1903340, 1903400, 1903418, 1903516, 1904421, 1973756, 5522596.
 - Processing: geometry simplified to about 200 m and coordinates rounded; each feature keeps only `name`, `name:en` and `relation_id`.
-- Used by the CameraStamp Android app (com.essenty.camerastamp) to name the province for a photo's place stamp.
+- Used by the MapStamp Android app (com.essenty.camerastamp) to name the province for a photo's place stamp.
 
 ## Licence
 
