@@ -4,7 +4,7 @@ Public web verifier for photos sealed by the MapStamp app: https://daohieu91.git
 
 ## Permanent URL
 
-**This repository must never be renamed, deleted or made private: every printed MapStamp QR points here.**
+**This repository must never be renamed, deleted or made private: every QR printed by MapStamp (formerly CameraStamp) points here.**
 The URL `https://daohieu91.github.io/v/` is permanent.
 
 ## Privacy
