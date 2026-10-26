@@ -46,6 +46,14 @@ describe('ui RTL (Arabic)', () => {
     expect([...li.querySelectorAll('bdi[dir="ltr"]')].map(b => b.textContent)).toEqual([time, tsa]);
     expect(li.textContent).toBe(line(en, 'l2_tsa', { time, tsa }));
   });
+  it('the filter name sits in an LTR isolate inside the Arabic sentence; the generic line has no name', () => {
+    const v = view('ar'); const ar = JSON.parse(readFileSync('src/i18n/ar.json', 'utf8')) as Record<string, string>;
+    const verdict_ = { ...v.verdict, checks: [...v.verdict.checks, { key: 'l2_filtered', status: 'info' as const, params: { name: 'Teal & Orange' } }] };
+    const root = document.createElement('main'); render(root, { ...v, dict: ar, verdict: verdict_ });
+    const li = root.querySelector('li[data-key="l2_filtered"]')!;
+    expect([...li.querySelectorAll('bdi[dir="ltr"]')].map(b => b.textContent)).toEqual(['Teal & Orange']);
+    expect(ar.l2_filtered_generic_line).not.toContain('{');
+  });
   it('the attestation copy date (YYYY-MM-DD) sits in an LTR isolate, so an Arabic line cannot show it as 13-10-2026', () => {
     const root = document.createElement('main'); render(root, { ...view('ar'), attested: '2026-10-13' });
     const p = root.querySelector('[data-attested]')!;

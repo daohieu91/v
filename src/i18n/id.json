@@ -68,7 +68,7 @@
   "l2_no_tsa": "Tidak ada stempel waktu independen",
   "l2_video": "Video: durasi {s} dtk, data dari detik pertamanya",
   "l2_filtered": "Warna disesuaikan dengan filter ({name})",
-  "l2_filtered_generic": "sebuah filter",
+  "l2_filtered_generic_line": "Warna disesuaikan dengan filter",
   "error_too_large_image": "Foto ini memiliki terlalu banyak piksel untuk diperiksa di browser. Pilih salinan yang lebih kecil (misalnya yang dikirim aplikasi chat)",
   "notice_other_seal": "Foto ini membawa segel yang berbeda dari tautan yang Anda buka. Hasil di bawah adalah untuk segel foto itu sendiri",
   "unknown_line": "Hasil pemeriksaan tidak dikenal",

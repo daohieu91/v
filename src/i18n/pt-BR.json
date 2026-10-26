@@ -68,7 +68,7 @@
   "l2_no_tsa": "Sem carimbo de tempo independente",
   "l2_video": "Vídeo: duração {s} s, dados do primeiro segundo",
   "l2_filtered": "Cores ajustadas com um filtro ({name})",
-  "l2_filtered_generic": "um filtro",
+  "l2_filtered_generic_line": "Cores ajustadas com um filtro",
   "error_too_large_image": "Esta foto tem pixels demais para verificar no navegador. Escolha uma cópia menor (por exemplo, a enviada por um app de chat)",
   "notice_other_seal": "Esta foto traz um selo diferente do link que você abriu. O resultado abaixo é do selo da própria foto",
   "unknown_line": "Resultado de verificação desconhecido",

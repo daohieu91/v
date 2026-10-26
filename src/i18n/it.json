@@ -68,7 +68,7 @@
   "l2_no_tsa": "Nessuna marca temporale indipendente",
   "l2_video": "Video: durata {s} s, dati del primo secondo",
   "l2_filtered": "Colori regolati con un filtro ({name})",
-  "l2_filtered_generic": "un filtro",
+  "l2_filtered_generic_line": "Colori regolati con un filtro",
   "error_too_large_image": "Questa foto ha troppi pixel per essere verificata nel browser. Scegli una copia più piccola (per esempio quella inviata da un'app di chat)",
   "notice_other_seal": "Questa foto porta un sigillo diverso dal link che hai aperto. Il risultato qui sotto è quello del sigillo della foto",
   "unknown_line": "Esito della verifica sconosciuto",

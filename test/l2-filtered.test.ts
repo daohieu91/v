@@ -40,7 +40,14 @@ describe('c2pa.filtered line', () => {
   });
   it('an unknown or non-string id → the localized generic name, never the description', async () => {
     for (const id of ['sepia_9000', 7, undefined, null, {}, '__proto__', 'constructor'])
-      expect(line(await run(filtered(id, '<img src=x onerror=alert(1)>Evil')))?.params, String(id)).toEqual({ name: '@l2_filtered_generic' });
+    { const r = await run(filtered(id, '<img src=x onerror=alert(1)>Evil')); expect(line(r), String(id)).toBeUndefined();
+      expect(r.summary.lines.find(l => l.key === 'l2_filtered_generic_line'), String(id)).toEqual({ key: 'l2_filtered_generic_line', status: 'info' }); }
+  });
+  it('a manifest whose assertions is not an array does not throw (no filtered line)', async () => {
+    const st: any = { active_manifest: LABEL, manifests: { [LABEL]: { signature_info: SIG_INFO, assertions: { label: SEAL_LABEL } } },
+      validation_results: { activeManifest: { failure: [], success: OK.map(code => ({ code })) } } };
+    const r = await summarize({ store: st, cose: activeSignature(await jumbf()), claim: activeClaim(await jumbf()), cr: CR, roots: synthRoots, status: { entries: {} }, qrKeyIdHex: null });
+    expect(r.summary.lines.map(l => l.key)).toContain('l2_no_seal'); expect(line(r)).toBeUndefined();
   });
   it('a malicious description is never rendered', async () => {
     const r = await run(filtered('warm_film', '<script>alert(1)</script> Totally Real'));

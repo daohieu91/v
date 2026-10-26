@@ -11,13 +11,11 @@ export const RTL = new Set(['ar']);
 const ltr = (text: string) => el('bdi', { dir: 'ltr' }, text);
 /** Placeholder values that are Latin machine text (a key id, a UTC time, a YYYY-MM-DD date, a TSA name): isolated so an RTL line
  *  cannot reorder them (an Arabic paragraph would show 2026-10-13 as 13-10-2026). Plain numbers ({n}, {d}, {m}…) need no isolate. */
-const LTR_PARAMS = new Set(['id', 'time', 'date', 'tsa']);
+const LTR_PARAMS = new Set(['id', 'time', 'date', 'tsa', 'name']);
 /** `line`, as DOM: the same text, with LTR_PARAMS values each in its own <bdi dir="ltr">. */
 function lineInto<E extends HTMLElement>(e: E, d: Record<string, string>, key: string, p?: Record<string, string | number>): E {
   const tpl = key in d ? d[key] : d.unknown_line ?? 'unknown_line'; let at = 0;
   for (const m of tpl.matchAll(/\{(\w+)\}/g)) { const k = m[1]; e.append(tpl.slice(at, m.index));
-    const pv = p && k in p ? p[k] : undefined;
-    if (k === 'name' && pv === '@l2_filtered_generic') { e.append(d.l2_filtered_generic ?? ''); at = m.index + m[0].length; continue; }   // an i18n key (l2_filtered_generic)
     e.append(p && k in p ? (LTR_PARAMS.has(k) ? ltr(String(p[k])) : String(p[k])) : `{${k}}`); at = m.index + m[0].length; }
   e.append(tpl.slice(at)); return e;
 }
