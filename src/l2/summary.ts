@@ -48,6 +48,12 @@ export function sameSigner(c: Cert, info: any): boolean {
   return serial === info.cert_serial_number && commonName(c.subject) === (info.common_name ?? null) && commonName(c.issuer, '2.5.4.10') === (info.issuer ?? null);
 }
 export const SEAL_LABEL = 'com.essenty.camerastamp.seal';
+/** The 11 filter ids the app writes (c2pa.filtered parameters.filter) → English display names. Anything else is "a filter" (l2_filtered_generic). */
+const FILTER_NAMES = new Map<string, string>([['warm_film', 'Warm Film'], ['cool_film', 'Cool Film'], ['golden_hour', 'Golden Hour'], ['teal_orange', 'Teal & Orange'],
+  ['vivid_travel', 'Vivid Travel'], ['faded_retro', 'Faded Retro'], ['soft_portrait', 'Soft Portrait'], ['green_film', 'Green Film'], ['mono', 'Mono'],
+  ['mono_contrast', 'Mono Contrast'], ['night_neon', 'Night Neon']]);
+/** A param value starting with "@" is an i18n key the page resolves (ui.ts), so the generic name is localized. `description` is untrusted and never read. */
+export const filterName = (id: unknown): string => (typeof id === 'string' ? FILTER_NAMES.get(id) : undefined) ?? '@l2_filtered_generic';
 export interface L2Reply { summary: L2Summary; payload: SealPayload | null }
 /** What level 2 gathered from the file: c2pa-web's manifest store (or null) and our own read of the active COSE_Sign1 (or null). */
 export interface L2Input { store: any; cose: Uint8Array | null;
@@ -101,5 +107,8 @@ export async function summarize(i: L2Input): Promise<L2Reply> {
   // P45: exactly one token, whose imprint WE check against this signature (verifyCoseTimeStamp); a second or a foreign token → no name.
   const tst = tsOk && signer ? await verifyCoseTimeStamp(signer, i.tsaRoots) : null;
   lines.push(tst?.tsaName ? { key: 'l2_tsa', status: 'pass', params: { time: tst.genTime, tsa: tst.tsaName.slice(0, 100) } } : { key: 'l2_no_tsa', status: 'info' });
+  const acts = (m.assertions as any[]).find(a => a?.label === 'c2pa.actions.v2' || a?.label === 'c2pa.actions')?.data?.actions;
+  const f = Array.isArray(acts) ? acts.find((a: any) => a?.action === 'c2pa.filtered') : undefined;
+  if (f) lines.push({ key: 'l2_filtered', status: 'info', params: { name: filterName(f.parameters?.filter) } });
   return done('ok', d.realDevice, d.contentBound, payload);
 }

@@ -67,6 +67,8 @@
   "l2_tsa": "Wujud selewat-lewatnya pada {time} — disahkan oleh {tsa}",
   "l2_no_tsa": "Tiada cap masa bebas",
   "l2_video": "Video: tempoh {s} s, data dari saat pertamanya",
+  "l2_filtered": "Warna diselaraskan dengan penapis ({name})",
+  "l2_filtered_generic": "sebuah penapis",
   "error_too_large_image": "Foto ini mempunyai terlalu banyak piksel untuk disemak dalam pelayar. Pilih salinan yang lebih kecil (contohnya yang dihantar oleh aplikasi sembang)",
   "notice_other_seal": "Foto ini membawa meterai yang berbeza daripada pautan yang anda buka. Keputusan di bawah adalah untuk meterai foto itu sendiri",
   "unknown_line": "Keputusan semakan tidak diketahui",

@@ -67,6 +67,8 @@
   "l2_tsa": "Existed no later than {time} — confirmed by {tsa}",
   "l2_no_tsa": "No independent timestamp",
   "l2_video": "Video: duration {s} s, data from its first second",
+  "l2_filtered": "Colors adjusted with a filter ({name})",
+  "l2_filtered_generic": "a filter",
   "error_too_large_image": "This photo has too many pixels to check in the browser. Choose a smaller copy (for example, the one a chat app sent)",
   "notice_other_seal": "This photo carries a different seal than the link you opened. The result below is for the photo's own seal",
   "unknown_line": "Unrecognised check result",

@@ -16,6 +16,8 @@ const LTR_PARAMS = new Set(['id', 'time', 'date', 'tsa']);
 function lineInto<E extends HTMLElement>(e: E, d: Record<string, string>, key: string, p?: Record<string, string | number>): E {
   const tpl = key in d ? d[key] : d.unknown_line ?? 'unknown_line'; let at = 0;
   for (const m of tpl.matchAll(/\{(\w+)\}/g)) { const k = m[1]; e.append(tpl.slice(at, m.index));
+    const pv = p && k in p ? p[k] : undefined;
+    if (k === 'name' && pv === '@l2_filtered_generic') { e.append(d.l2_filtered_generic ?? ''); at = m.index + m[0].length; continue; }   // an i18n key (l2_filtered_generic)
     e.append(p && k in p ? (LTR_PARAMS.has(k) ? ltr(String(p[k])) : String(p[k])) : `{${k}}`); at = m.index + m[0].length; }
   e.append(tpl.slice(at)); return e;
 }

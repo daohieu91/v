@@ -67,6 +67,8 @@
   "l2_tsa": "Istniało najpóźniej {time} — potwierdził {tsa}",
   "l2_no_tsa": "Brak niezależnego znacznika czasu",
   "l2_video": "Wideo: czas trwania {s} s, dane z pierwszej sekundy",
+  "l2_filtered": "Kolory dostosowane filtrem ({name})",
+  "l2_filtered_generic": "filtr",
   "error_too_large_image": "To zdjęcie ma zbyt wiele pikseli, aby sprawdzić je w przeglądarce. Wybierz mniejszą kopię (np. wysłaną przez komunikator)",
   "notice_other_seal": "To zdjęcie ma inną pieczęć niż otwarty link. Wynik poniżej dotyczy pieczęci samego zdjęcia",
   "unknown_line": "Nieznany wynik sprawdzenia",

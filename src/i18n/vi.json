@@ -67,6 +67,8 @@
   "l2_tsa": "Đã tồn tại muộn nhất lúc {time} — xác nhận bởi {tsa}",
   "l2_no_tsa": "Không có dấu thời gian độc lập",
   "l2_video": "Video: dài {s} s, dữ liệu từ giây đầu tiên",
+  "l2_filtered": "Màu đã được chỉnh bằng bộ lọc ({name})",
+  "l2_filtered_generic": "một bộ lọc",
   "error_too_large_image": "Ảnh này quá nhiều điểm ảnh để kiểm tra trên trình duyệt. Hãy chọn một bản nhỏ hơn (ví dụ bản app chat đã gửi)",
   "notice_other_seal": "Ảnh này mang một niêm phong khác với link bạn đã mở. Kết quả dưới đây là của niêm phong trong ảnh",
   "unknown_line": "Kết quả kiểm tra không xác định",
